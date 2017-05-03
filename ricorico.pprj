@@ -1,4 +1,4 @@
-; Wed May 03 14:15:24 CEST 2017
+; Wed May 03 18:01:18 CEST 2017
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -20,9 +20,11 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[ricorico_ProjectKB_Class96]
-		[ricorico_ProjectKB_Class97]
-		[ricorico_ProjectKB_Class98]))
+		[ricorico_ProjectKB_Class10235]
+		[ricorico_ProjectKB_Class10236]
+		[ricorico_ProjectKB_Class10237]
+		[ricorico_ProjectKB_Class10238]
+		[ricorico_ProjectKB_Class10239]))
 
 ([CLSES_TAB] of  Widget
 
@@ -158,7 +160,7 @@
 	(name "source_file_name")
 	(string_value "ricorico.xml"))
 
-([KB_824563_Class0] of  Map
+([KB_812561_Class0] of  Map
 )
 
 ([LAYOUT_PROPERTIES] of  Property_List
@@ -182,6 +184,7 @@
 	(is_hidden FALSE)
 	(label "Description")
 	(name ":PAL-DESCRIPTION")
+	(property_list [ricorico_ProjectKB_Class10112])
 	(widget_class_name "edu.stanford.smi.protege.widget.TextAreaWidget")
 	(width 250)
 	(x 275)
@@ -204,6 +207,7 @@
 	(is_hidden FALSE)
 	(label "Name")
 	(name ":PAL-NAME")
+	(property_list [ricorico_ProjectKB_Class10111])
 	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
 	(width 275)
 	(x 0)
@@ -215,7 +219,8 @@
 		[PAL_NAME_WIDGET]
 		[PAL_RANGE_WIDGET]
 		[PAL_DESCRIPTION_WIDGET]
-		[PAL_STATEMENT_WIDGET]))
+		[PAL_STATEMENT_WIDGET]
+		[ricorico_ProjectKB_Class10110]))
 
 ([PAL_RANGE_WIDGET] of  Widget
 
@@ -223,6 +228,7 @@
 	(is_hidden FALSE)
 	(label "Range")
 	(name ":PAL-RANGE")
+	(property_list [ricorico_ProjectKB_Class10113])
 	(widget_class_name "edu.stanford.smi.protegex.widget.pal.constraint.PalRangeWidget")
 	(width 250)
 	(x 275)
@@ -234,6 +240,7 @@
 	(is_hidden FALSE)
 	(label "Statement")
 	(name ":PAL-STATEMENT")
+	(property_list [ricorico_ProjectKB_Class10114])
 	(widget_class_name "edu.stanford.smi.protegex.widget.pal.constraint.PalConstraintWidget")
 	(width 275)
 	(x 0)
@@ -243,9 +250,10 @@
 
 	(browser_slot_names [BROWSER_SLOT_NAMES])
 	(customized_instance_widgets
-		[INSTANCE_ANNOTATION_FORM_WIDGET]
 		[STANDARD_CLASS_FORM_WIDGET]
 		[STANDARD_SLOT_FORM_WIDGET]
+		[ricorico_ProjectKB_Class10097]
+		[INSTANCE_ANNOTATION_FORM_WIDGET]
 		[STANDARD_FACET_FORM_WIDGET]
 		[PAL_FORM_WIDGET])
 	(default_cls_metaclass ":STANDARD-CLASS")
@@ -280,6 +288,636 @@
 ([ricorico_ProjectKB_Class100] of  String
 
 	(name "SearchTab_Query"))
+
+([ricorico_ProjectKB_Class10097] of  Widget
+
+	(is_hidden FALSE)
+	(name "Bebida")
+	(property_list [ricorico_ProjectKB_Class10098])
+	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
+
+([ricorico_ProjectKB_Class10098] of  Property_List
+
+	(properties
+		[ricorico_ProjectKB_Class10099]
+		[ricorico_ProjectKB_Class10100]
+		[ricorico_ProjectKB_Class10102]
+		[ricorico_ProjectKB_Class10104]
+		[ricorico_ProjectKB_Class10106]
+		[ricorico_ProjectKB_Class10108]
+		[ricorico_ProjectKB_Class10147]
+		[ricorico_ProjectKB_Class10151]))
+
+([ricorico_ProjectKB_Class10099] of  Property_List
+
+	(name "layout properties"))
+
+([ricorico_ProjectKB_Class10100] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "precio")
+	(property_list [ricorico_ProjectKB_Class10101])
+	(widget_class_name "edu.stanford.smi.protege.widget.FloatFieldWidget")
+	(width 100)
+	(x 200)
+	(y 60))
+
+([ricorico_ProjectKB_Class10101] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10102] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "contiene_alcohol")
+	(property_list [ricorico_ProjectKB_Class10103])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 0)
+	(y 60))
+
+([ricorico_ProjectKB_Class10103] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10104] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "contiene_azucar")
+	(property_list [ricorico_ProjectKB_Class10105])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 0)
+	(y 120))
+
+([ricorico_ProjectKB_Class10105] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10106] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "nombre")
+	(property_list [ricorico_ProjectKB_Class10107])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 0))
+
+([ricorico_ProjectKB_Class10107] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10108] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "contiene_lactosa")
+	(property_list [ricorico_ProjectKB_Class10109])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 200)
+	(y 0))
+
+([ricorico_ProjectKB_Class10109] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10110] of  Property_List
+
+	(name "layout properties"))
+
+([ricorico_ProjectKB_Class10111] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10112] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10113] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10114] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10132] of  Widget
+
+	(height 180)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10133])
+	(widget_class_name "edu.stanford.smi.protege.widget.StringListWidget")
+	(width 200)
+	(x 400)
+	(y 0))
+
+([ricorico_ProjectKB_Class10133] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10147] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "contiene_gluten")
+	(property_list [ricorico_ProjectKB_Class10148])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10148] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10151] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "producto_animal")
+	(property_list [ricorico_ProjectKB_Class10152])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 0)
+	(y 240))
+
+([ricorico_ProjectKB_Class10152] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10153] of  Widget
+
+	(is_hidden FALSE)
+	(name "Primero")
+	(property_list [ricorico_ProjectKB_Class10154])
+	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
+
+([ricorico_ProjectKB_Class10154] of  Property_List
+
+	(properties
+		[ricorico_ProjectKB_Class10155]
+		[ricorico_ProjectKB_Class10156]
+		[ricorico_ProjectKB_Class10158]
+		[ricorico_ProjectKB_Class10160]
+		[ricorico_ProjectKB_Class10162]
+		[ricorico_ProjectKB_Class10164]
+		[ricorico_ProjectKB_Class10166]
+		[ricorico_ProjectKB_Class10168]
+		[ricorico_ProjectKB_Class10206]))
+
+([ricorico_ProjectKB_Class10155] of  Property_List
+
+	(name "layout properties"))
+
+([ricorico_ProjectKB_Class10156] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "lugarOrigen")
+	(property_list [ricorico_ProjectKB_Class10157])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 0))
+
+([ricorico_ProjectKB_Class10157] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10158] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_frio")
+	(property_list [ricorico_ProjectKB_Class10159])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 0)
+	(y 120))
+
+([ricorico_ProjectKB_Class10159] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10160] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "tamano")
+	(property_list [ricorico_ProjectKB_Class10161])
+	(widget_class_name "edu.stanford.smi.protege.widget.IntegerFieldWidget")
+	(width 100)
+	(x 300)
+	(y 60))
+
+([ricorico_ProjectKB_Class10161] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10162] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_moderno")
+	(property_list [ricorico_ProjectKB_Class10163])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 200)
+	(y 0))
+
+([ricorico_ProjectKB_Class10163] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10164] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "precio")
+	(property_list [ricorico_ProjectKB_Class10165])
+	(widget_class_name "edu.stanford.smi.protege.widget.FloatFieldWidget")
+	(width 100)
+	(x 200)
+	(y 120))
+
+([ricorico_ProjectKB_Class10165] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10166] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "nombre")
+	(property_list [ricorico_ProjectKB_Class10167])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 60))
+
+([ricorico_ProjectKB_Class10167] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10168] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "complejidad")
+	(property_list [ricorico_ProjectKB_Class10169])
+	(widget_class_name "edu.stanford.smi.protege.widget.IntegerFieldWidget")
+	(width 100)
+	(x 200)
+	(y 60))
+
+([ricorico_ProjectKB_Class10169] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10170] of  Widget
+
+	(height 180)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10171])
+	(widget_class_name "edu.stanford.smi.protege.widget.StringListWidget")
+	(width 200)
+	(x 400)
+	(y 0))
+
+([ricorico_ProjectKB_Class10171] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10172] of  Widget
+
+	(is_hidden FALSE)
+	(name "Postre")
+	(property_list [ricorico_ProjectKB_Class10173])
+	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
+
+([ricorico_ProjectKB_Class10173] of  Property_List
+
+	(properties
+		[ricorico_ProjectKB_Class10174]
+		[ricorico_ProjectKB_Class10175]
+		[ricorico_ProjectKB_Class10177]
+		[ricorico_ProjectKB_Class10179]
+		[ricorico_ProjectKB_Class10181]
+		[ricorico_ProjectKB_Class10183]
+		[ricorico_ProjectKB_Class10185]
+		[ricorico_ProjectKB_Class10187]
+		[ricorico_ProjectKB_Class10208]))
+
+([ricorico_ProjectKB_Class10174] of  Property_List
+
+	(name "layout properties"))
+
+([ricorico_ProjectKB_Class10175] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "lugarOrigen")
+	(property_list [ricorico_ProjectKB_Class10176])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 0))
+
+([ricorico_ProjectKB_Class10176] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10177] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_frio")
+	(property_list [ricorico_ProjectKB_Class10178])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 0)
+	(y 120))
+
+([ricorico_ProjectKB_Class10178] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10179] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "tamano")
+	(property_list [ricorico_ProjectKB_Class10180])
+	(widget_class_name "edu.stanford.smi.protege.widget.IntegerFieldWidget")
+	(width 100)
+	(x 300)
+	(y 60))
+
+([ricorico_ProjectKB_Class10180] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10181] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_moderno")
+	(property_list [ricorico_ProjectKB_Class10182])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 200)
+	(y 0))
+
+([ricorico_ProjectKB_Class10182] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10183] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "precio")
+	(property_list [ricorico_ProjectKB_Class10184])
+	(widget_class_name "edu.stanford.smi.protege.widget.FloatFieldWidget")
+	(width 100)
+	(x 200)
+	(y 120))
+
+([ricorico_ProjectKB_Class10184] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10185] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "nombre")
+	(property_list [ricorico_ProjectKB_Class10186])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 60))
+
+([ricorico_ProjectKB_Class10186] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10187] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "complejidad")
+	(property_list [ricorico_ProjectKB_Class10188])
+	(widget_class_name "edu.stanford.smi.protege.widget.IntegerFieldWidget")
+	(width 100)
+	(x 200)
+	(y 60))
+
+([ricorico_ProjectKB_Class10188] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10189] of  Widget
+
+	(height 180)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10190])
+	(widget_class_name "edu.stanford.smi.protege.widget.StringListWidget")
+	(width 200)
+	(x 400)
+	(y 0))
+
+([ricorico_ProjectKB_Class10190] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10194] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10195])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10195] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10196] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10197])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10197] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10198] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10199])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10199] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10200] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10201])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10201] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10202] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10203])
+	(widget_class_name "edu.stanford.smi.protege.widget.StringListWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10203] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10206] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10207])
+	(widget_class_name "edu.stanford.smi.protege.widget.StringListWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10207] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10208] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class10209])
+	(widget_class_name "edu.stanford.smi.protege.widget.StringListWidget")
+	(width 200)
+	(x 0)
+	(y 180))
+
+([ricorico_ProjectKB_Class10209] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10210] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "tipo")
+	(property_list [ricorico_ProjectKB_Class10211])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 300))
+
+([ricorico_ProjectKB_Class10211] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10214] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "ricorico_Class16")
+	(property_list [ricorico_ProjectKB_Class10215])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 0))
+
+([ricorico_ProjectKB_Class10215] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10216] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "primero")
+	(property_list [ricorico_ProjectKB_Class10217])
+	(widget_class_name "edu.stanford.smi.protege.widget.ClsFieldWidget")
+	(width 200)
+	(x 0)
+	(y 0))
+
+([ricorico_ProjectKB_Class10217] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10218] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "primero")
+	(property_list [ricorico_ProjectKB_Class10219])
+	(widget_class_name "edu.stanford.smi.protege.widget.ClsListWidget")
+	(width 200)
+	(x 0)
+	(y 0))
+
+([ricorico_ProjectKB_Class10219] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10222] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "segundo")
+	(property_list [ricorico_ProjectKB_Class10223])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 60))
+
+([ricorico_ProjectKB_Class10223] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10226] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "postre")
+	(property_list [ricorico_ProjectKB_Class10227])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 120))
+
+([ricorico_ProjectKB_Class10227] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10235] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([ricorico_ProjectKB_Class10236] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([ricorico_ProjectKB_Class10237] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([ricorico_ProjectKB_Class10238] of  String
+
+	(name "Ingrediente")
+	(string_value "nombre"))
+
+([ricorico_ProjectKB_Class10239] of  String
+
+	(name "Bebida")
+	(string_value "nombre"))
 
 ([ricorico_ProjectKB_Class11] of  Widget
 
@@ -596,7 +1234,115 @@
 ([ricorico_ProjectKB_Class74] of  Property_List
 )
 
+([ricorico_ProjectKB_Class75] of  Widget
+
+	(is_hidden FALSE)
+	(name "Hibrido")
+	(property_list [ricorico_ProjectKB_Class76])
+	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
+
+([ricorico_ProjectKB_Class76] of  Property_List
+
+	(properties
+		[ricorico_ProjectKB_Class77]
+		[ricorico_ProjectKB_Class78]
+		[ricorico_ProjectKB_Class80]
+		[ricorico_ProjectKB_Class82]
+		[ricorico_ProjectKB_Class84]
+		[ricorico_ProjectKB_Class86]
+		[ricorico_ProjectKB_Class88]
+		[ricorico_ProjectKB_Class90]
+		[ricorico_ProjectKB_Class10202]))
+
+([ricorico_ProjectKB_Class77] of  Property_List
+
+	(name "layout properties"))
+
+([ricorico_ProjectKB_Class78] of  Widget
+
+	(height 80)
+	(is_hidden FALSE)
+	(name "lugarOrigen")
+	(property_list [ricorico_ProjectKB_Class79])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y -10))
+
+([ricorico_ProjectKB_Class79] of  Property_List
+)
+
 ([ricorico_ProjectKB_Class8] of  Property_List
+)
+
+([ricorico_ProjectKB_Class80] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_frio")
+	(property_list [ricorico_ProjectKB_Class81])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 0)
+	(y 120))
+
+([ricorico_ProjectKB_Class81] of  Property_List
+)
+
+([ricorico_ProjectKB_Class82] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "tamano")
+	(property_list [ricorico_ProjectKB_Class83])
+	(widget_class_name "edu.stanford.smi.protege.widget.IntegerFieldWidget")
+	(width 100)
+	(x 300)
+	(y 60))
+
+([ricorico_ProjectKB_Class83] of  Property_List
+)
+
+([ricorico_ProjectKB_Class84] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_moderno")
+	(property_list [ricorico_ProjectKB_Class85])
+	(widget_class_name "edu.stanford.smi.protege.widget.CheckBoxWidget")
+	(width 200)
+	(x 200)
+	(y 0))
+
+([ricorico_ProjectKB_Class85] of  Property_List
+)
+
+([ricorico_ProjectKB_Class86] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "precio")
+	(property_list [ricorico_ProjectKB_Class87])
+	(widget_class_name "edu.stanford.smi.protege.widget.FloatFieldWidget")
+	(width 100)
+	(x 200)
+	(y 120))
+
+([ricorico_ProjectKB_Class87] of  Property_List
+)
+
+([ricorico_ProjectKB_Class88] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "nombre")
+	(property_list [ricorico_ProjectKB_Class89])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 60))
+
+([ricorico_ProjectKB_Class89] of  Property_List
 )
 
 ([ricorico_ProjectKB_Class9] of  Widget
@@ -605,20 +1351,33 @@
 	(property_list [ricorico_ProjectKB_Class10])
 	(widget_class_name "dfki.protege.ontoviz_tab.OntovizTab"))
 
-([ricorico_ProjectKB_Class96] of  String
+([ricorico_ProjectKB_Class90] of  Widget
 
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
+	(height 60)
+	(is_hidden FALSE)
+	(name "complejidad")
+	(property_list [ricorico_ProjectKB_Class91])
+	(widget_class_name "edu.stanford.smi.protege.widget.IntegerFieldWidget")
+	(width 100)
+	(x 200)
+	(y 60))
 
-([ricorico_ProjectKB_Class97] of  String
+([ricorico_ProjectKB_Class91] of  Property_List
+)
 
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
+([ricorico_ProjectKB_Class92] of  Widget
 
-([ricorico_ProjectKB_Class98] of  String
+	(height 180)
+	(is_hidden FALSE)
+	(name "disponibilidad")
+	(property_list [ricorico_ProjectKB_Class93])
+	(widget_class_name "edu.stanford.smi.protege.widget.StringListWidget")
+	(width 200)
+	(x 400)
+	(y 0))
 
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
+([ricorico_ProjectKB_Class93] of  Property_List
+)
 
 ([SLOTS_TAB] of  Widget
 
