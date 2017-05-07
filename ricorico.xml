@@ -38,6 +38,9 @@
 		<template_slot>:ROLE</template_slot>
 		<template_slot>:DOCUMENTATION</template_slot>
 		<template_slot>:SLOT-CONSTRAINTS</template_slot>
+		<template_slot>:ROLE</template_slot>
+		<template_slot>:DOCUMENTATION</template_slot>
+		<template_slot>:SLOT-CONSTRAINTS</template_slot>
 	</class>
 
 	<class>
@@ -48,6 +51,18 @@
 			<value value_type="string">Concrete</value>
 		</own_slot_value>
 		<superclass>:SLOT</superclass>
+		<template_slot>:DOCUMENTATION</template_slot>
+		<template_slot>:SLOT-CONSTRAINTS</template_slot>
+		<template_slot>:SLOT-MAXIMUM-CARDINALITY</template_slot>
+		<template_slot>:SLOT-MINIMUM-CARDINALITY</template_slot>
+		<template_slot>:SLOT-NUMERIC-MAXIMUM</template_slot>
+		<template_slot>:SLOT-NUMERIC-MINIMUM</template_slot>
+		<template_slot>:SLOT-INVERSE</template_slot>
+		<template_slot>:SLOT-DEFAULTS</template_slot>
+		<template_slot>:SLOT-VALUES</template_slot>
+		<template_slot>:ASSOCIATED-FACET</template_slot>
+		<template_slot>:DIRECT-SUBSLOTS</template_slot>
+		<template_slot>:DIRECT-SUPERSLOTS</template_slot>
 		<template_slot>:DOCUMENTATION</template_slot>
 		<template_slot>:SLOT-CONSTRAINTS</template_slot>
 		<template_slot>:SLOT-MAXIMUM-CARDINALITY</template_slot>
@@ -86,6 +101,10 @@
 		<template_slot>:PAL-RANGE</template_slot>
 		<template_slot>:PAL-DESCRIPTION</template_slot>
 		<template_slot>:PAL-STATEMENT</template_slot>
+		<template_slot>:PAL-NAME</template_slot>
+		<template_slot>:PAL-RANGE</template_slot>
+		<template_slot>:PAL-DESCRIPTION</template_slot>
+		<template_slot>:PAL-STATEMENT</template_slot>
 	</class>
 
 	<class>
@@ -105,6 +124,7 @@
 		<template_slot>es_moderno</template_slot>
 		<template_slot>disponibilidad</template_slot>
 		<template_slot>tipo</template_slot>
+		<template_slot>ingrediente</template_slot>
 	</class>
 
 	<class>
@@ -290,6 +310,19 @@ invierno</value>
 		<own_slot_value>
 			<slot_reference>:SLOT-VALUE-TYPE</slot_reference>
 			<value value_type="string">Boolean</value>
+		</own_slot_value>
+	</slot>
+
+	<slot>
+		<name>ingrediente</name>
+		<type>:STANDARD-SLOT</type>
+		<own_slot_value>
+			<slot_reference>:SLOT-MINIMUM-CARDINALITY</slot_reference>
+			<value value_type="integer">1</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>:SLOT-VALUE-TYPE</slot_reference>
+			<value value_type="string">Instance</value>
 		</own_slot_value>
 	</slot>
 
@@ -539,6 +572,58 @@ invierno</value>
 	</slot>
 
 	<slot>
+		<name>:PAL-DESCRIPTION</name>
+		<type>:STANDARD-SLOT</type>
+		<own_slot_value>
+			<slot_reference>:SLOT-MAXIMUM-CARDINALITY</slot_reference>
+			<value value_type="integer">1</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>:SLOT-VALUE-TYPE</slot_reference>
+			<value value_type="string">String</value>
+		</own_slot_value>
+	</slot>
+
+	<slot>
+		<name>:PAL-NAME</name>
+		<type>:STANDARD-SLOT</type>
+		<own_slot_value>
+			<slot_reference>:SLOT-MAXIMUM-CARDINALITY</slot_reference>
+			<value value_type="integer">1</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>:SLOT-VALUE-TYPE</slot_reference>
+			<value value_type="string">String</value>
+		</own_slot_value>
+	</slot>
+
+	<slot>
+		<name>:PAL-RANGE</name>
+		<type>:STANDARD-SLOT</type>
+		<own_slot_value>
+			<slot_reference>:SLOT-MAXIMUM-CARDINALITY</slot_reference>
+			<value value_type="integer">1</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>:SLOT-VALUE-TYPE</slot_reference>
+			<value value_type="string">String</value>
+		</own_slot_value>
+	</slot>
+
+	<slot>
+		<name>:PAL-STATEMENT</name>
+		<type>:STANDARD-SLOT</type>
+		<own_slot_value>
+			<slot_reference>:SLOT-MAXIMUM-CARDINALITY</slot_reference>
+			<value value_type="integer">1</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>:SLOT-VALUE-TYPE</slot_reference>
+			<value value_type="string">String</value>
+		</own_slot_value>
+	</slot>
+
+	<slot>
 		<name>:ROLE</name>
 		<type>:STANDARD-SLOT</type>
 		<own_slot_value>
@@ -685,6 +770,639 @@ invierno</value>
 	</simple_instance>
 
 	<simple_instance>
+		<name>ricorico_Class10013</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Ruleta rusa de pimiento spicy xplosion con speck de nuestra tierra</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Espana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">25.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_moderno</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">primavera</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10012</value>
+			<value value_type="simple_instance">ricorico_Class10011</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10018</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Tortilla de patatas</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Espana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">6.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10014</value>
+			<value value_type="simple_instance">ricorico_Class7</value>
+			<value value_type="simple_instance">ricorico_Class10017</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10020</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Tataki de atun</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Japon</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">15.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_frio</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">verano</value>
+			<value value_type="string">primavera</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10006</value>
+			<value value_type="simple_instance">ricorico_Class10019</value>
+			<value value_type="simple_instance">ricorico_Class10008</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10022</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Arroz a la cubana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Espana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">5.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10021</value>
+			<value value_type="simple_instance">ricorico_Class7</value>
+			<value value_type="simple_instance">ricorico_Class10010</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10026</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Sopa de cereza</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">7.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_frio</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10025</value>
+			<value value_type="simple_instance">ricorico_Class10024</value>
+			<value value_type="simple_instance">ricorico_Class10023</value>
+			<value value_type="simple_instance">ricorico_Class10010</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10027</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Edamame de nuestra tierra con crujiente de ib&#233;rico</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Espana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">18.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_moderno</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">verano</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10011</value>
+			<value value_type="simple_instance">ricorico_Class10028</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10030</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Bollicao handmade al estilo de la abuela</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Espana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">20.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_frio</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_moderno</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">postre</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10031</value>
+			<value value_type="simple_instance">ricorico_Class10029</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10032</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Bomb&#243;n de bechamel envuelto de pan hidrolizado</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Espana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">12.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_moderno</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10033</value>
+			<value value_type="simple_instance">ricorico_Class10031</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10034</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Pizza</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Italia</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">8.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">4</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10035</value>
+			<value value_type="simple_instance">ricorico_Class10010</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10038</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Fresas con nata</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">1</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">3.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>es_frio</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">postre</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10036</value>
+			<value value_type="simple_instance">ricorico_Class10037</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10041</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Tacos de ternera</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Mexico</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">6.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">4</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10015</value>
+			<value value_type="simple_instance">ricorico_Class10014</value>
+			<value value_type="simple_instance">ricorico_Class10040</value>
+			<value value_type="simple_instance">ricorico_Class8</value>
+			<value value_type="simple_instance">ricorico_Class10010</value>
+			<value value_type="simple_instance">ricorico_Class10039</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10042</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Sopa de merluza</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">7.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">verano</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10003</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10045</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Lentejas con chorizo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Espana</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">6.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">primavera</value>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10044</value>
+			<value value_type="simple_instance">ricorico_Class10043</value>
+			<value value_type="simple_instance">ricorico_Class10017</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10047</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Tallarines con salsa de shiitake</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">10.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">otono</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">primero</value>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10046</value>
+			<value value_type="simple_instance">ricorico_Class10004</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10050</name>
+		<type>Plato</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Ramen</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>lugarOrigen</slot_reference>
+			<value value_type="string">Japon</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>complejidad</slot_reference>
+			<value value_type="integer">2</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">8.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tamano</slot_reference>
+			<value value_type="integer">3</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>disponibilidad</slot_reference>
+			<value value_type="string">otono</value>
+			<value value_type="string">invierno</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>tipo</slot_reference>
+			<value value_type="string">segundo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>ingrediente</slot_reference>
+			<value value_type="simple_instance">ricorico_Class10048</value>
+			<value value_type="simple_instance">ricorico_Class10049</value>
+			<value value_type="simple_instance">ricorico_Class10008</value>
+			<value value_type="simple_instance">ricorico_Class10046</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
 		<name>ricorico_Class7</name>
 		<type>Ingrediente</type>
 		<own_slot_value>
@@ -702,7 +1420,359 @@ invierno</value>
 		<type>Ingrediente</type>
 		<own_slot_value>
 			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Carne de Ternera</value>
+			<value value_type="string">Ternera</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10003</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Merluza</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10004</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Tallarines</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10005</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Cerdo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10006</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Atun</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10007</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Brotes de soja</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10008</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Salsa de soja</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10010</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Tomate</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10011</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Jamon serrano</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10012</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Pimientos del padr&#243;n</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10014</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Cebolla</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10015</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Ajo</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10016</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Aceite</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10017</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Patata</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10019</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Jengibre</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10021</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Arroz</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10023</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Cereza</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10024</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Cebolla tierna</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10025</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Almendra</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10028</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Judia</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10029</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Chocolate</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_azucar</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10031</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Pan</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10033</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Leche</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_lactosa</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10035</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Harina</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10036</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Fresas</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10037</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Nata montada</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_azucar</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10039</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Tortilla de maiz</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10040</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Jalapeno</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10043</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Lenteja</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10044</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Chorizo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10046</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Shiitake</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">false</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10048</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Fideos de trigo</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10049</name>
+		<type>Ingrediente</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Lomo</value>
 		</own_slot_value>
 		<own_slot_value>
 			<slot_reference>producto_animal</slot_reference>
@@ -757,7 +1827,7 @@ invierno</value>
 		</own_slot_value>
 		<own_slot_value>
 			<slot_reference>precio</slot_reference>
-			<value value_type="float">1.5</value>
+			<value value_type="float">1.8</value>
 		</own_slot_value>
 		<own_slot_value>
 			<slot_reference>contiene_azucar</slot_reference>
@@ -791,15 +1861,19 @@ invierno</value>
 		<type>Bebida</type>
 		<own_slot_value>
 			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Albari&#241;o</value>
+			<value value_type="string">Vino Albari&#241;o</value>
 		</own_slot_value>
 		<own_slot_value>
 			<slot_reference>precio</slot_reference>
-			<value value_type="float">8.5</value>
+			<value value_type="float">10.0</value>
 		</own_slot_value>
 		<own_slot_value>
 			<slot_reference>contiene_alcohol</slot_reference>
 			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">false</value>
 		</own_slot_value>
 	</simple_instance>
 
@@ -847,6 +1921,10 @@ invierno</value>
 		<own_slot_value>
 			<slot_reference>nombre</slot_reference>
 			<value value_type="string">Caf&#233; con Leche</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">1.8</value>
 		</own_slot_value>
 		<own_slot_value>
 			<slot_reference>contiene_lactosa</slot_reference>
