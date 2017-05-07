@@ -1,4 +1,4 @@
-; Sun May 07 13:07:56 CEST 2017
+; Sun May 07 14:37:27 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,12 +20,12 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[ricorico_ProjectKB_Class20121]
-		[ricorico_ProjectKB_Class20122]
-		[ricorico_ProjectKB_Class20123]
-		[ricorico_ProjectKB_Class20124]
-		[ricorico_ProjectKB_Class20125]
-		[ricorico_ProjectKB_Class20126]))
+		[ricorico_ProjectKB_Class30124]
+		[ricorico_ProjectKB_Class30125]
+		[ricorico_ProjectKB_Class30126]
+		[ricorico_ProjectKB_Class30127]
+		[ricorico_ProjectKB_Class30128]
+		[ricorico_ProjectKB_Class30129]))
 
 ([CLSES_TAB] of  Widget
 
@@ -66,7 +66,7 @@
 
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_282956_Class0] of  Map
+([KB_172082_Class0] of  Map
 )
 
 ([KB_507525_Class0] of  String
@@ -475,36 +475,6 @@
 ([ricorico_ProjectKB_Class20] of  Property_List
 )
 
-([ricorico_ProjectKB_Class20121] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([ricorico_ProjectKB_Class20122] of  String
-
-	(name "Plato")
-	(string_value "nombre"))
-
-([ricorico_ProjectKB_Class20123] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([ricorico_ProjectKB_Class20124] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
-
-([ricorico_ProjectKB_Class20125] of  String
-
-	(name "Ingrediente")
-	(string_value "nombre"))
-
-([ricorico_ProjectKB_Class20126] of  String
-
-	(name "Bebida")
-	(string_value "nombre"))
-
 ([ricorico_ProjectKB_Class21] of  Widget
 
 	(is_hidden TRUE)
@@ -555,6 +525,36 @@
 
 ([ricorico_ProjectKB_Class30] of  Property_List
 )
+
+([ricorico_ProjectKB_Class30124] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([ricorico_ProjectKB_Class30125] of  String
+
+	(name "Plato")
+	(string_value "nombre"))
+
+([ricorico_ProjectKB_Class30126] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([ricorico_ProjectKB_Class30127] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
+([ricorico_ProjectKB_Class30128] of  String
+
+	(name "Ingrediente")
+	(string_value "nombre"))
+
+([ricorico_ProjectKB_Class30129] of  String
+
+	(name "Bebida")
+	(string_value "nombre"))
 
 ([ricorico_ProjectKB_Class31] of  Widget
 

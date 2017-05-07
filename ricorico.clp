@@ -716,3 +716,162 @@
 
 )
 
+
+;;****************
+;;* DEFFUNCTIONS *
+;;****************
+
+(deffunction pregunta-multivaluada (?question $?allowed-values)
+   (printout t ?question)
+   (bind ?answer (read))
+   (if (lexemep ?answer) 
+       then (bind ?answer (lowcase ?answer)))
+   (while (not (member ?answer ?allowed-values)) do
+      (printout t ?question)
+      (bind ?answer (read))
+      (if (lexemep ?answer) 
+          then (bind ?answer (lowcase ?answer))))
+   ?answer)
+
+(deffunction si-o-no-p (?question)
+   (bind ?response (pregunta-multivaluada ?question si no s n))
+   (if (or (eq ?response si) (eq ?response s))
+       then TRUE 
+       else FALSE))
+
+(deffunction pregunta-general (?pregunta)
+    (format t "%s " ?pregunta)
+  (bind ?respuesta (read))
+  (while (not (lexemep ?respuesta)) do
+    (format t "%s " ?pregunta)
+    (bind ?respuesta (read))
+    )
+  ?respuesta
+)
+
+(deffunction pregunta-numerica (?pregunta ?rangini ?rangfi)
+  (format t "%s [%d, %d] " ?pregunta ?rangini ?rangfi)
+  (bind ?respuesta (read))
+  (while (not(and(>= ?respuesta ?rangini)(<= ?respuesta ?rangfi))) do
+    (format t "%s [%d, %d] " ?pregunta ?rangini ?rangfi)
+    (bind ?respuesta (read))
+  )
+  ?respuesta
+)
+
+(deffunction pregunta-numerica-float (?pregunta ?rangini ?rangfi)
+  (format t "%s [%d, %d] " ?pregunta ?rangini ?rangfi)
+  (bind ?respuesta (read))
+  (while (and(not(and(>= ?respuesta ?rangini)(<= ?respuesta ?rangfi))) (floatp ?respuesta) ) do
+    (format t "%s [%d, %d] " ?pregunta ?rangini ?rangfi)
+    (bind ?respuesta (read))
+  )
+  ?respuesta
+)
+
+(deffunction pregunta-llista (?pregunta)
+ (format t "%s?" ?pregunta)
+ (bind ?resposta (readline))
+ (bind ?res (str-explode ?resposta))
+ ?res
+)
+
+;;;*********************
+;;;* CLASES AUXILIARES *
+;;;*********************
+
+;+ Estructura para guardar la puntuacion de los platos
+
+(defclass Recomendacion 
+  (is-a USER)
+  (role concrete)
+  (slot contenido
+    (type INSTANCE)
+    (create-accessor read-write))
+  (slot puntuacion
+    (type INTEGER)
+    (create-accessor read-write))
+  (multislot justificaciones
+    (type STRING)
+    (create-accessor read-write))
+)
+
+(deftemplate Contexto
+  (slot nomusuari (type STRING))
+  (slot epoca (type SYMBOL))
+  (slot comensales (type INTEGER))
+  (multislot restricciones (type STRING))
+  (slot preciomin (type FLOAT) (default -1.0))
+  (slot preciomax (type FLOAT) (default -1.0))
+)
+
+(deftemplate Listax
+  (multislot recomendaciones (type INSTANCE))
+)
+
+;;;***************
+;;;* QUERY RULES *
+;;;***************
+
+(defrule pregunta-inicial
+  (not (Contexto))
+  =>
+  (bind ?nombre (pregunta-general "Cual es tu nombre?"))
+  (assert (Contexto (nomusuari ?nombre)))
+)
+
+(defrule definir-epoca
+  ?c <- (Contexto (epoca ?ep) (preciomax ?p))
+  (test (eq ?ep nil))
+  =>
+  (bind ?e (pregunta-multivaluada "En que estacion se celebrara el evento? (primavera, verano, otono o invierno)" primavera verano otono invierno))
+  (modify ?c (epoca ?e))
+)
+
+(defrule definir-precio-min
+  ?c <- (Contexto (preciomin ?pmi) (preciomax ?pma))
+  (test (and (< ?pmi 0.0) (< ?pma 0.0) ))
+  =>
+  (bind ?pmin (pregunta-numerica-float "Cual sera el precio minimo por comensal?" 0 100))
+  (modify ?c (preciomin ?pmin) )
+)
+
+(defrule definir-precio-max
+  ?c <- (Contexto (preciomin ?pmi) (preciomax ?pma))
+  (test (and (< ?pma 0.0) (>= ?pmi 0.0)) )
+  =>
+  (bind ?pmax (pregunta-numerica-float "Cual sera el precio maximo por comensal?" ?pmi 300))
+  (modify ?c (preciomax ?pmax))
+)
+
+; no hacer mas de un modify de un mismo fact en una misma
+; r0ule, se crea mas de una.
+
+
+(defrule definir-restricciones
+  ?c <- (Contexto (restricciones $?r))
+  (test (eq (length$ $?r) 0))
+  =>
+  (modify ?c (restricciones (pregunta-llista "Tiene algun tipo de restriccion alimentaria?") ))
+)
+
+(defrule prueba
+  (Contexto (preciomin ?p) (preciomax ?x) (epoca ?e) (restricciones $?r))
+  =>
+  (printout t ?p crlf)
+  (printout t ?x crlf)
+  (printout t ?e crlf)
+  (printout t $?r crlf)
+
+)
+
+;;;*************
+;;;* PROCESADO *
+;;;*************
+
+
+
+
+
+
+

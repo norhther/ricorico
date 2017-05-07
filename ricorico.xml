@@ -47,6 +47,9 @@
 		<template_slot>:ROLE</template_slot>
 		<template_slot>:DOCUMENTATION</template_slot>
 		<template_slot>:SLOT-CONSTRAINTS</template_slot>
+		<template_slot>:ROLE</template_slot>
+		<template_slot>:DOCUMENTATION</template_slot>
+		<template_slot>:SLOT-CONSTRAINTS</template_slot>
 	</class>
 
 	<class>
@@ -117,6 +120,18 @@
 		<template_slot>:ASSOCIATED-FACET</template_slot>
 		<template_slot>:DIRECT-SUBSLOTS</template_slot>
 		<template_slot>:DIRECT-SUPERSLOTS</template_slot>
+		<template_slot>:DOCUMENTATION</template_slot>
+		<template_slot>:SLOT-CONSTRAINTS</template_slot>
+		<template_slot>:SLOT-MAXIMUM-CARDINALITY</template_slot>
+		<template_slot>:SLOT-MINIMUM-CARDINALITY</template_slot>
+		<template_slot>:SLOT-NUMERIC-MAXIMUM</template_slot>
+		<template_slot>:SLOT-NUMERIC-MINIMUM</template_slot>
+		<template_slot>:SLOT-INVERSE</template_slot>
+		<template_slot>:SLOT-DEFAULTS</template_slot>
+		<template_slot>:SLOT-VALUES</template_slot>
+		<template_slot>:ASSOCIATED-FACET</template_slot>
+		<template_slot>:DIRECT-SUBSLOTS</template_slot>
+		<template_slot>:DIRECT-SUPERSLOTS</template_slot>
 	</class>
 
 	<class>
@@ -127,6 +142,10 @@
 			<value value_type="string">Concrete</value>
 		</own_slot_value>
 		<superclass>:CONSTRAINT</superclass>
+		<template_slot>:PAL-NAME</template_slot>
+		<template_slot>:PAL-RANGE</template_slot>
+		<template_slot>:PAL-DESCRIPTION</template_slot>
+		<template_slot>:PAL-STATEMENT</template_slot>
 		<template_slot>:PAL-NAME</template_slot>
 		<template_slot>:PAL-RANGE</template_slot>
 		<template_slot>:PAL-DESCRIPTION</template_slot>
@@ -407,6 +426,7 @@
 			<value value_type="string">Espana</value>
 			<value value_type="string">Japon</value>
 			<value value_type="string">Mexico</value>
+			<value value_type="string">Italia</value>
 		</own_slot_value>
 	</slot>
 
@@ -1440,6 +1460,162 @@
 	</simple_instance>
 
 	<simple_instance>
+		<name>ricorico_Class2</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Botella de Agua</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">2.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_alcohol</slot_reference>
+			<value value_type="boolean">false</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_azucar</slot_reference>
+			<value value_type="boolean">false</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class3</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Coca Cola</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">1.5</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_azucar</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class4</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Fanta de Naranja</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">1.8</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_azucar</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class5</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Gin Tonic</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">8.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_alcohol</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_azucar</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class6</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Vino Albari&#241;o</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">10.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_alcohol</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">false</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class9</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Estrella Galicia</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">2.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_alcohol</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class10</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Estrella Galicia sin Alcohol</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">2.0</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_gluten</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
+		<name>ricorico_Class11</name>
+		<type>Bebida</type>
+		<own_slot_value>
+			<slot_reference>nombre</slot_reference>
+			<value value_type="string">Caf&#233; con Leche</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>precio</slot_reference>
+			<value value_type="float">1.8</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>contiene_lactosa</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+		<own_slot_value>
+			<slot_reference>producto_animal</slot_reference>
+			<value value_type="boolean">true</value>
+		</own_slot_value>
+	</simple_instance>
+
+	<simple_instance>
 		<name>ricorico_Class7</name>
 		<type>Ingrediente</type>
 		<own_slot_value>
@@ -1810,162 +1986,6 @@
 		<own_slot_value>
 			<slot_reference>nombre</slot_reference>
 			<value value_type="string">Lomo</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>producto_animal</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class2</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Botella de Agua</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">2.0</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_alcohol</slot_reference>
-			<value value_type="boolean">false</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_azucar</slot_reference>
-			<value value_type="boolean">false</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class3</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Coca Cola</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">1.5</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_azucar</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class4</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Fanta de Naranja</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">1.8</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_azucar</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class5</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Gin Tonic</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">8.0</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_alcohol</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_azucar</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class6</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Vino Albari&#241;o</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">10.0</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_alcohol</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>producto_animal</slot_reference>
-			<value value_type="boolean">false</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class9</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Estrella Galicia</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">2.0</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_alcohol</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_gluten</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class10</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Estrella Galicia sin Alcohol</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">2.0</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_gluten</slot_reference>
-			<value value_type="boolean">true</value>
-		</own_slot_value>
-	</simple_instance>
-
-	<simple_instance>
-		<name>ricorico_Class11</name>
-		<type>Bebida</type>
-		<own_slot_value>
-			<slot_reference>nombre</slot_reference>
-			<value value_type="string">Caf&#233; con Leche</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>precio</slot_reference>
-			<value value_type="float">1.8</value>
-		</own_slot_value>
-		<own_slot_value>
-			<slot_reference>contiene_lactosa</slot_reference>
-			<value value_type="boolean">true</value>
 		</own_slot_value>
 		<own_slot_value>
 			<slot_reference>producto_animal</slot_reference>

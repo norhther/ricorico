@@ -1,12 +1,7 @@
-; Sun May 07 13:04:27 CEST 2017
+; Sun May 07 14:15:53 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
-
-
-(defclass %3ASTANDARD-CLASS
- (is-a USER)
-	(role abstract))
 
 ([Ingrediente] of  %3ASTANDARD-CLASS
 
