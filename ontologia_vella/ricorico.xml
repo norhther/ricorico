@@ -50,6 +50,9 @@
 		<template_slot>:ROLE</template_slot>
 		<template_slot>:DOCUMENTATION</template_slot>
 		<template_slot>:SLOT-CONSTRAINTS</template_slot>
+		<template_slot>:ROLE</template_slot>
+		<template_slot>:DOCUMENTATION</template_slot>
+		<template_slot>:SLOT-CONSTRAINTS</template_slot>
 	</class>
 
 	<class>
@@ -132,6 +135,18 @@
 		<template_slot>:ASSOCIATED-FACET</template_slot>
 		<template_slot>:DIRECT-SUBSLOTS</template_slot>
 		<template_slot>:DIRECT-SUPERSLOTS</template_slot>
+		<template_slot>:DOCUMENTATION</template_slot>
+		<template_slot>:SLOT-CONSTRAINTS</template_slot>
+		<template_slot>:SLOT-MAXIMUM-CARDINALITY</template_slot>
+		<template_slot>:SLOT-MINIMUM-CARDINALITY</template_slot>
+		<template_slot>:SLOT-NUMERIC-MAXIMUM</template_slot>
+		<template_slot>:SLOT-NUMERIC-MINIMUM</template_slot>
+		<template_slot>:SLOT-INVERSE</template_slot>
+		<template_slot>:SLOT-DEFAULTS</template_slot>
+		<template_slot>:SLOT-VALUES</template_slot>
+		<template_slot>:ASSOCIATED-FACET</template_slot>
+		<template_slot>:DIRECT-SUBSLOTS</template_slot>
+		<template_slot>:DIRECT-SUPERSLOTS</template_slot>
 	</class>
 
 	<class>
@@ -142,6 +157,10 @@
 			<value value_type="string">Concrete</value>
 		</own_slot_value>
 		<superclass>:CONSTRAINT</superclass>
+		<template_slot>:PAL-NAME</template_slot>
+		<template_slot>:PAL-RANGE</template_slot>
+		<template_slot>:PAL-DESCRIPTION</template_slot>
+		<template_slot>:PAL-STATEMENT</template_slot>
 		<template_slot>:PAL-NAME</template_slot>
 		<template_slot>:PAL-RANGE</template_slot>
 		<template_slot>:PAL-DESCRIPTION</template_slot>

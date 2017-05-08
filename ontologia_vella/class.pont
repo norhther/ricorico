@@ -1,25 +1,26 @@
-; Mon May 08 12:09:32 CEST 2017
+; Sun May 07 14:15:53 CEST 2017
 ; 
-;+ (version "3.5")
-;+ (build "Build 663")
+;+ (version "3.4.8")
+;+ (build "Build 629")
 
 
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
 	(single-slot postre
-		(type INSTANCE)
-;+		(allowed-classes Plato)
+		(type SYMBOL)
+;+		(allowed-parents Plato)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot tamano
+;+		(comment "Entero entre [1..5] donde 1 es la ración más pequeña y 5 la más grande.")
 		(type INTEGER)
 		(range 1 5)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot primero
-		(type INSTANCE)
-;+		(allowed-classes Plato)
+		(type SYMBOL)
+;+		(allowed-parents Plato)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot contiene_gluten
@@ -28,6 +29,7 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot es_moderno
+;+		(comment "if (!es_moderno) -> es_tradicional")
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
 ;+		(cardinality 0 1)
@@ -43,19 +45,30 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot complejidad
+;+		(comment "Entero del [1..5], donde 1 es la mínima complejidad y 5 la máxima.")
 		(type INTEGER)
 		(range 1 5)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot ingrediente
 		(type INSTANCE)
-;+		(allowed-classes Ingrediente)
-		(cardinality 1 8)
+;+		(allowed-classes)
+		(cardinality 1 ?VARIABLE)
 		(create-accessor read-write))
 	(single-slot segundo
-		(type INSTANCE)
-;+		(allowed-classes Plato)
+		(type SYMBOL)
+;+		(allowed-parents Plato)
 ;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(multislot IngredientesPrincipales
+		(type SYMBOL)
+;+		(allowed-parents)
+		(cardinality 1 5)
+		(create-accessor read-write))
+	(single-slot lugarOrigen
+		(type SYMBOL)
+		(allowed-values Espana Japon Mexico)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot producto_animal
 		(type SYMBOL)
@@ -64,7 +77,7 @@
 		(create-accessor read-write))
 	(single-slot precio
 		(type FLOAT)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot contiene_alcohol
 		(type SYMBOL)
@@ -72,8 +85,8 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(multislot tipo
-		(type SYMBOL)
-		(allowed-values primero segundo postre)
+;+		(comment "tipo: {primero,segundo,postre)")
+		(type STRING)
 		(cardinality 1 3)
 		(create-accessor read-write))
 	(multislot disponibilidad
@@ -81,27 +94,87 @@
 		(allowed-values verano otono primavera invierno)
 		(cardinality 1 4)
 		(create-accessor read-write))
-	(single-slot lugar_origen
-		(type SYMBOL)
-		(allowed-values Espana Japon Mexico)
-;+		(cardinality 0 1)
+	(multislot ingredientesPrincipales
+		(type STRING)
+		(cardinality 1 5)
 		(create-accessor read-write))
 	(single-slot es_frio
+;+		(comment "if (!es_frio) -> es_caliente")
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot nombre
 		(type STRING)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
-(defclass Ingrediente
+(defclass Plato
+	(is-a USER)
+	(role concrete)
+	(single-slot lugarOrigen
+		(type SYMBOL)
+		(allowed-values Espana Japon Mexico)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot es_frio
+;+		(comment "if (!es_frio) -> es_caliente")
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot tamano
+;+		(comment "Entero entre [1..5] donde 1 es la ración más pequeña y 5 la más grande.")
+		(type INTEGER)
+		(range 1 5)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot es_moderno
+;+		(comment "if (!es_moderno) -> es_tradicional")
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot precio
+		(type FLOAT)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot ingrediente
+		(type INSTANCE)
+;+		(allowed-classes)
+		(cardinality 1 ?VARIABLE)
+		(create-accessor read-write))
+	(single-slot nombre
+		(type STRING)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot tipo
+;+		(comment "tipo: {primero,segundo,postre)")
+		(type STRING)
+		(cardinality 1 3)
+		(create-accessor read-write))
+	(single-slot complejidad
+;+		(comment "Entero del [1..5], donde 1 es la mínima complejidad y 5 la máxima.")
+		(type INTEGER)
+		(range 1 5)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(multislot disponibilidad
+		(type SYMBOL)
+		(allowed-values verano otono primavera invierno)
+		(cardinality 1 4)
+		(create-accessor read-write)))
+
+(defclass Bebida
 	(is-a USER)
 	(role concrete)
 	(single-slot contiene_gluten
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
+	(single-slot precio
+		(type FLOAT)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot contiene_alcohol
@@ -116,7 +189,7 @@
 		(create-accessor read-write))
 	(single-slot nombre
 		(type STRING)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot producto_animal
 		(type SYMBOL)
@@ -133,34 +206,25 @@
 	(is-a USER)
 	(role concrete)
 	(single-slot primero
-		(type INSTANCE)
-;+		(allowed-classes Plato)
+		(type SYMBOL)
+;+		(allowed-parents Plato)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot segundo
-		(type INSTANCE)
-;+		(allowed-classes Plato)
+		(type SYMBOL)
+;+		(allowed-parents Plato)
 ;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot postre
-		(type INSTANCE)
-;+		(allowed-classes Plato)
+		(type SYMBOL)
+;+		(allowed-parents Plato)
 ;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
-(defclass Bebida
+(defclass Ingrediente
 	(is-a USER)
 	(role concrete)
 	(single-slot contiene_gluten
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot precio
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot contiene_alcohol
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
 ;+		(cardinality 0 1)
@@ -170,9 +234,14 @@
 		(allowed-values FALSE TRUE)
 ;+		(cardinality 0 1)
 		(create-accessor read-write))
+	(single-slot contiene_alcohol
+		(type SYMBOL)
+		(allowed-values FALSE TRUE)
+;+		(cardinality 0 1)
+		(create-accessor read-write))
 	(single-slot nombre
 		(type STRING)
-;+		(cardinality 1 1)
+;+		(cardinality 0 1)
 		(create-accessor read-write))
 	(single-slot producto_animal
 		(type SYMBOL)
@@ -182,57 +251,5 @@
 	(single-slot contiene_lactosa
 		(type SYMBOL)
 		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write)))
-
-(defclass Plato
-	(is-a USER)
-	(role concrete)
-	(single-slot es_frio
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot es_moderno
-		(type SYMBOL)
-		(allowed-values FALSE TRUE)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot tamano
-		(type INTEGER)
-		(range 1 5)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot precio
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot ingrediente
-		(type INSTANCE)
-;+		(allowed-classes Ingrediente)
-		(cardinality 1 8)
-		(create-accessor read-write))
-	(single-slot nombre
-		(type STRING)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot tipo
-		(type SYMBOL)
-		(allowed-values primero segundo postre)
-		(cardinality 1 3)
-		(create-accessor read-write))
-	(single-slot complejidad
-		(type INTEGER)
-		(range 1 5)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(multislot disponibilidad
-		(type SYMBOL)
-		(allowed-values verano otono primavera invierno)
-		(cardinality 1 4)
-		(create-accessor read-write))
-	(single-slot lugar_origen
-		(type SYMBOL)
-		(allowed-values Espana Japon Mexico)
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
