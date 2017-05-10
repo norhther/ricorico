@@ -475,13 +475,196 @@
 	(tipo postre))
 )
 
-;#RULE DE PROVA
-(defrule retorna_instancies
-        (not (retorna_instancies ok))
-        =>
-        (bind ?llista_instancies (find-all-instances ((?instancia Plato)) TRUE))
-        (assert (retorna_instancies ok))
-        (progn$ (?var ?llista_instancies)
-                (printout t (send ?var get-nombre) crlf)
-        )
+
+;################################################
+;################################################
+;###########DEFINICIONS DE FUNCIONS##############
+;################################################
+;################################################
+
+(deffunction pregunta-multivaluada (?question $?allowed-values)
+   (printout t ?question)
+   (bind ?answer (read))
+   (if (lexemep ?answer) 
+       then (bind ?answer (lowcase ?answer)))
+   (while (not (member ?answer ?allowed-values)) do
+      (printout t ?question)
+      (bind ?answer (read))
+      (if (lexemep ?answer) 
+          then (bind ?answer (lowcase ?answer))))
+   ?answer)
+
+(deffunction si-o-no-p (?question)
+   (bind ?response (pregunta-multivaluada ?question si no s n))
+   (if (or (eq ?response si) (eq ?response s))
+       then TRUE 
+       else FALSE))
+
+(deffunction pregunta-general (?pregunta)
+    (format t "%s " ?pregunta)
+  (bind ?respuesta (read))
+  (while (not (lexemep ?respuesta)) do
+    (format t "%s " ?pregunta)
+    (bind ?respuesta (read))
+    )
+  ?respuesta
 )
+
+(deffunction pregunta-general-integer (?pregunta)
+    (format t "%s " ?pregunta)
+  (bind ?respuesta (read))
+  (while (not (and (integerp ?respuesta) (> ?respuesta 0) )) do
+    (format t "%s " ?pregunta)
+    (bind ?respuesta (read))
+    )
+  ?respuesta
+)
+
+(deffunction pregunta-numerica (?pregunta ?rangini ?rangfi)
+  (format t "%s [%d, %d] " ?pregunta ?rangini ?rangfi)
+  (bind ?respuesta (read))
+  (while (not(and(>= ?respuesta ?rangini)(<= ?respuesta ?rangfi))) do
+    (format t "%s [%d, %d] " ?pregunta ?rangini ?rangfi)
+    (bind ?respuesta (read))
+  )
+  ?respuesta
+)
+
+(deffunction pregunta-llista (?pregunta)
+ (format t "%s?" ?pregunta)
+ (bind ?resposta (readline))
+ (bind ?res (str-explode ?resposta))
+ (bind ?list (create$ "abstemio" "vegano" "lactosa" "diabetico" "celiaco"))
+ (bind ?list_resultat (create$))
+ (progn$ (?var ?res) 
+        (if (not (eq (nth$ ?var ?list) nil)) then (insert$ ?list_resultat 1 (nth$ ?var ?list)))
+        )
+ (progn$ (?var ?list_resultat)
+        (printout t ?var crlf)
+
+        )
+
+ ?list_resultat
+)
+
+;################################################
+;################################################
+;##############CLASSES AUXILIARS#################
+;################################################
+;################################################
+
+;+ Estructura para guardar la puntuacion de los platos
+
+(defclass Recomendacion 
+  (is-a USER)
+  (role concrete)
+  (slot contenido
+    (type INSTANCE)
+    (create-accessor read-write))
+  (slot puntuacion
+    (type INTEGER)
+    (create-accessor read-write))
+  (multislot justificaciones
+    (type STRING)
+    (create-accessor read-write))
+)
+
+(deftemplate Contexto
+  (slot nomusuari (type STRING))
+  (slot epoca (type SYMBOL))
+  (slot comensales (type INTEGER) (default -1))
+  (multislot restricciones (type STRING))
+  (slot preciomin (type FLOAT) (default -1.0))
+  (slot preciomax (type FLOAT) (default -1.0))
+)
+
+(deftemplate Listax
+  (multislot recomendaciones (type INSTANCE))
+)
+
+;################################################
+;################################################
+;##################QUERY RULES###################
+;################################################
+;################################################
+
+(defrule bienvenido
+ (not (Contexto))
+  =>
+        (printout t "
+       .--,--.            
+       `.  ,.'                    
+        |___|       
+        :o o:   o                ___  _   _  ____  ___  _____  ____  ____     ____  ____  _____  ____  ____  
+       _`~^~'_  |               / __)( )_( )(_  _)/ __)(  _  )(_  _)( ___)   (  _  (  _  (  _  )(_  _)(  _   
+     /'   ^   `\=               ( (__  ) _ (  _)(_( (__  )(_)(   )(   )__)     )(_) ))   / )(_)(  _)(_  )(_) )
+   .'  _______ '~                \___)(_) (_)(____) \___)(_____) (__) (____)   (____/(_) _)(_____)(____)(____/
+   ` <=|     |= /'
+       |     |
+       |_____|  
+~~~~~~~ ===== ~~~~~~~~ ")
+)
+
+
+(defrule pregunta-inicial
+  (not (Contexto))
+  =>
+  (bind ?nombre (pregunta-general "Cual es tu nombre?"))
+  (assert (Contexto (nomusuari ?nombre)))
+)
+
+(defrule definir-epoca
+  ?c <- (Contexto (epoca ?ep) (preciomax ?p))
+  (test (eq ?ep nil))
+  =>
+  (bind ?e (pregunta-multivaluada "En que estacion se celebrara el evento? (primavera, verano, otono o invierno)" primavera verano otono invierno))
+  (modify ?c (epoca ?e))
+)
+
+(defrule definir-comensales
+  ?c <- (Contexto (comensales ?come))
+  (test (eq ?come -1))
+  =>
+  (bind ?aux (pregunta-general-integer "Cuantos comensales seran?"))
+  (modify ?c (comensales ?aux) )
+)
+
+(defrule definir-precio-min
+  ?c <- (Contexto (preciomin ?pmi) (preciomax ?pma))
+  (test (and (< ?pmi 0.0) (< ?pma 0.0) ))
+  =>
+  (bind ?pmin (pregunta-numerica "Cual sera el precio minimo por comensal?" 0 100))
+  (modify ?c (preciomin ?pmin) )
+)
+
+(defrule definir-precio-max
+  ?c <- (Contexto (preciomin ?pmi) (preciomax ?pma))
+  (test (and (< ?pma 0.0) (>= ?pmi 0.0)) )
+  =>
+  (bind ?pmax (pregunta-numerica "Cual sera el precio maximo por comensal?" ?pmi 300))
+  (modify ?c (preciomax ?pmax))
+)
+
+; no hacer mas de un modify de un mismo fact en una misma
+; rule, se crea mas de una.
+
+
+(defrule definir-restricciones
+  ?c <- (Contexto (restricciones $?r))
+  (test (eq (length$ $?r) 0))
+  =>
+  (printout t "Tiene algun tipo de restriccion alimentaria? Marque con numeros las opciones:" crlf)
+  (modify ?c (restricciones (pregunta-llista "1:abstemio   2:vegano   3:lactosa    4:diabetico   5:celiaco") ))
+)
+
+
+;#RULE DE PROVA
+;(defrule retorna_instancies
+;        (not (retorna_instancies ok))
+;        =>
+;        (bind ?llista_instancies (find-all-instances ((?instancia Plato)) TRUE))
+;        (assert (retorna_instancies ok))
+;        (progn$ (?var ?llista_instancies)
+;                (printout t (send ?var get-nombre) crlf)
+;        )
+;)
