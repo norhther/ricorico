@@ -535,14 +535,15 @@
  (bind ?resposta (readline))
  (bind ?res (str-explode ?resposta))
  (bind ?list (create$ "abstemio" "vegano" "lactosa" "diabetico" "celiaco"))
- (bind ?list_resultat (create$))
+ (bind ?list_resultat (create$ -1))
  (progn$ (?var ?res) 
-        (if (not (eq (nth$ ?var ?list) nil)) then (insert$ ?list_resultat 1 (nth$ ?var ?list)))
+        (if (not (eq (nth$ (integer ?var) ?list) nil)) then (insert$ ?list_resultat 1 (nth$ (integer ?var) ?list))
         )
- (progn$ (?var ?list_resultat)
-        (printout t ?var crlf)
+ )
 
-        )
+ (progn$ (?var2 ?list_resultat)
+        (printout t ?var2 crlf)
+ )
 
  ?list_resultat
 )
@@ -573,7 +574,11 @@
   (slot nomusuari (type STRING))
   (slot epoca (type SYMBOL))
   (slot comensales (type INTEGER) (default -1))
-  (multislot restricciones (type STRING))
+  (slot es_vegano (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
+  (slot es_celiaco (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
+  (slot es_diabetico (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
+  (slot es_lactosa (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
+  (slot es_abstemio (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
   (slot preciomin (type FLOAT) (default -1.0))
   (slot preciomax (type FLOAT) (default -1.0))
 )
@@ -605,6 +610,8 @@
 ~~~~~~~ ===== ~~~~~~~~ ")
 )
 
+; no hacer mas de un modify de un mismo fact en una misma
+; rule, se crea mas de una.
 
 (defrule pregunta-inicial
   (not (Contexto))
@@ -617,7 +624,7 @@
   ?c <- (Contexto (epoca ?ep) (preciomax ?p))
   (test (eq ?ep nil))
   =>
-  (bind ?e (pregunta-multivaluada "En que estacion se celebrara el evento? (primavera, verano, otono o invierno)" primavera verano otono invierno))
+  (bind ?e (pregunta-multivaluada "En que estacion se celebrara el evento? (primavera, verano, otono o invierno) " primavera verano otono invierno))
   (modify ?c (epoca ?e))
 )
 
@@ -645,16 +652,54 @@
   (modify ?c (preciomax ?pmax))
 )
 
-; no hacer mas de un modify de un mismo fact en una misma
-; rule, se crea mas de una.
+;NO FUNCIONA
+;(defrule definir-restricciones
+;  ?c <- (Contexto (restricciones $?r))
+;  (test (eq (length$ $?r) 0))
+;  =>
+;  (printout t "Tiene algun tipo de restriccion alimentaria? Marque con numeros las opciones:" crlf)
+;  (modify ?c (restricciones (pregunta-llista "1:abstemio   2:vegano   3:lactosa    4:diabetico   5:celiaco") ))
+;)
 
 
-(defrule definir-restricciones
-  ?c <- (Contexto (restricciones $?r))
-  (test (eq (length$ $?r) 0))
+(defrule definir-vegano
+  ?c <- (Contexto (es_vegano ?veg))
+  (test (eq ?veg IDK))
   =>
-  (printout t "Tiene algun tipo de restriccion alimentaria? Marque con numeros las opciones:" crlf)
-  (modify ?c (restricciones (pregunta-llista "1:abstemio   2:vegano   3:lactosa    4:diabetico   5:celiaco") ))
+  (bind ?test(si-o-no-p "El menu tiene que ser apto para veganos? (s/n) "))
+  (modify ?c (es_vegano ?test))
+)
+
+(defrule definir-celiaco
+  ?c <- (Contexto (es_celiaco ?cel))
+  (test (eq ?cel IDK))
+  =>
+  (bind ?test(si-o-no-p "El menu tiene que ser apto para celiacos? (s/n) "))
+  (modify ?c (es_celiaco ?test))
+)
+
+(defrule definir-lactosa
+  ?c <- (Contexto (es_lactosa ?lac))
+  (test (eq ?lac IDK))
+  =>
+  (bind ?test(si-o-no-p "El menu tiene que ser apto para intolerantes a la lactosa? (s/n) "))
+  (modify ?c (es_lactosa ?test))
+)
+
+(defrule definir-abstemio
+  ?c <- (Contexto (es_abstemio ?abs))
+  (test (eq ?abs IDK))
+  =>
+  (bind ?test(si-o-no-p "El menu tiene que ser apto para abstemios? (s/n) "))
+  (modify ?c (es_abstemio ?test))
+)
+
+(defrule definir-diabetico
+  ?c <- (Contexto (es_diabetico ?dia))
+  (test (eq ?dia IDK))
+  =>
+  (bind ?test(si-o-no-p "El menu tiene que ser apto para diabeticos? (s/n) "))
+  (modify ?c (es_diabetico ?test))
 )
 
 
