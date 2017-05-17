@@ -568,11 +568,22 @@
   (multislot justificaciones
     (type STRING)
     (create-accessor read-write))
+  (slot marcado
+        (type SYMBOL) (allowed-values FALSE TRUE) (default FALSE))
+)
+
+(defclass AlimentoProhibido
+   (is-a USER)
+   (role concrete)
+   (slot contenido
+        (type INSTANCE)
+        (create-accessor read-write)
+   )
 )
 
 (deftemplate Contexto
   (slot nomusuari (type STRING))
-  (slot epoca (type SYMBOL))
+  (slot epoca (type SYMBOL) (default IDK))
   (slot comensales (type INTEGER) (default -1))
   (slot es_vegano (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
   (slot es_celiaco (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
@@ -581,10 +592,6 @@
   (slot es_abstemio (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
   (slot preciomin (type FLOAT) (default -1.0))
   (slot preciomax (type FLOAT) (default -1.0))
-)
-
-(deftemplate Listax
-  (multislot recomendaciones (type INSTANCE))
 )
 
 ;################################################
@@ -618,11 +625,12 @@
   =>
   (bind ?nombre (pregunta-general "Cual es tu nombre?"))
   (assert (Contexto (nomusuari ?nombre)))
+  (assert (inirecomendaciones nope))
 )
 
 (defrule definir-epoca
   ?c <- (Contexto (epoca ?ep) (preciomax ?p))
-  (test (eq ?ep nil))
+  (test (eq ?ep IDK))
   =>
   (bind ?e (pregunta-multivaluada "En que estacion se celebrara el evento? (primavera, verano, otono o invierno) " primavera verano otono invierno))
   (modify ?c (epoca ?e))
@@ -701,6 +709,111 @@
   (bind ?test(si-o-no-p "El menu tiene que ser apto para diabeticos? (s/n) "))
   (modify ?c (es_diabetico ?test))
 )
+
+;#############################PENDENT DE REVISIO###########################
+
+
+(defrule cargar-platos
+        ?hecho <- (inirecomendaciones nope)
+        =>
+        (retract ?hecho)
+        (assert (inirecomendaciones fet)) 
+        (bind $?r (find-all-instances ((?instancia Plato)) TRUE))
+        (printout t "he entrar a cargar-platos")
+        (progn$ (?var ?r)
+            (make-instance (gensym) of Recomendacion (contenido ?var))
+        )
+
+        (bind $?i (find-all-instances ((?instancia Ingrediente)) TRUE))
+        (progn$ (?var ?i)
+            (make-instance (gensym) of AlimentoProhibido (contenido ?var))
+        )
+)
+
+(defrule filtrar-epoca
+        (Contexto  (epoca ?epoca))
+        (test (not (eq ?epoca IDK)))
+        =>
+        (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+        (progn$ (?var ?llista_instancies)
+                (bind ?varaux (send ?var get-contenido))
+                (bind ?varaux2 (send ?varaux get-disponibilidad))
+                (if  (not (member$ ?epoca ?varaux2)) then (send ?var delete))
+        )
+)
+
+
+(defrule filtrar-alimentos-prohibidos
+        ?c <- (Contexto  (es_celiaco ?celiaco) (es_diabetico ?diabetico) (es_abstemio ?abstemio) (es_lactosa ?lactosa)
+                (es_vegano ?vegano)) 
+        ?hecho <- (inirecomendaciones fet)
+        (test (and (not (eq ?celiaco IDK)) (not (eq ?diabetico IDK)) (not (eq ?abstemio IDK)) 
+                (not (eq ?lactosa IDK)) (not (eq ?vegano IDK)) ) )
+        =>
+        (retract ?hecho)
+        (assert (inirecomendaciones fetdefinitiu)) ;asegura que no vuelva a entrar
+        (bind $?i (find-all-instances ((?instancia AlimentoProhibido)) TRUE))
+        (progn$ (?var ?i)
+                (bind ?ingredient (send ?var get-contenido))
+                (bind ?cel (send ?ingredient get-contiene_gluten))
+                (bind ?dia (send ?ingredient get-contiene_azucar))
+                (bind ?abs (send ?ingredient get-contiene_alcohol))
+                (bind ?lac (send ?ingredient get-contiene_lactosa))
+                (bind ?veg (send ?ingredient get-producto_animal))
+
+                (if (not (or (and (eq ?cel TRUE) (eq ?celiaco TRUE))
+                 (and (eq ?dia TRUE) (eq ?diabetico TRUE))
+                 (and (eq ?abs TRUE) (eq ?abstemio TRUE))
+                 (and (eq ?lac TRUE) (eq ?lactosa TRUE))
+                 (and (eq ?veg TRUE) (eq ?vegano TRUE))))
+                  then (send ?var delete)
+                )
+        )
+)
+
+
+(defrule filtrar-alimentos-platos
+        ?c <- (object (is-a Recomendacion))
+        ?hecho <- (inirecomendaciones fetdefinitiu)
+        =>
+
+        (bind ?plat_rec (send ?c get-contenido))
+        (bind $?llista_ing (send ?plat_rec get-ingrediente))
+        (bind $?a (find-all-instances ((?instancia AlimentoProhibido)) TRUE))
+
+        (progn$ (?aliment_prohibit ?a)
+                (bind ?nom_prohibit (send ?aliment_prohibit get-contenido))
+                (if (member$ ?nom_prohibit ?llista_ing) then (send ?c put-marcado TRUE))
+        )
+
+)
+
+(defrule eliminar-recomendaciones
+        ?hecho <- (inirecomendaciones fetdefinitiu)
+        =>
+        (retract ?hecho)
+        (assert (inirecomendaciones fetdefinitiuv2))
+        (bind $?rec (find-all-instances ((?instancia Recomendacion)) TRUE))
+        (progn$ (?i ?rec)
+                (if (eq (send ?i get-marcado) TRUE) then (send ?i delete))
+        )
+)
+
+
+
+(defrule retorna_instancies
+        (declare (salience -34))
+        =>
+        (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+
+        (printout t "QUE PASA CHAVALADA" crlf)
+        (progn$ (?var ?llista_instancies)
+                (bind ?t (send ?var get-contenido))
+                (printout t (send ?t get-nombre) crlf)
+        )
+
+)
+
 
 
 ;#RULE DE PROVA
