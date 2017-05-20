@@ -8,9 +8,7 @@
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
-
-
-; Sat May 20 12:01:31 CEST 2017
+; Sat May 20 18:19:50 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -89,15 +87,15 @@
                 (allowed-values FALSE TRUE)
 ;+              (cardinality 0 1)
                 (create-accessor read-write))
-        (single-slot precio
-                (type FLOAT)
-;+              (cardinality 1 1)
-                (create-accessor read-write))
         (single-slot es_carne
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
                 (default FALSE)
 ;+              (cardinality 0 1)
+                (create-accessor read-write))
+        (single-slot precio
+                (type FLOAT)
+;+              (cardinality 1 1)
                 (create-accessor read-write))
         (single-slot contiene_alcohol
                 (type SYMBOL)
@@ -168,24 +166,6 @@
 ;+              (cardinality 0 1)
                 (create-accessor read-write)))
 
-(defclass Menu
-        (is-a USER)
-        (role concrete)
-        (single-slot primero
-                (type INSTANCE)
-;+              (allowed-classes Plato)
-;+              (cardinality 1 1)
-                (create-accessor read-write))
-        (single-slot segundo
-                (type INSTANCE)
-;+              (allowed-classes Plato)
-;+              (cardinality 1 1)
-                (create-accessor read-write))
-        (single-slot postre
-                (type INSTANCE)
-;+              (allowed-classes Plato)
-;+              (cardinality 1 1)
-                (create-accessor read-write)))
 
 (defclass Bebida
         (is-a USER)
@@ -308,6 +288,104 @@
 ;+              (cardinality 0 1)
                 (create-accessor read-write)))
 
+
+
+
+
+
+(defclass CombinacionEntrada
+   (is-a USER)
+   (role concrete)
+   (slot contenido-plat
+                (type INSTANCE)
+                (create-accessor read-write)
+   )
+   (slot contenido-bebida
+                (type INSTANCE)
+                (create-accessor read-write)
+   )
+   (slot puntuacion
+                (type INTEGER)
+                (create-accessor read-write)
+   )
+   (multislot justificaciones
+                (type STRING)
+                (create-accessor read-write)
+   )
+)
+
+(defclass CombinacionSegundo
+   (is-a USER)
+   (role concrete)
+   (slot contenido-plat
+                (type INSTANCE)
+                (create-accessor read-write)
+   )
+   (slot contenido-bebida
+                (type INSTANCE)
+                (create-accessor read-write)
+   )
+   (slot puntuacion
+                (type INTEGER)
+                (create-accessor read-write)
+   )
+   (multislot justificaciones
+                (type STRING)
+                (create-accessor read-write)
+   )
+)
+
+(defclass CombinacionPostre
+   (is-a USER)
+   (role concrete)
+   (slot contenido-plat
+                (type INSTANCE)
+                (create-accessor read-write)
+   )
+   (slot contenido-bebida
+                (type INSTANCE)
+                (create-accessor read-write)
+   )
+   (slot puntuacion
+                (type INTEGER)
+                (create-accessor read-write)
+   )
+   (multislot justificaciones
+                (type STRING)
+                (create-accessor read-write)
+   )
+)
+
+(defclass Menu
+        (is-a USER)
+        (role concrete)
+        (slot entrada
+                (type INSTANCE)
+                (create-accessor read-write)
+        )
+        (slot segundo
+                (type INSTANCE)
+                (create-accessor read-write)
+        )
+        (slot postre
+                (type INSTANCE)
+                (create-accessor read-write)
+        )       
+        (slot bebida
+                (type INSTANCE)
+                (create-accessor read-write)
+        )
+        (slot puntuacion
+                (type INSTANCE)
+                (create-accessor read-write)
+        )
+        (multislot justificaciones
+                (type INSTANCE)
+                (create-accessor read-write)
+        )
+)
+
+
 ;################################################
 ;################################################
 ;##########DEFINICIONS DE INSTANCIES#############
@@ -316,7 +394,7 @@
 
 
 (definstances instancies
-; Sat May 20 12:01:31 CEST 2017
+; Sat May 20 18:19:50 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -547,7 +625,7 @@
 
 ([ricorico_Class10025] of  Ingrediente
 
-        (nombre "Pimenton"))
+        (nombre "Pimentón"))
 
 ([ricorico_Class10026] of  Plato
 
@@ -890,7 +968,7 @@
         (disponibilidad verano otono primavera invierno)
         (ingrediente [ricorico_Class10034])
         (lugar_origen Mexico)
-        (nombre "Dulce de alfenique")
+        (nombre "Dulce de alfeñique")
         (precio 3.5)
         (tamano 3)
         (tipo postre))
@@ -1535,7 +1613,7 @@
         (ingrediente
                 [ricorico_Class37]
                 [ricorico_Class21])
-        (nombre "Deconstruccion de Cocido Sofrita con su Carne Desmechada")
+        (nombre "Deconstrucción de Cocido Sofrita con su Carne Desmechada")
         (precio 20.0)
         (tamano 3)
         (tipo segundo))
@@ -1575,7 +1653,7 @@
         (nombre "Dim Sum Castellano al Horno de Piedra con Conserva de Atun")
         (precio 22.0)
         (tamano 1)
-        (tipo postre))
+        (tipo primero))
 
 ([ricorico_Class20046] of  Plato
 
@@ -1607,7 +1685,7 @@
         (ingrediente
                 [ricorico_Class39]
                 [ricorico_Class10058])
-        (nombre "Esfera de Chocolate con Lagrimas del Caribe")
+        (nombre "Esfera de Chocolate con Lágrimas del Caribe")
         (precio 15.0)
         (tamano 2)
         (tipo postre))
@@ -1894,7 +1972,6 @@
         (producto_animal TRUE))
 
 
-
 )
 
 
@@ -1994,6 +2071,22 @@
         (type SYMBOL) (allowed-values FALSE TRUE) (default FALSE))
 )
 
+(defclass RecomendacionBebida
+  (is-a USER)
+  (role concrete)
+  (slot contenido
+    (type INSTANCE)
+    (create-accessor read-write))
+  (slot puntuacion
+    (type INTEGER)
+    (create-accessor read-write))
+  (multislot justificaciones
+    (type STRING)
+    (create-accessor read-write))
+  (slot marcado
+        (type SYMBOL) (allowed-values FALSE TRUE) (default FALSE))
+)
+
 (defclass AlimentoProhibido
    (is-a USER)
    (role concrete)
@@ -2014,8 +2107,24 @@
   (slot es_abstemio (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
   (slot preciomin (type FLOAT) (default -1.0))
   (slot preciomax (type FLOAT) (default -1.0))
+  (multislot regiones (type SYMBOL) (allowed-values Espana Mexico Japon Peru Francia Italia))
+  (slot sibarita (type INTEGER) (default -1) (allowed-values -1 0 1 2 3 4 5 6 7 8 9 10))
+  (slot acombebida (type SYMBOL) (default UNDEFINED) (allowed-values UNDEFINED plato menu))
 )
 
+(deftemplate listas-sin-orden
+        (multislot entradas)
+        (multislot segundos)
+        (multislot postres)
+        (multislot bebidas)
+)
+
+(deftemplate listas-con-orden
+        (multislot entradas)
+        (multislot segundos)
+        (multislot postres)
+        (multislot bebidas)
+)
 ;################################################
 ;################################################
 ;##################QUERY RULES###################
@@ -2132,10 +2241,44 @@
   (modify ?c (es_diabetico ?test))
 )
 
+(defrule preguntar-region
+        ?c <- (Contexto (regiones))
+        (not (preguntarregion fet))
+        =>
+        ;(bind $?respuesta (create$ ))
+        (assert (preguntarregion fet))
+        (bind $?lista (create$ Espana Mexico Japon Peru Francia Italia ))
+        (bind $?respuesta (create$ ))
+        (progn$ (?r ?lista)
+                (if (eq (si-o-no-p (str-cat "Tiene preferencia por la comida de " ?r "? (s/n)")) TRUE)
+                        then (bind ?respuesta (insert$ ?respuesta (+ 1 (length$ ?respuesta)) ?r))
+                )
+        )
+       (modify ?c (regiones ?respuesta))
+
+)
+
+(defrule preguntar-sibarita
+        ?c <- (Contexto (sibarita ?s))
+        (test (eq ?s -1))
+        =>
+        (bind ?index (pregunta-numerica "Que tan sibarita desea que sea el menu?" 0 10))
+        (modify ?c (sibarita ?index))
+)
+
+(defrule pregunta-acombebida
+        ?c <- (Contexto (acombebida ?a))
+        (test (eq ?a UNDEFINED))
+        =>
+        (bind ?respuesta (pregunta-multivaluada "Desea que la bebida se empareje por plato o por menu?" plato menu))
+        (modify ?c (acombebida ?respuesta))
+        
+)
+
 ;#############################PENDENT DE REVISIO###########################
 
 
-(defrule cargar-platos
+(defrule cargar-platos-bebidas
         ?hecho <- (inirecomendaciones nope)
         =>
         (retract ?hecho)
@@ -2150,6 +2293,12 @@
         (progn$ (?var ?i)
             (make-instance (gensym) of AlimentoProhibido (contenido ?var))
         )
+                
+                (bind $?b (find-all-instances ((?instancia Bebida)) TRUE))
+                (printout t "he entrat a cargar-bebidas")
+                (progn$ (?var ?b)
+                        (make-instance (gensym) of RecomendacionBebida (contenido ?var))
+                )
 )
 
 (defrule filtrar-epoca
@@ -2207,7 +2356,29 @@
                 (bind ?nom_prohibit (send ?aliment_prohibit get-contenido))
                 (if (member$ ?nom_prohibit ?llista_ing) then (send ?c put-marcado TRUE))
         )
+)
 
+(defrule filtrar-alimentos-bebidas
+        ?c <- (object (is-a RecomendacionBebida))
+        ?hecho <- (inirecomendaciones fetdefinitiu)
+                ?con <- (Contexto  (es_celiaco ?celiaco) (es_diabetico ?diabetico) (es_abstemio ?abstemio) (es_lactosa ?lactosa)
+                (es_vegano ?vegano)) 
+        =>
+
+        (bind ?beb_rec (send ?c get-contenido))
+                (bind ?cel (send ?beb_rec get-contiene_gluten))
+                (bind ?dia (send ?beb_rec get-contiene_azucar))
+                (bind ?abs (send ?beb_rec get-contiene_alcohol))
+                (bind ?lac (send ?beb_rec get-contiene_lactosa))
+                (bind ?veg (send ?beb_rec get-producto_animal))
+                (if ( or (and (eq ?cel TRUE) (eq ?celiaco   TRUE))
+                     (and (eq ?dia TRUE) (eq ?diabetico TRUE))
+                     (and (eq ?abs TRUE) (eq ?abstemio  TRUE))
+                     (and (eq ?lac TRUE) (eq ?lactosa   TRUE))
+                     (and (eq ?veg TRUE) (eq ?vegano    TRUE)))
+                then
+                (send ?c put-marcado TRUE)
+                )
 )
 
 (defrule eliminar-recomendaciones
@@ -2219,29 +2390,417 @@
         (progn$ (?i ?rec)
                 (if (eq (send ?i get-marcado) TRUE) then (send ?i delete))
         )
+                
+        (bind $?rec (find-all-instances ((?instancia RecomendacionBebida)) TRUE))
+        (progn$ (?i ?rec)
+                (if (eq (send ?i get-marcado) TRUE) then (send ?i delete))
+        )
 )
 
 
-;(defrule otorga-puntuacion-plato-complejidad
-;        ?c <- (object (is-a Recomendacion))
-;        =>
-        ;(send ?c put-puntuacion 34)
-        ;(send ?c put-justificaciones "molamazoxDs")
+(defrule otorga-puntuacion-plato-complejidad
+        ;?c <- (object (is-a Recomendacion) (puntuacion ?p) (justificaciones $?j))
+                ?hecho <- (inirecomendaciones fetdefinitiuv2)
+        =>
+                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (progn$ (?var ?llista_instancies)
+                        
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind ?p (+ ?p 34))
+                        
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "molamazoxDs" crlf)))
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                
+                )
+                (retract ?hecho)
+                (assert (inirecomendaciones fetdefinitiuv3))
+
+)
+
+(defrule otorga-puntuacion-plato-region
+                ?hecho <- (inirecomendaciones fetdefinitiuv3)
+                (preguntarregion fet)
+                ?c <- (Contexto (regiones $?reg))
+        =>
+                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (progn$ (?var ?llista_instancies)
+                
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind ?cont (send ?var get-contenido))
+                        (bind ?r (send ?cont get-lugar_origen))
+                        (if (member ?r $?reg) then 
+                                (bind ?p (+ ?p 50))
+                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el usuario es racista por " ?r) ))                 
+                        )
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                
+                )
+                (retract ?hecho)
+                (assert (inirecomendaciones fetdefinitiuv4))
+
+)
+
+(defrule otorga-puntuacion-plato-temperatura-primavera
+                ?hecho <- (inirecomendaciones fetdefinitiuv4)
+                ?c <- (Contexto (epoca primavera))
+        =>
+                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (progn$ (?var ?llista_instancies)
+                
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind ?cont (send ?var get-contenido))
+                        (bind ?t (send ?cont get-es_frio))
+                        (if (eq ?t TRUE) 
+                                        then    
+                                        (bind ?p (+ ?p 25))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el calorcito") ))
+                                        (send ?var put-puntuacion ?p)
+                                        (send ?var put-justificaciones $?j)                                             
+                        )
+                )
+                (retract ?hecho)
+                (assert (inirecomendaciones fetdefinitiuv5))
+
+)
+
+(defrule otorga-puntuacion-plato-temperatura-verano
+                ?hecho <- (inirecomendaciones fetdefinitiuv4)
+                ?c <- (Contexto (epoca verano))
+        =>
+                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (progn$ (?var ?llista_instancies)
+                
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind ?cont (send ?var get-contenido))
+                        (bind ?t (send ?cont get-es_frio))
+                        (if (eq ?t TRUE)
+                                        then
+                                        (bind ?p (+ ?p 50))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el calor") ))
+                                        (send ?var put-puntuacion ?p)
+                                        (send ?var put-justificaciones $?j)                                                     
+                        )
+                )
+                (retract ?hecho)
+                (assert (inirecomendaciones fetdefinitiuv5))
+
+)
+
+(defrule otorga-puntuacion-plato-temperatura-otono
+                ?hecho <- (inirecomendaciones fetdefinitiuv4)
+                ?c <- (Contexto (epoca otono))
+        =>
+                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (progn$ (?var ?llista_instancies)
+                
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind ?cont (send ?var get-contenido))
+                        (bind ?t (send ?cont get-es_frio))
+                        (if (eq ?t FALSE) 
+                                        then
+                                        (bind ?p (+ ?p 25))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el friecito") ))
+                                        (send ?var put-puntuacion ?p)
+                                        (send ?var put-justificaciones $?j)             
+                        )               
+                )
+                (retract ?hecho)
+                (assert (inirecomendaciones fetdefinitiuv5))
+
+)
+
+(defrule otorga-puntuacion-plato-temperatura-invierno
+                ?hecho <- (inirecomendaciones fetdefinitiuv4)
+                ?c <- (Contexto (epoca invierno))
+        =>
+                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (progn$ (?var ?llista_instancies)
+                
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind ?cont (send ?var get-contenido))
+                        (bind ?t (send ?cont get-es_frio))
+                        (if (eq ?t FALSE)
+                                        then
+                                        (bind ?p (+ ?p 50))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el frio tt") ))
+                                        (send ?var put-puntuacion ?p)
+                                        (send ?var put-justificaciones $?j)                                     
+                        )
+                )
+                (retract ?hecho)
+                (assert (inirecomendaciones fetdefinitiuv5))
+
+)
+
+(defrule otorga-puntuacion-plato-sibarita
+        ?c <- (Contexto (sibarita ?x&~0))
+        (not (puntuado))
+        =>
+        (assert (puntuado final))
+            (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (progn$ (?var ?llista_instancies)
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind ?cont (send ?var get-contenido))
+                        (bind ?precio (send ?cont get-precio))
+                        (bind ?comp (send ?cont get-complejidad))
+                        (bind ?tam (send ?cont get-tamano))
+                        
+                        (bind ?aux (integer(/ (* (** ?comp 2) ?precio ?x) (** ?tam 2))))
+                        
+                        (bind ?p (+ ?p ?aux))
+                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "indice de sibarita" ?aux)))
+
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)                             
+                )
+
+)
+
+(defrule crear-listas-desordenadas
+        (puntuado final)
+        (not (listas-sin-orden))
+        =>
+        (assert (listas-sin-orden))
+)
+
+(defrule anyadir-lista
+        ?hecho <- (listas-sin-orden (entradas $?ent) (segundos $?seg) (postres $?pos) (bebidas $?beb))
+        (not (listas-estado desorden))
+        =>
+        (assert (listas-estado desorden))
+        (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+        (bind $?auxp (create$ ))
+        (bind $?auxs (create$ ))
+        (bind $?auxt (create$ ))
+        (progn$ (?var ?llista_instancies)
+                (bind ?cont (send ?var get-contenido))
+                (bind ?type (send ?cont get-tipo))
+                (if (member primero ?type)
+                        then
+                        (bind $?auxp (insert$ $?auxp (+ (length$ $?auxp) 1) ?var))
+                )
+                (if (member segundo ?type)
+                        then
+                        (bind $?auxs (insert$ $?auxs (+ (length$ $?auxs) 1) ?var))
+                )
+                (if (member postre ?type)
+                        then
+                        (bind $?auxt (insert$ $?auxt (+ (length$ $?auxt) 1) ?var))
+                )
+        )
+        (bind $?auxb (find-all-instances ((?instancia RecomendacionBebida)) TRUE))
+        (modify ?hecho (entradas $?auxp) (segundos $?auxs) (postres $?auxt) (bebidas $?auxb))
+)
+
+
+;(defrule retorna_instancies
+ ;       (declare (salience -34))
+  ;      =>
+   ;     (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+    ;    (printout t "---------------------------" crlf)
+     ;   (printout t "PLATOS QUE HAN SOBREVIVIDO" crlf)
+      ;  (printout t "---------------------------" crlf)
+       ; (progn$ (?var ?llista_instancies)
+        ;        (bind ?t (send ?var get-contenido))
+         ;       (printout t (send ?t get-nombre) crlf)
+          ;                      (printout t (send ?var get-puntuacion) crlf)
+                  ;              (printout t (send ?var get-justificaciones) crlf)
+        ;)
 ;)
 
 
 
-(defrule retorna_instancies
-        (declare (salience -34))
-        =>
-        (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
-        (printout t "---------------------------" crlf)
-        (printout t "PLATOS QUE HAN SOBREVIVIDO" crlf)
-        (printout t "---------------------------" crlf)
-        (progn$ (?var ?llista_instancies)
-                (bind ?t (send ?var get-contenido))
-                (printout t (send ?t get-nombre) crlf)
+(deffunction maximo-puntuacion ($?lista)
+        (bind ?maximo -1)
+        (bind ?elemento nil)
+        (progn$ (?curr-rec $?lista)
+                (bind ?curr-cont (send ?curr-rec get-contenido))
+                (bind ?curr-punt (send ?curr-rec get-puntuacion))
+                (if (> ?curr-punt ?maximo)
+                        then 
+                        (bind ?maximo ?curr-punt)
+                        (bind ?elemento ?curr-rec)
+                )
         )
+        ?elemento
+)
+
+(deffunction maximo-puntuacion-menu ($?lista)
+        (bind ?maximo -1)
+        (bind ?elemento nil)
+        (progn$ (?curr-rec $?lista)
+                (bind ?curr-punt (send ?curr-rec get-puntuacion))
+                (if (> ?curr-punt ?maximo)
+                        then 
+                        (bind ?maximo ?curr-punt)
+                        (bind ?elemento ?curr-rec)
+                )
+        )
+        ?elemento
+)
+
+
+(defrule crear-listas-ordenada "Ordenando Recomendaciones..."
+        ?hecho <- (listas-sin-orden (entradas $?ent) (segundos $?seg) (postres $?pos) (bebidas $?beb))
+        (not(listas-con-orden))
+        =>
+        (bind $?resultadoentrada (create$ ))
+        (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?resultadoentrada) 4))  do
+                (bind ?curr-rec (maximo-puntuacion $?ent))
+                (bind $?ent (delete-member$ $?ent ?curr-rec))
+                (bind $?resultadoentrada (insert$ $?resultadoentrada (+ (length$ $?resultadoentrada) 1) ?curr-rec))
+        )
+
+        (bind $?resultadosegundo (create$ ))
+        (while (and (not (eq (length$ $?seg) 0)) (< (length$ $?resultadosegundo) 4))  do
+                (bind ?curr-rec (maximo-puntuacion $?seg))
+                (bind $?seg (delete-member$ $?seg ?curr-rec))
+                (bind $?resultadosegundo (insert$ $?resultadosegundo (+ (length$ $?resultadosegundo) 1) ?curr-rec))
+        )
+
+        (bind $?resultadopostres (create$ ))
+        (while (and (not (eq (length$ $?pos) 0)) (< (length$ $?resultadopostres) 4))  do
+                (bind ?curr-rec (maximo-puntuacion $?pos))
+                (bind $?pos (delete-member$ $?pos ?curr-rec))
+                (bind $?resultadopostres (insert$ $?resultadopostres (+ (length$ $?resultadopostres) 1) ?curr-rec))
+        )
+
+        (bind $?resultadobebidas (create$ ))
+        (while (and (not (eq (length$ $?beb) 0)) (< (length$ $?resultadobebidas) 4))  do
+                ;hem de puntuar aixo
+                (bind ?curr-rec (maximo-puntuacion $?beb))
+                (printout t "HIJODPTA " (send (send ?curr-rec get-contenido) get-nombre) crlf)
+                (bind $?beb (delete-member$ $?beb ?curr-rec))
+                (bind $?resultadobebidas (insert$ $?resultadobebidas (+ (length$ $?resultadobebidas) 1) ?curr-rec))
+        )
+
+        (progn$ (?var $?resultadoentrada)
+                (bind ?nom (send ?var get-contenido))
+                (bind ?nomdef (send ?nom get-nombre))
+                (bind ?var2 (send ?var get-puntuacion))
+                (printout t ?nomdef " tiene de puntuacion: " ?var2 crlf)
+        )
+        (assert (listas-con-orden (entradas $?resultadoentrada)(segundos $?resultadosegundo)(bebidas $?resultadobebidas)(postres $?resultadopostres)))
+)
+
+
+(defrule castea-lista-ordenada
+        ?hecho <- (listas-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos))
+        =>
+        (progn$ (?var $?ent)
+                (bind ?punt (send ?var get-puntuacion))
+                (bind ?just (send ?var get-justificaciones))
+                (make-instance (gensym) of CombinacionEntrada (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just))
+        )
+
+        (progn$ (?var $?seg)
+                (bind ?punt (send ?var get-puntuacion))
+                (bind ?just (send ?var get-justificaciones))
+                (make-instance (gensym) of CombinacionSegundo (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just))
+        )
+
+        (progn$ (?var $?pos)
+                (bind ?punt (send ?var get-puntuacion))
+                (bind ?just (send ?var get-justificaciones))
+                (make-instance (gensym) of CombinacionPostre (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just))
+        )
+
+        (assert(combinaciones-listas ok))
+        (assert(menu-listo nope))
+
+)
+
+(defrule menu_una_bebida
+        ?h <- (listas-con-orden (bebidas $?resultadobebidas))
+        (menu-listo nope)
+        =>
+        (bind $?primers (find-all-instances ((?instancia CombinacionEntrada)) TRUE))
+        (bind $?segons (find-all-instances ((?instancia CombinacionSegundo)) TRUE))
+        (bind $?postre (find-all-instances ((?instancia CombinacionPostre)) TRUE))
+       ; (bind $?begudes (find-all-instances ((?instancia Bebida)) TRUE))
+       (bind $?llista1 (create$) )
+       (bind $?llista2 (create$) )
+       (bind $?llista3 (create$) )
+
+
+
+        (progn$ (?plat1 $?primers)
+                (progn$ (?plat2 $?segons)
+                        (progn$ (?plat3 $?postre)
+                                (progn$ (?beg $?resultadobebidas)
+                                        (bind ?punt1 (send ?plat1 get-puntuacion))
+                                        (bind ?punt2 (send ?plat2 get-puntuacion))
+                                        (bind ?punt3 (send ?plat3 get-puntuacion))
+                                        (if (not (eq (send (send (send ?plat1 get-contenido-plat) get-contenido) get-nombre) (send (send (send ?plat2 get-contenido-plat) get-contenido) get-nombre) ))
+                                                then
+                                                (make-instance (gensym) of Menu 
+                                                        (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3))
+                                                )
+                                        )
+
+                                )
+                                (send ?plat3 delete)
+                        )
+                        (send ?plat2 delete)
+                )
+                (send ?plat1 delete)     
+        )
+        (printout t "ESTAS SON LAS BEBIDAS "  (length$ $?resultadobebidas) crlf)
+        (assert (menu-listo sipe))
+)
+
+(defrule retorna_menu
+        (menu-listo nope)
+        =>
+
+        (printout t "TENEMOS LOS MENUTSES" crlf)
+        (printout t "--------------------" crlf)
+
+        (bind $?llist_fets (create$ ))
+        (bind $?ent (find-all-instances ((?instancia Menu)) TRUE))
+        (bind $?res (create$ ))
+        (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?res) 3))  do
+
+
+                (bind ?curr-rec (maximo-puntuacion-menu $?ent))
+                (bind $?ent (delete-member$ $?ent ?curr-rec))
+
+                (bind $?res (insert$ $?res (+ (length$ $?res) 1) ?curr-rec))
+
+                (bind ?primero (send ?curr-rec get-entrada))
+                (bind ?segundo (send ?curr-rec get-segundo))
+                (bind ?postre (send ?curr-rec get-postre))
+                (bind ?bebida (send ?curr-rec get-bebida))
+
+
+                (bind ?primero-contenido (send ?primero get-contenido-plat))
+                (bind ?segundo-contenido (send ?segundo get-contenido-plat))
+                (bind ?postre-contenido (send ?postre get-contenido-plat))
+
+                (bind ?primero-nombre (send ?primero-contenido get-contenido))
+                (bind ?segundo-nombre (send ?segundo-contenido get-contenido))
+                (bind ?postre-nombre (send ?postre-contenido get-contenido))
+
+
+
+
+                (printout t "OPCION NUMERO " (length$ $?res) crlf)
+                (printout t "Primer Plato: " (send ?primero-nombre get-nombre) crlf)
+                (printout t "Segundo Plato: " (send ?segundo-nombre get-nombre) crlf)
+                (printout t "Postre: " (send ?postre-nombre  get-nombre) crlf)
+               (printout t "Bebida: " (send (send ?bebida get-contenido) get-nombre) crlf)
+
+        )
+        (assert (menu-listo done))
 )
 
 
