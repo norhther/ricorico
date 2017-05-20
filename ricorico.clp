@@ -10,6 +10,12 @@
 ;+ (build "Build 629")
 
 
+; Sat May 20 12:01:31 CEST 2017
+; 
+;+ (version "3.4.8")
+;+ (build "Build 629")
+
+
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
         (is-a USER)
         (role abstract)
@@ -24,6 +30,11 @@
 ;+              (cardinality 1 1)
                 (create-accessor read-write))
         (single-slot de_cuchara
+                (type SYMBOL)
+                (allowed-values FALSE TRUE)
+;+              (cardinality 0 1)
+                (create-accessor read-write))
+        (single-slot va_bien_pescado
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
 ;+              (cardinality 0 1)
@@ -44,6 +55,11 @@
 ;+              (cardinality 0 1)
                 (create-accessor read-write))
         (single-slot contiene_azucar
+                (type SYMBOL)
+                (allowed-values FALSE TRUE)
+;+              (cardinality 0 1)
+                (create-accessor read-write))
+        (single-slot va_bien_carne
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
 ;+              (cardinality 0 1)
@@ -77,6 +93,12 @@
                 (type FLOAT)
 ;+              (cardinality 1 1)
                 (create-accessor read-write))
+        (single-slot es_carne
+                (type SYMBOL)
+                (allowed-values FALSE TRUE)
+                (default FALSE)
+;+              (cardinality 0 1)
+                (create-accessor read-write))
         (single-slot contiene_alcohol
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
@@ -94,7 +116,7 @@
                 (create-accessor read-write))
         (single-slot lugar_origen
                 (type SYMBOL)
-                (allowed-values Espana Japon Mexico Peru Francia)
+                (allowed-values Espana Japon Mexico Francia Italia)
 ;+              (cardinality 0 1)
                 (create-accessor read-write))
         (single-slot es_frio
@@ -105,6 +127,12 @@
         (single-slot nombre
                 (type STRING)
 ;+              (cardinality 1 1)
+                (create-accessor read-write))
+        (single-slot es_pescado
+                (type SYMBOL)
+                (allowed-values FALSE TRUE)
+                (default FALSE)
+;+              (cardinality 0 1)
                 (create-accessor read-write)))
 
 (defclass Ingrediente
@@ -185,7 +213,17 @@
                 (type STRING)
 ;+              (cardinality 1 1)
                 (create-accessor read-write))
+        (single-slot va_bien_pescado
+                (type SYMBOL)
+                (allowed-values FALSE TRUE)
+;+              (cardinality 0 1)
+                (create-accessor read-write))
         (single-slot producto_animal
+                (type SYMBOL)
+                (allowed-values FALSE TRUE)
+;+              (cardinality 0 1)
+                (create-accessor read-write))
+        (single-slot va_bien_carne
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
 ;+              (cardinality 0 1)
@@ -194,17 +232,52 @@
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
 ;+              (cardinality 0 1)
+                (create-accessor read-write))
+        (single-slot lugar_origen
+                (type SYMBOL)
+                (allowed-values Espana Japon Mexico Francia Italia)
+;+              (cardinality 0 1)
                 (create-accessor read-write)))
 
 (defclass Plato
         (is-a USER)
         (role concrete)
-        (single-slot es_frio
+        (single-slot es_moderno
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
 ;+              (cardinality 0 1)
                 (create-accessor read-write))
-        (single-slot es_moderno
+        (single-slot precio
+                (type FLOAT)
+;+              (cardinality 1 1)
+                (create-accessor read-write))
+        (single-slot es_carne
+                (type SYMBOL)
+                (allowed-values FALSE TRUE)
+                (default FALSE)
+;+              (cardinality 0 1)
+                (create-accessor read-write))
+        (multislot ingrediente
+                (type INSTANCE)
+;+              (allowed-classes Ingrediente)
+                (cardinality 1 8)
+                (create-accessor read-write))
+        (multislot tipo
+                (type SYMBOL)
+                (allowed-values primero segundo postre)
+                (cardinality 1 3)
+                (create-accessor read-write))
+        (multislot disponibilidad
+                (type SYMBOL)
+                (allowed-values verano otono primavera invierno)
+                (cardinality 1 4)
+                (create-accessor read-write))
+        (single-slot lugar_origen
+                (type SYMBOL)
+                (allowed-values Espana Japon Mexico Francia Italia)
+;+              (cardinality 0 1)
+                (create-accessor read-write))
+        (single-slot es_frio
                 (type SYMBOL)
                 (allowed-values FALSE TRUE)
 ;+              (cardinality 0 1)
@@ -213,15 +286,6 @@
                 (type INTEGER)
                 (range 1 5)
 ;+              (cardinality 1 1)
-                (create-accessor read-write))
-        (single-slot precio
-                (type FLOAT)
-;+              (cardinality 1 1)
-                (create-accessor read-write))
-        (multislot ingrediente
-                (type INSTANCE)
-;+              (allowed-classes Ingrediente)
-                (cardinality 1 8)
                 (create-accessor read-write))
         (single-slot de_cuchara
                 (type SYMBOL)
@@ -232,24 +296,15 @@
                 (type STRING)
 ;+              (cardinality 1 1)
                 (create-accessor read-write))
-        (multislot tipo
-                (type SYMBOL)
-                (allowed-values primero segundo postre)
-                (cardinality 1 3)
-                (create-accessor read-write))
         (single-slot complejidad
                 (type INTEGER)
                 (range 1 5)
 ;+              (cardinality 1 1)
                 (create-accessor read-write))
-        (multislot disponibilidad
+        (single-slot es_pescado
                 (type SYMBOL)
-                (allowed-values verano otono primavera invierno)
-                (cardinality 1 4)
-                (create-accessor read-write))
-        (single-slot lugar_origen
-                (type SYMBOL)
-                (allowed-values Espana Japon Mexico Peru Francia)
+                (allowed-values FALSE TRUE)
+                (default FALSE)
 ;+              (cardinality 0 1)
                 (create-accessor read-write)))
 
@@ -261,16 +316,21 @@
 
 
 (definstances instancies
-; Thu May 18 13:45:48 CEST 2017
+; Sat May 20 12:01:31 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
+
+([ricorico_Class0] of  Ingrediente
+
+        (nombre "Curry"))
 
 ([ricorico_Class1] of  Plato
 
         (complejidad 2)
         (de_cuchara TRUE)
         (disponibilidad verano invierno primavera otono)
+        (es_carne FALSE)
         (ingrediente
                 [ricorico_Class40]
                 [ricorico_Class2])
@@ -285,11 +345,181 @@
         (contiene_gluten TRUE)
         (nombre "Harina"))
 
+([ricorico_Class10001] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (ingrediente
+                [ricorico_Class32]
+                [ricorico_Class35]
+                [ricorico_Class0])
+        (lugar_origen Japon)
+        (nombre "Kareraisu")
+        (precio 5.0)
+        (tamano 3)
+        (tipo segundo))
+
+([ricorico_Class10002] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (ingrediente
+                [ricorico_Class32]
+                [ricorico_Class10004]
+                [ricorico_Class10003])
+        (lugar_origen Japon)
+        (nombre "Kaisengomachazuke")
+        (precio 4.0)
+        (tamano 3)
+        (tipo segundo))
+
+([ricorico_Class10003] of  Ingrediente
+
+        (nombre "Te Verde"))
+
+([ricorico_Class10004] of  Ingrediente
+
+        (nombre "Caldo")
+        (producto_animal TRUE))
+
+([ricorico_Class10005] of  Ingrediente
+
+        (nombre "Encurtidos"))
+
+([ricorico_Class10006] of  Plato
+
+        (complejidad 1)
+        (disponibilidad verano otono invierno primavera)
+        (ingrediente [ricorico_Class10005])
+        (lugar_origen Japon)
+        (nombre "Tsukemono")
+        (precio 3.0)
+        (tamano 2)
+        (tipo primero))
+
+([ricorico_Class10007] of  Plato
+
+        (complejidad 3)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
+        (ingrediente [ricorico_Class44])
+        (lugar_origen Japon)
+        (nombre "Wagyu")
+        (precio 30.0)
+        (tamano 3)
+        (tipo segundo))
+
+([ricorico_Class10008] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (ingrediente
+                [ricorico_Class32]
+                [ricorico_Class37]
+                [ricorico_Class10])
+        (lugar_origen Japon)
+        (nombre "Tonkatsu")
+        (precio 6.0)
+        (tamano 4)
+        (tipo segundo))
+
+([ricorico_Class10009] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (es_frio TRUE)
+        (es_pescado TRUE)
+        (ingrediente [ricorico_Class33])
+        (nombre "Sashimi de Atun")
+        (precio 5.0)
+        (tamano 2)
+        (tipo primero))
+
+([ricorico_Class10010] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (es_frio TRUE)
+        (ingrediente [ricorico_Class10087])
+        (lugar_origen Japon)
+        (nombre "Sashimi de Salmon")
+        (precio 5.0)
+        (tamano 2)
+        (tipo primero))
+
+([ricorico_Class10011] of  Bebida
+
+        (contiene_alcohol TRUE)
+        (lugar_origen Japon)
+        (nombre "Sake")
+        (precio 8.0))
+
+([ricorico_Class10016] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class30]
+                [ricorico_Class10017])
+        (lugar_origen Japon)
+        (nombre "Revuelto de Shiitake con Ajos Tiernos")
+        (precio 4.0)
+        (tamano 3)
+        (tipo primero))
+
+([ricorico_Class10017] of  Ingrediente
+
+        (nombre "Shiitake"))
+
+([ricorico_Class10018] of  Ingrediente
+
+        (contiene_gluten TRUE)
+        (nombre "Miso"))
+
+([ricorico_Class10019] of  Plato
+
+        (complejidad 2)
+        (de_cuchara TRUE)
+        (disponibilidad otono invierno)
+        (es_carne FALSE)
+        (es_pescado FALSE)
+        (ingrediente [ricorico_Class10018])
+        (lugar_origen Japon)
+        (nombre "Sopa de Miso")
+        (precio 4.6)
+        (tamano 4)
+        (tipo primero segundo))
+
+([ricorico_Class10020] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class10]
+                [ricorico_Class19]
+                [ricorico_Class29]
+                [ricorico_Class48])
+        (lugar_origen Italia)
+        (nombre "Pizza Margarita")
+        (precio 8.0)
+        (tamano 4)
+        (tipo segundo))
+
+([ricorico_Class10022] of  Ingrediente
+
+        (nombre "Almeja")
+        (producto_animal TRUE))
+
 ([ricorico_Class10023] of  Plato
 
         (complejidad 3)
         (de_cuchara TRUE)
         (disponibilidad verano primavera otono invierno)
+        (es_carne TRUE)
         (ingrediente
                 [ricorico_Class37]
                 [ricorico_Class40]
@@ -317,7 +547,7 @@
 
 ([ricorico_Class10025] of  Ingrediente
 
-        (nombre "Pimentón"))
+        (nombre "Pimenton"))
 
 ([ricorico_Class10026] of  Plato
 
@@ -395,6 +625,7 @@
 
         (complejidad 4)
         (disponibilidad verano primavera otono invierno)
+        (es_pescado TRUE)
         (ingrediente
                 [ricorico_Class30]
                 [ricorico_Class15]
@@ -479,6 +710,7 @@
 
         (complejidad 2)
         (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
         (ingrediente
                 [ricorico_Class10027]
                 [ricorico_Class19]
@@ -554,6 +786,7 @@
 
         (complejidad 2)
         (disponibilidad verano)
+        (es_pescado TRUE)
         (ingrediente
                 [ricorico_Class10049]
                 [ricorico_Class10047]
@@ -568,6 +801,7 @@
 
         (complejidad 2)
         (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
         (ingrediente
                 [ricorico_Class10027]
                 [ricorico_Class19]
@@ -587,11 +821,12 @@
 
         (complejidad 2)
         (disponibilidad verano otono invierno primavera)
+        (es_carne TRUE)
         (ingrediente
                 [ricorico_Class10047]
                 [ricorico_Class10027])
         (lugar_origen Mexico)
-        (nombre "Pollo con salsa pipian")
+        (nombre "Pollo con Salsa Pipian")
         (precio 7.5)
         (tamano 4)
         (tipo segundo))
@@ -604,7 +839,7 @@
                 [ricorico_Class10047]
                 [ricorico_Class10027])
         (lugar_origen Mexico)
-        (nombre "Tamales yucatecos")
+        (nombre "Tamales Yucatecos")
         (precio 4.5)
         (tamano 4)
         (tipo primero))
@@ -655,7 +890,7 @@
         (disponibilidad verano otono primavera invierno)
         (ingrediente [ricorico_Class10034])
         (lugar_origen Mexico)
-        (nombre "Dulce de alfeñique")
+        (nombre "Dulce de alfenique")
         (precio 3.5)
         (tamano 3)
         (tipo postre))
@@ -742,6 +977,7 @@
 
         (complejidad 4)
         (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
         (ingrediente [ricorico_Class10027])
         (lugar_origen Francia)
         (nombre "Coq au vin")
@@ -758,6 +994,7 @@
 
         (complejidad 4)
         (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
         (ingrediente [ricorico_Class10074])
         (lugar_origen Francia)
         (nombre "Magret de canard")
@@ -773,6 +1010,7 @@
 
         (complejidad 4)
         (disponibilidad verano primavera otono invierno)
+        (es_pescado TRUE)
         (ingrediente
                 [ricorico_Class10076]
                 [ricorico_Class10035]
@@ -802,6 +1040,7 @@
 
         (complejidad 4)
         (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
         (es_moderno TRUE)
         (ingrediente
                 [ricorico_Class43]
@@ -879,16 +1118,6 @@
         (nombre "Salmon")
         (producto_animal TRUE))
 
-([ricorico_Class10088] of  Plato
-
-        (complejidad 2)
-        (disponibilidad verano otono primavera invierno)
-        (ingrediente [ricorico_Class33])
-        (nombre "Sashimi de Atun")
-        (precio 7.0)
-        (tamano 2)
-        (tipo primero))
-
 ([ricorico_Class10089] of  Ingrediente
 
         (nombre "Pulpo")
@@ -905,6 +1134,7 @@
         (ingrediente
                 [ricorico_Class10090]
                 [ricorico_Class10089])
+        (lugar_origen Japon)
         (nombre "Takoyaki")
         (precio 7.5)
         (tamano 3)
@@ -921,25 +1151,22 @@
         (lugar_origen Japon)
         (nombre "Daifuku")
         (precio 4.5)
-        (tamano 2))
+        (tamano 2)
+        (tipo postre))
 
 ([ricorico_Class10094] of  Ingrediente
 
-        (nombre "Judias"))
+        (nombre "Judia"))
 
 ([ricorico_Class10095] of  Plato
 
         (complejidad 1)
         (disponibilidad primavera otono verano invierno)
-        (ingrediente [ricorico_Class10096])
+        (ingrediente [ricorico_Class10003])
         (nombre "Te Verde")
         (precio 2.0)
         (tamano 2)
         (tipo postre))
-
-([ricorico_Class10096] of  Ingrediente
-
-        (nombre "Te verde"))
 
 ([ricorico_Class10097] of  Ingrediente
 
@@ -963,6 +1190,7 @@
 
         (complejidad 1)
         (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
         (ingrediente
                 [ricorico_Class29]
                 [ricorico_Class37])
@@ -1033,6 +1261,7 @@
 
         (complejidad 2)
         (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
         (ingrediente
                 [ricorico_Class46]
                 [ricorico_Class19]
@@ -1057,6 +1286,347 @@
 
         (nombre "Morcilla")
         (producto_animal TRUE))
+
+([ricorico_Class20023] of  Plato
+
+        (complejidad 3)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_pescado TRUE)
+        (ingrediente
+                [ricorico_Class10022]
+                [ricorico_Class20024])
+        (lugar_origen Italia)
+        (nombre "Spaghetti Frutti di Mare")
+        (precio 9.5)
+        (tamano 3)
+        (tipo segundo))
+
+([ricorico_Class20024] of  Ingrediente
+
+        (contiene_gluten TRUE)
+        (nombre "Spaghetti"))
+
+([ricorico_Class20025] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano primavera otono invierno)
+        (es_carne FALSE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class29]
+                [ricorico_Class30]
+                [ricorico_Class10071]
+                [ricorico_Class35]
+                [ricorico_Class16])
+        (lugar_origen Italia)
+        (nombre "Caponata Siciliana")
+        (precio 5.0)
+        (tamano 2)
+        (tipo primero))
+
+([ricorico_Class20026] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class32]
+                [ricorico_Class10004]
+                [ricorico_Class10]
+                [ricorico_Class19])
+        (lugar_origen Italia)
+        (nombre "Arancine Sicilianas")
+        (precio 7.5)
+        (tamano 3)
+        (tipo primero))
+
+([ricorico_Class20027] of  Plato
+
+        (complejidad 1)
+        (disponibilidad verano primavera)
+        (es_carne FALSE)
+        (es_frio TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class5]
+                [ricorico_Class10005])
+        (lugar_origen Italia)
+        (nombre "Ensalada Piamontesa")
+        (precio 5.0)
+        (tamano 3)
+        (tipo primero))
+
+([ricorico_Class20028] of  Plato
+
+        (complejidad 2)
+        (de_cuchara TRUE)
+        (disponibilidad invierno otono)
+        (es_carne FALSE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class30]
+                [ricorico_Class10094]
+                [ricorico_Class5]
+                [ricorico_Class20029])
+        (lugar_origen Italia)
+        (nombre "Sopa Minestrone")
+        (precio 8.0)
+        (tamano 4)
+        (tipo primero))
+
+([ricorico_Class20029] of  Ingrediente
+
+        (nombre "Zanahoria"))
+
+([ricorico_Class20030] of  Ingrediente
+
+        (nombre "Seta"))
+
+([ricorico_Class20033] of  Ingrediente
+
+        (contiene_gluten TRUE)
+        (nombre "Hojas de Pasta"))
+
+([ricorico_Class20034] of  Plato
+
+        (complejidad 3)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class20033]
+                [ricorico_Class44]
+                [ricorico_Class48])
+        (lugar_origen Italia)
+        (nombre "Lasana de Carne")
+        (precio 8.0)
+        (tamano 4)
+        (tipo segundo))
+
+([ricorico_Class20035] of  Plato
+
+        (complejidad 3)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_frio TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class10034]
+                [ricorico_Class10067]
+                [ricorico_Class4]
+                [ricorico_Class19])
+        (lugar_origen Italia)
+        (nombre "Tiramisu")
+        (precio 7.5)
+        (tamano 4)
+        (tipo postre))
+
+([ricorico_Class20036] of  Plato
+
+        (complejidad 3)
+        (disponibilidad verano primavera otono invierno)
+        (es_carne FALSE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class31]
+                [ricorico_Class10034]
+                [ricorico_Class10]
+                [ricorico_Class4])
+        (lugar_origen Italia)
+        (nombre "Biscotti de Almendras")
+        (precio 5.0)
+        (tamano 2)
+        (tipo postre))
+
+([ricorico_Class20037] of  Ingrediente
+
+        (nombre "Nata"))
+
+([ricorico_Class20038] of  Plato
+
+        (complejidad 2)
+        (disponibilidad verano primavera otono invierno)
+        (es_carne FALSE)
+        (es_frio TRUE)
+        (es_pescado FALSE)
+        (ingrediente [ricorico_Class20037])
+        (lugar_origen Italia)
+        (nombre "Pannacotta")
+        (precio 5.5)
+        (tamano 3)
+        (tipo postre))
+
+([ricorico_Class20039] of  Plato
+
+        (complejidad 4)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class29]
+                [ricorico_Class35]
+                [ricorico_Class4]
+                [ricorico_Class5])
+        (lugar_origen Espana)
+        (nombre "Semicuajo de Campero con Secreto de Cebolla y Patata Pochada")
+        (precio 18.0)
+        (tamano 2)
+        (tipo primero segundo))
+
+([ricorico_Class20040] of  Plato
+
+        (complejidad 4)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne TRUE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente [ricorico_Class37])
+        (lugar_origen Espana)
+        (nombre "Bienmesabe de Cerdo en Brocheta")
+        (precio 16.0)
+        (tamano 1)
+        (tipo primero))
+
+([ricorico_Class20041] of  Plato
+
+        (complejidad 4)
+        (disponibilidad verano otono invierno primavera)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class29]
+                [ricorico_Class30]
+                [ricorico_Class10071]
+                [ricorico_Class10070]
+                [ricorico_Class48])
+        (nombre "Hermandad de Hortalizas en un Abrazo de Tomate")
+        (precio 13.0)
+        (tamano 2)
+        (tipo primero segundo))
+
+([ricorico_Class20042] of  Plato
+
+        (complejidad 5)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class46]
+                [ricorico_Class10038]
+                [ricorico_Class10])
+        (nombre "Bombon de Bechamel Envuelto en Tempura de Pan Hidrolizado")
+        (precio 19.0)
+        (tamano 2)
+        (tipo primero))
+
+([ricorico_Class20043] of  Plato
+
+        (complejidad 5)
+        (de_cuchara TRUE)
+        (disponibilidad otono invierno primavera verano)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class37]
+                [ricorico_Class21])
+        (nombre "Deconstruccion de Cocido Sofrita con su Carne Desmechada")
+        (precio 20.0)
+        (tamano 3)
+        (tipo segundo))
+
+([ricorico_Class20044] of  Plato
+
+        (complejidad 4)
+        (de_cuchara TRUE)
+        (disponibilidad invierno otono)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class21]
+                [ricorico_Class40]
+                [ricorico_Class20029]
+                [ricorico_Class35]
+                [ricorico_Class5])
+        (lugar_origen Espana)
+        (nombre "Ramen Castizo en Tres Actos")
+        (precio 19.0)
+        (tamano 2)
+        (tipo segundo))
+
+([ricorico_Class20045] of  Plato
+
+        (complejidad 5)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class33]
+                [ricorico_Class10]
+                [ricorico_Class48])
+        (lugar_origen Espana)
+        (nombre "Dim Sum Castellano al Horno de Piedra con Conserva de Atun")
+        (precio 22.0)
+        (tamano 1)
+        (tipo postre))
+
+([ricorico_Class20046] of  Plato
+
+        (complejidad 5)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_frio TRUE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class20047]
+                [ricorico_Class38])
+        (nombre "Frutos Rojos con Aire Verde")
+        (precio 22.0)
+        (tamano 2)
+        (tipo postre))
+
+([ricorico_Class20047] of  Ingrediente
+
+        (nombre "Albahaca"))
+
+([ricorico_Class20048] of  Plato
+
+        (complejidad 5)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class39]
+                [ricorico_Class10058])
+        (nombre "Esfera de Chocolate con Lagrimas del Caribe")
+        (precio 15.0)
+        (tamano 2)
+        (tipo postre))
+
+([ricorico_Class20050] of  Plato
+
+        (complejidad 5)
+        (disponibilidad verano otono primavera invierno)
+        (es_carne FALSE)
+        (es_moderno TRUE)
+        (es_pescado FALSE)
+        (ingrediente
+                [ricorico_Class39]
+                [ricorico_Class10067]
+                [ricorico_Class10])
+        (nombre "Levedad de chocolate.")
+        (precio 16.0)
+        (tamano 2)
+        (tipo postre))
 
 ([ricorico_Class21] of  Ingrediente
 
@@ -1247,6 +1817,7 @@
         (complejidad 3)
         (disponibilidad verano otono primavera invierno)
         (es_frio FALSE)
+        (es_pescado TRUE)
         (ingrediente
                 [ricorico_Class33]
                 [ricorico_Class53]
@@ -1306,6 +1877,7 @@
 
         (complejidad 2)
         (disponibilidad verano otono primavera invierno)
+        (es_pescado TRUE)
         (ingrediente
                 [ricorico_Class9]
                 [ricorico_Class10]
@@ -1320,6 +1892,7 @@
 
         (nombre "Calamar")
         (producto_animal TRUE))
+
 
 
 )

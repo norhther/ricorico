@@ -1,4 +1,4 @@
-; Thu May 18 13:45:16 CEST 2017
+; Sat May 20 12:01:34 CEST 2017
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -20,12 +20,12 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[ricorico_ProjectKB_Class10152]
-		[ricorico_ProjectKB_Class10153]
-		[ricorico_ProjectKB_Class10154]
-		[ricorico_ProjectKB_Class10155]
-		[ricorico_ProjectKB_Class10156]
-		[ricorico_ProjectKB_Class10157]))
+		[ricorico_ProjectKB_Class10164]
+		[ricorico_ProjectKB_Class10165]
+		[ricorico_ProjectKB_Class10166]
+		[ricorico_ProjectKB_Class10167]
+		[ricorico_ProjectKB_Class10168]
+		[ricorico_ProjectKB_Class10169]))
 
 ([CLSES_TAB] of  Widget
 
@@ -161,7 +161,7 @@
 	(name "source_file_name")
 	(string_value "ricorico"))
 
-([KB_445556_Class0] of  Map
+([KB_488018_Class0] of  Map
 )
 
 ([LAYOUT_PROPERTIES] of  Property_List
@@ -284,32 +284,88 @@
 
 	(name "SearchTab_Query"))
 
-([ricorico_ProjectKB_Class10152] of  String
+([ricorico_ProjectKB_Class10148] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "ricorico_Class10012")
+	(property_list [ricorico_ProjectKB_Class10149])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 300))
+
+([ricorico_ProjectKB_Class10149] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10152] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "va_bien_carne")
+	(property_list [ricorico_ProjectKB_Class10153])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 360))
+
+([ricorico_ProjectKB_Class10153] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10156] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_carne")
+	(property_list [ricorico_ProjectKB_Class10157])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 240))
+
+([ricorico_ProjectKB_Class10157] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10160] of  Widget
+
+	(height 60)
+	(is_hidden FALSE)
+	(name "es_psecado")
+	(property_list [ricorico_ProjectKB_Class10161])
+	(widget_class_name "edu.stanford.smi.protege.widget.TextFieldWidget")
+	(width 200)
+	(x 0)
+	(y 300))
+
+([ricorico_ProjectKB_Class10161] of  Property_List
+)
+
+([ricorico_ProjectKB_Class10164] of  String
 
 	(name ":INSTANCE-ANNOTATION")
 	(string_value "%3AANNOTATION-TEXT"))
 
-([ricorico_ProjectKB_Class10153] of  String
+([ricorico_ProjectKB_Class10165] of  String
 
 	(name "Plato")
 	(string_value "nombre"))
 
-([ricorico_ProjectKB_Class10154] of  String
+([ricorico_ProjectKB_Class10166] of  String
 
 	(name ":PAL-CONSTRAINT")
 	(string_value "%3APAL-NAME"))
 
-([ricorico_ProjectKB_Class10155] of  String
+([ricorico_ProjectKB_Class10167] of  String
 
 	(name ":META-CLASS")
 	(string_value "%3ANAME"))
 
-([ricorico_ProjectKB_Class10156] of  String
+([ricorico_ProjectKB_Class10168] of  String
 
 	(name "Ingrediente")
 	(string_value "nombre"))
 
-([ricorico_ProjectKB_Class10157] of  String
+([ricorico_ProjectKB_Class10169] of  String
 
 	(name "Bebida")
 	(string_value "nombre"))
