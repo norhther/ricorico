@@ -2541,7 +2541,7 @@
 )
 
 (defrule otorga-puntuacion-plato-sibarita
-        ?c <- (Contexto (sibarita ?x&~0))
+        ?c <- (Contexto (sibarita ?x))
         (not (puntuado))
         =>
         (assert (puntuado final))
@@ -2566,6 +2566,7 @@
 )
 
 (defrule crear-listas-desordenadas
+        (declare (salience -10))
         (puntuado final)
         (not (listas-sin-orden))
         =>
@@ -2740,19 +2741,32 @@
                                         (bind ?punt1 (send ?plat1 get-puntuacion))
                                         (bind ?punt2 (send ?plat2 get-puntuacion))
                                         (bind ?punt3 (send ?plat3 get-puntuacion))
-                                        (if (not (eq (send (send (send ?plat1 get-contenido-plat) get-contenido) get-nombre) (send (send (send ?plat2 get-contenido-plat) get-contenido) get-nombre) ))
+                                        (if (and(not (eq (send (send (send ?plat1 get-contenido-plat) get-contenido) get-nombre) (send (send (send ?plat2 get-contenido-plat) get-contenido) get-nombre) ))
+                                                (not(member$ ?plat1 $?llista1)) (not(member$ ?plat2 $?llista2)) (not(member$ ?plat3 $?llista3)) )
                                                 then
+
+                                                (bind $?pjust (send ?plat1 get-justificaciones))
+                                                (bind $?sjust (send ?plat2 get-justificaciones))
+                                                (bind $?tjust (send ?plat3 get-justificaciones))
+                                                (bind $?bjust (send ?beg get-justificaciones))
+
+                                                (bind $?justiniana (insert$  $?pjust (+ (length$ $?pjust) 1) 
+                                                                        (insert$  $?sjust (+ (length$ $?sjust) 1)
+                                                                                (insert$  $?tjust (+ (length$ $?tjust) 1)
+                                                                                        $?bjust))))
+
                                                 (make-instance (gensym) of Menu 
-                                                        (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3))
+                                                        (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3)) (justificaciones $?justiniana)
                                                 )
+                                                (bind $?llista1 (insert$ $?llista1 (+ (length $?llista1) 1 ) ?plat1))
+                                                (bind $?llista2 (insert$ $?llista2 (+ (length $?llista2) 1 ) ?plat2))
+                                                (bind $?llista3 (insert$ $?llista3 (+ (length $?llista3) 1 ) ?plat3))
+
                                         )
 
                                 )
-                                (send ?plat3 delete)
                         )
-                        (send ?plat2 delete)
                 )
-                (send ?plat1 delete)     
         )
         (printout t "ESTAS SON LAS BEBIDAS "  (length$ $?resultadobebidas) crlf)
         (assert (menu-listo sipe))
@@ -2763,7 +2777,6 @@
         =>
 
         (printout t "TENEMOS LOS MENUTSES" crlf)
-        (printout t "--------------------" crlf)
 
         (bind $?llist_fets (create$ ))
         (bind $?ent (find-all-instances ((?instancia Menu)) TRUE))
@@ -2790,14 +2803,16 @@
                 (bind ?segundo-nombre (send ?segundo-contenido get-contenido))
                 (bind ?postre-nombre (send ?postre-contenido get-contenido))
 
-
-
-
+                (printout t "--------------------" crlf)
                 (printout t "OPCION NUMERO " (length$ $?res) crlf)
-                (printout t "Primer Plato: " (send ?primero-nombre get-nombre) crlf)
-                (printout t "Segundo Plato: " (send ?segundo-nombre get-nombre) crlf)
-                (printout t "Postre: " (send ?postre-nombre  get-nombre) crlf)
-               (printout t "Bebida: " (send (send ?bebida get-contenido) get-nombre) crlf)
+                (printout t "--------------------" crlf)
+                (printout t "Primer Plato: " (send ?primero-nombre get-nombre)   "   PVP: " (send ?primero-nombre get-precio) crlf)
+                (printout t "Segundo Plato: " (send ?segundo-nombre get-nombre)  "   PVP: " (send ?segundo-nombre get-precio) crlf)
+                (printout t "Postre: " (send ?postre-nombre  get-nombre)         "   PVP: " (send ?postre-nombre get-precio) crlf)
+                (printout t "Bebida: " (send (send ?bebida get-contenido) get-nombre) "   PVP: " (send (send ?bebida get-contenido) get-precio) crlf)
+                (printout t "Precio total: " (+ (send ?primero-nombre get-precio) (send ?segundo-nombre get-precio) (send ?postre-nombre get-precio) 
+                (send (send ?bebida get-contenido) get-precio) ) crlf)
+                (printout t crlf)
 
         )
         (assert (menu-listo done))
