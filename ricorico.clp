@@ -2302,6 +2302,7 @@
 )
 
 (defrule filtrar-epoca
+        (declare (salience -10))
         (Contexto  (epoca ?epoca))
         (test (not (eq ?epoca IDK)))
         =>
@@ -2397,19 +2398,22 @@
         )
 )
 
-
 (defrule otorga-puntuacion-plato-complejidad
         ;?c <- (object (is-a Recomendacion) (puntuacion ?p) (justificaciones $?j))
                 ?hecho <- (inirecomendaciones fetdefinitiuv2)
+                ?c <- (Contexto  (comensales ?comensales))
         =>
-                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
                 (progn$ (?var ?llista_instancies)
                         
                         (bind ?p (send ?var get-puntuacion))
-                        (bind ?p (+ ?p 34))
+                        (bind ?contenido (send ?var get-contenido))
+                        (bind ?co (send ?contenido get-complejidad))
+
+                        (bind ?p (+ ?p (/ 1000 (* ?co ?comensales 2))))
                         
                         (bind $?j (send ?var get-justificaciones))
-                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "molamazoxDs" crlf)))
+                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Se agrega " (/ 1000 (* ?co ?comensales 2))" por el factor complejidad en numero de comensales")))
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)
                 
@@ -2423,8 +2427,10 @@
                 ?hecho <- (inirecomendaciones fetdefinitiuv3)
                 (preguntarregion fet)
                 ?c <- (Contexto (regiones $?reg))
-        =>
-                 (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                =>
+                (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
+                (bind ?llista_instancies2 (find-all-instances ((?instancia RecomendacionBebida)) TRUE))
+
                 (progn$ (?var ?llista_instancies)
                 
                         (bind ?p (send ?var get-puntuacion))
@@ -2432,8 +2438,24 @@
                         (bind ?cont (send ?var get-contenido))
                         (bind ?r (send ?cont get-lugar_origen))
                         (if (member ?r $?reg) then 
-                                (bind ?p (+ ?p 50))
-                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el usuario es racista por " ?r) ))                 
+                                (bind ?p (+ ?p 30))
+                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Puntuacion de 30 porque le gusta la comida de " ?r) ))                 
+                        )
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                
+                )
+
+
+                (progn$ (?var ?llista_instancies2)
+                
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind ?cont (send ?var get-contenido))
+                        (bind ?r (send ?cont get-lugar_origen))
+                        (if (member ?r $?reg) then 
+                                (bind ?p (+ ?p 30))
+                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Puntuacion de 30 porque le gusta la comida de "?r) ))                 
                         )
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)
@@ -2458,7 +2480,7 @@
                         (if (eq ?t TRUE) 
                                         then    
                                         (bind ?p (+ ?p 25))
-                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el calorcito") ))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "El evento es en Primavera y el plato es frio -> + 25 puntos") ))
                                         (send ?var put-puntuacion ?p)
                                         (send ?var put-justificaciones $?j)                                             
                         )
@@ -2481,8 +2503,8 @@
                         (bind ?t (send ?cont get-es_frio))
                         (if (eq ?t TRUE)
                                         then
-                                        (bind ?p (+ ?p 50))
-                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el calor") ))
+                                        (bind ?p (+ ?p 40))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat ""El evento es en Verano y el plato es frio -> + 25 puntos"") ))
                                         (send ?var put-puntuacion ?p)
                                         (send ?var put-justificaciones $?j)                                                     
                         )
@@ -2506,7 +2528,7 @@
                         (if (eq ?t FALSE) 
                                         then
                                         (bind ?p (+ ?p 25))
-                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el friecito") ))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "El evento es en Otono y el plato es caliente -> + 25 puntos") ))
                                         (send ?var put-puntuacion ?p)
                                         (send ?var put-justificaciones $?j)             
                         )               
@@ -2529,8 +2551,8 @@
                         (bind ?t (send ?cont get-es_frio))
                         (if (eq ?t FALSE)
                                         then
-                                        (bind ?p (+ ?p 50))
-                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "el frio tt") ))
+                                        (bind ?p (+ ?p 40))
+                                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "El evento es en Invierno y el plato es caliente -> + 40 puntos") ))
                                         (send ?var put-puntuacion ?p)
                                         (send ?var put-justificaciones $?j)                                     
                         )
@@ -2554,10 +2576,11 @@
                         (bind ?comp (send ?cont get-complejidad))
                         (bind ?tam (send ?cont get-tamano))
                         
-                        (bind ?aux (integer(/ (* (** ?comp 2) ?precio ?x) (** ?tam 2))))
-                        
+                        ;(bind ?aux (/ (* (** ?comp 2) ?precio ?x) (** ?tam 2)))
+                        (bind ?aux (/ (* ?comp  ?precio ?x 0.01) ?tam ))
+
                         (bind ?p (+ ?p ?aux))
-                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "indice de sibarita" ?aux)))
+                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "indice de sibarita de " ?aux)))
 
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)                             
@@ -2679,17 +2702,10 @@
         (while (and (not (eq (length$ $?beb) 0)) (< (length$ $?resultadobebidas) 4))  do
                 ;hem de puntuar aixo
                 (bind ?curr-rec (maximo-puntuacion $?beb))
-                (printout t "HIJODPTA " (send (send ?curr-rec get-contenido) get-nombre) crlf)
                 (bind $?beb (delete-member$ $?beb ?curr-rec))
                 (bind $?resultadobebidas (insert$ $?resultadobebidas (+ (length$ $?resultadobebidas) 1) ?curr-rec))
         )
 
-        (progn$ (?var $?resultadoentrada)
-                (bind ?nom (send ?var get-contenido))
-                (bind ?nomdef (send ?nom get-nombre))
-                (bind ?var2 (send ?var get-puntuacion))
-                (printout t ?nomdef " tiene de puntuacion: " ?var2 crlf)
-        )
         (assert (listas-con-orden (entradas $?resultadoentrada)(segundos $?resultadosegundo)(bebidas $?resultadobebidas)(postres $?resultadopostres)))
 )
 
@@ -2741,6 +2757,8 @@
                                         (bind ?punt1 (send ?plat1 get-puntuacion))
                                         (bind ?punt2 (send ?plat2 get-puntuacion))
                                         (bind ?punt3 (send ?plat3 get-puntuacion))
+                                        (bind ?punt4 (send ?beg get-puntuacion))
+
                                         (if (and(not (eq (send (send (send ?plat1 get-contenido-plat) get-contenido) get-nombre) (send (send (send ?plat2 get-contenido-plat) get-contenido) get-nombre) ))
                                                 (not(member$ ?plat1 $?llista1)) (not(member$ ?plat2 $?llista2)) (not(member$ ?plat3 $?llista3)) )
                                                 then
@@ -2749,6 +2767,9 @@
                                                 (bind $?sjust (send ?plat2 get-justificaciones))
                                                 (bind $?tjust (send ?plat3 get-justificaciones))
                                                 (bind $?bjust (send ?beg get-justificaciones))
+
+
+
 
                                                 (bind $?justiniana (insert$  $?pjust (+ (length$ $?pjust) 1) 
                                                                         (insert$  $?sjust (+ (length$ $?sjust) 1)
