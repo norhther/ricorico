@@ -312,6 +312,11 @@
                 (type STRING)
                 (create-accessor read-write)
    )
+
+    (slot precio 
+                (type INTEGER)
+                (create-accessor read-write)
+   )
 )
 
 (defclass CombinacionSegundo
@@ -333,6 +338,11 @@
                 (type STRING)
                 (create-accessor read-write)
    )
+
+    (slot precio 
+                (type INTEGER)
+                (create-accessor read-write)
+   )
 )
 
 (defclass CombinacionPostre
@@ -352,6 +362,10 @@
    )
    (multislot justificaciones
                 (type STRING)
+                (create-accessor read-write)
+   )
+    (slot precio 
+                (type INTEGER)
                 (create-accessor read-write)
    )
 )
@@ -383,6 +397,10 @@
                 (type INSTANCE)
                 (create-accessor read-write)
         )
+        (slot precio 
+                (type INTEGER)
+                (create-accessor read-write)
+   )
 )
 
 
@@ -2125,6 +2143,31 @@
         (multislot postres)
         (multislot bebidas)
 )
+
+;#########################################
+
+(deftemplate combinaciones-sin-orden
+        (multislot entradas)
+        (multislot segundos)
+        (multislot postres)
+)
+
+
+(deftemplate combinaciones-con-orden
+        (multislot entradas)
+        (multislot segundos)
+        (multislot postres)
+)
+
+(deftemplate menus-sin-orden
+        (multislot menus)
+)
+
+(deftemplate menus-con-orden
+        (multislot menus)
+        )
+
+
 ;################################################
 ;################################################
 ;##################QUERY RULES###################
@@ -2410,7 +2453,7 @@
                         (bind ?contenido (send ?var get-contenido))
                         (bind ?co (send ?contenido get-complejidad))
 
-                        (bind ?p (+ ?p (/ 1000 (* ?co ?comensales 2))))
+                        (bind ?p (+ ?p (/ 500 (* ?co ?comensales 2))))
                         
                         (bind $?j (send ?var get-justificaciones))
                         (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Se agrega " (/ 1000 (* ?co ?comensales 2))" por el factor complejidad en numero de comensales")))
@@ -2647,7 +2690,7 @@
         (bind ?maximo -1)
         (bind ?elemento nil)
         (progn$ (?curr-rec $?lista)
-                (bind ?curr-cont (send ?curr-rec get-contenido))
+               ; (bind ?curr-cont (send ?curr-rec get-contenido))
                 (bind ?curr-punt (send ?curr-rec get-puntuacion))
                 (if (> ?curr-punt ?maximo)
                         then 
@@ -2712,6 +2755,7 @@
 
 (defrule castea-lista-ordenada
         ?hecho <- (listas-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos))
+        ?c <- (Contexto (acombebida menu))
         =>
         (progn$ (?var $?ent)
                 (bind ?punt (send ?var get-puntuacion))
@@ -2739,6 +2783,8 @@
 (defrule menu_una_bebida
         ?h <- (listas-con-orden (bebidas $?resultadobebidas))
         (menu-listo nope)
+        ?c <- (Contexto (acombebida menu))
+
         =>
         (bind $?primers (find-all-instances ((?instancia CombinacionEntrada)) TRUE))
         (bind $?segons (find-all-instances ((?instancia CombinacionSegundo)) TRUE))
@@ -2795,6 +2841,8 @@
 
 (defrule retorna_menu
         (menu-listo nope)
+        ?c <- (Contexto (acombebida menu))
+
         =>
 
         (printout t "TENEMOS LOS MENUTSES" crlf)
@@ -2837,6 +2885,215 @@
 
         )
         (assert (menu-listo done))
+)
+
+
+
+
+
+
+
+
+;#PARTE DE VICTOR JUGO
+
+(defrule emparejar-plato-bebida
+        ?lista <- (listas-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos) (bebidas $?beb))
+        ?c <- (Contexto (acombebida plato))
+        =>
+        (bind $?listae (create$))
+        (bind $?listas (create$))
+        (bind $?listap (create$))
+        (progn$ (?b $?beb)
+                (bind ?puntb (send ?b get-puntuacion))
+                (bind $?justb (send ?b get-justificaciones))
+                (bind ?precb (send (send ?b get-contenido) get-precio))
+                (progn$ (?e $?ent)
+                        (if (not(member$ ?e $?listae))
+                                then
+                                (bind ?punte (send ?e get-puntuacion))
+                                (bind $?juste (send ?e get-justificaciones))
+                                (bind ?prece (send (send ?e get-contenido) get-precio))
+                                (bind ?puntc (+ ?puntb ?punte))
+                                (bind $?justc (insert$ $?justb (+ (length$ $?justb) 1) $?juste))
+                                (bind ?precc (+ ?precb ?prece))
+                                (make-instance (gensym) of CombinacionEntrada (precio ?precc) (contenido-plat ?e) (contenido-bebida ?b) (puntuacion ?puntc) (justificaciones $?justc))
+                                ;(bind $?listae (insert$ $?listae (+ (length$ $?listae) 1) ?e))
+                        )
+
+                )
+                (progn$ (?s $?seg)
+                        (if (not(member$ ?s $?listas))
+                                then
+                                (bind ?punts (send ?s get-puntuacion))
+                                (bind $?justs (send ?s get-justificaciones))
+                                (bind ?precs (send (send ?s get-contenido) get-precio))
+                                (bind ?puntc (+ ?puntb ?punts))
+                                (bind $?justc (insert$ $?justb (+ (length$ $?justb) 1) $?justs))
+                                (bind ?precc (+ ?precb ?precs))
+                                (make-instance (gensym) of CombinacionSegundo (precio ?precc) (contenido-plat ?s) (contenido-bebida ?b) (puntuacion ?puntc) (justificaciones $?justc))
+                                ;(bind $?listas (insert$ $?listas (+ (length$ $?listas) 1) ?s)) 
+                        )
+                                                        
+                )
+                (progn$ (?p $?pos)
+                        (if (not(member$ ?p $?listap))
+                                then
+                                (bind ?puntp (send ?p get-puntuacion))
+                                (bind $?justp (send ?p get-justificaciones))
+                                (bind ?precp (send (send ?p get-contenido) get-precio))
+                                (bind ?puntc (+ ?puntb ?puntp))
+                                (bind $?justc (insert$ $?justb (+ (length$ $?justb) 1) $?justp))
+                                (bind ?precc (+ ?precb ?precp))
+                                (make-instance (gensym) of CombinacionPostre (precio ?precc) (contenido-plat ?p) (contenido-bebida ?b) (puntuacion ?puntc) (justificaciones $?justc))
+                                ;(bind $?listap (insert$ $?listap (+ (length$ $?listap) 1) ?p)) 
+                        )
+        
+                )
+        )
+        (assert (combinaciones-listas ok))
+)
+
+
+(defrule cargar-mejores-combinaciones
+        (combinaciones-listas ok)
+        ?c <- (Contexto (acombebida plato))
+        (not (combinaciones-sin-orden))
+        =>
+        (bind $?auxe (find-all-instances ((?instancia CombinacionEntrada)) TRUE))
+        (bind $?auxs (find-all-instances ((?instancia CombinacionSegundo)) TRUE))
+        (bind $?auxp (find-all-instances ((?instancia CombinacionPostre)) TRUE))
+        
+        (assert (combinaciones-sin-orden (entradas $?auxe) (segundos $?auxs) (postres $?auxp)))
+)
+
+(defrule ordenar-combinaciones
+        ?lista <- (combinaciones-sin-orden (entradas $?ent) (segundos $?seg) (postres $?pos))
+        ?c <- (Contexto (acombebida plato))
+        =>
+        (bind $?resultadoe (create$ ))
+        (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?resultadoe) 10))  do
+                (bind ?curr-rec (maximo-puntuacion $?ent))
+                (bind $?ent (delete-member$ $?ent ?curr-rec))
+                (bind $?resultadoe (insert$ $?resultadoe (+ (length$ $?resultadoe) 1) ?curr-rec))
+        )
+        (bind $?resultados (create$ ))
+        (while (and (not (eq (length$ $?seg) 0)) (< (length$ $?resultados) 10))  do
+                (bind ?curr-rec (maximo-puntuacion $?seg))
+                (bind $?seg (delete-member$ $?seg ?curr-rec))
+                (bind $?resultados (insert$ $?resultados (+ (length$ $?resultados) 1) ?curr-rec))
+        )
+        (bind $?resultadop (create$ ))
+        (while (and (not (eq (length$ $?pos) 0)) (< (length$ $?resultadop) 10))  do
+                (bind ?curr-rec (maximo-puntuacion $?pos))
+                (bind $?pos (delete-member$ $?pos ?curr-rec))
+                (bind $?resultadop (insert$ $?resultadop (+ (length$ $?resultadop) 1) ?curr-rec))
+        )
+        
+        (assert (combinaciones-con-orden (entradas $?resultadoe) (segundos $?resultados) (postres $?resultadop)))
+)
+
+(defrule emparejar-mejores-menus
+        ?c <- (Contexto (acombebida plato))
+        ?comb <- (combinaciones-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos))
+        (not (menu-listas ok))
+        =>
+        (bind $?listae (create$))
+        (bind $?listas (create$))
+        (bind $?listap (create$))       
+        (progn$ (?e $?ent)              
+                (bind ?punte (send ?e get-puntuacion))
+                (bind $?juste (send ?e get-justificaciones))
+                (bind ?prece (send ?e get-precio))
+                (bind ?nome (send (send (send ?e get-contenido-plat) get-contenido) get-nombre))
+                (progn$ (?s $?seg)
+                        (bind ?punts (send ?s get-puntuacion))
+                        (bind $?justs (send ?s get-justificaciones))
+                        (bind ?precs (send ?s get-precio))
+                        (bind ?noms (send (send (send ?s get-contenido-plat) get-contenido) get-nombre))
+                        (if (not (eq ?noms ?nome)) then
+                                (progn$ (?p $?pos)
+                                        (bind ?nomp (send (send (send ?p get-contenido-plat) get-contenido) get-nombre))
+                                        (if (and (not (member$ ?nome $?listae)) 
+                                                                (not (member$ ?noms $?listas)) 
+                                                                (not (member$ ?nomp $?listap))) 
+                                                then
+                                                (bind ?puntp (send ?p get-puntuacion))
+                                                (bind $?justp (send ?p get-justificaciones))
+                                                (bind ?precp (send ?p get-precio))
+                                                
+                                                (bind ?puntm (+ ?puntp ?punts ?punte))
+                                                (bind $?justm (insert$ $?juste (+ (length$ $?juste) 1) (insert$ $?justs (+ (length$ $?justs) 1) $?justp)))
+                                                (bind ?precm (+ ?prece ?precs ?precp))
+                                                
+                                                (make-instance (gensym) of Menu (entrada ?e) (segundo ?s) (postre ?p) (puntuacion ?puntm) (justificaciones $?justm) (precio ?precm))
+                                                (bind $?listae (insert$ $?listae (+ (length$ $?listae) 1) ?nome))
+                                                (bind $?listas (insert$ $?listas (+ (length$ $?listas) 1) ?noms))
+                                                (bind $?listap (insert$ $?listap (+ (length$ $?listap) 1) ?nomp))
+                                        )
+
+                                )
+                        )
+                )
+        )
+        (printout t $?listae crlf)
+        (assert (menu-listas ok))
+)
+
+(defrule cargar-menu
+        (menu-listas ok)
+        (Contexto (acombebida plato))
+        =>
+        (bind $?lista-instancias (find-all-instances ((?instancia Menu)) TRUE))
+        (assert (menus-sin-orden (menus $?lista-instancias)))
+)
+
+(defrule ordenar-menu
+        ?hecho <- (menus-sin-orden (menus $?m))
+        ?c <- (Contexto (acombebida plato))
+        =>
+        (bind $?lista (find-all-instances ((?instancia Menu)) TRUE))
+        (bind $?resultado (create$ ))
+        (while (and (not (eq (length$ $?lista) 0)) (< (length$ $?resultado) 100))  do
+                (bind ?curr-rec (maximo-puntuacion-menu $?lista))
+                (bind $?lista (delete-member$ $?lista ?curr-rec))
+                (bind $?resultado (insert$ $?resultado (+ (length$ $?resultado) 1) ?curr-rec))
+        )
+        (assert (menus-con-orden (menus $?resultado)))
+)
+
+
+(defrule mostrar-menus
+        (Contexto (acombebida plato))
+        ?mconorden <- (menus-con-orden (menus $?m))
+        =>
+        (bind $?resultado (create$))
+        (while (and (not (eq (length$ $?m) 0)) (< (length$ $?resultado) 3))  do
+                (bind ?curr-m (maximo-puntuacion-menu $?m))
+                (bind $?m (delete-member$ $?m ?curr-m))
+                (bind $?resultado (insert$ $?resultado (+ (length$ $?resultado) 1) ?curr-m))
+                
+        )
+        ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ 1 $?m)))
+        ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ (length$ $?m) $?m)))
+        ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ (integer(/(length$ $?m) 2)) $?m)))
+        (progn$ (?var $?resultado)
+                (bind ?e (send ?var get-entrada))
+                (bind ?s (send ?var get-segundo))
+                (bind ?p (send ?var get-postre))
+                
+                (bind ?nome (send (send (send ?e get-contenido-plat) get-contenido) get-nombre))
+                (bind ?noms (send (send (send ?s get-contenido-plat) get-contenido) get-nombre))
+                (bind ?nomp (send (send (send ?p get-contenido-plat) get-contenido) get-nombre))
+                
+                (bind ?nomeb (send (send (send ?e get-contenido-bebida) get-contenido) get-nombre))
+                (bind ?nomsb (send (send (send ?s get-contenido-bebida) get-contenido) get-nombre))
+                (bind ?nompb (send (send (send ?p get-contenido-bebida) get-contenido) get-nombre))
+                
+                (printout t "----------MENU------" crlf)
+                (printout t "Entrada: " ?nome " " ?nomeb crlf)
+                (printout t "Segundo: " ?noms " " ?nomsb crlf)
+                (printout t "Postre: " ?nomp " " ?nompb crlf crlf)
+        )
 )
 
 
