@@ -944,6 +944,24 @@
 
         (nombre "Mamey"))
 
+
+([ricorico_Class10000] of  Bebida
+
+        (contiene_alcohol TRUE)
+        (lugar_origen Francia)
+        (nombre "Cabernet Sauvignon 2010")
+        (precio 5.0)
+        (va_bien_carne TRUE))
+
+
+([ricorico_Class20001] of  Bebida
+
+        (contiene_alcohol TRUE)
+        (lugar_origen Espana)
+        (nombre "Barbuntin 2015 Quinta Couselo  (Albarino)")
+        (precio 6.0)
+        (va_bien_pescado TRUE))
+
 ([ricorico_Class10057] of  Plato
 
         (complejidad 1)
@@ -2491,7 +2509,6 @@
 
 
                 (progn$ (?var ?llista_instancies2)
-                
                         (bind ?p (send ?var get-puntuacion))
                         (bind $?j (send ?var get-justificaciones))
                         (bind ?cont (send ?var get-contenido))
@@ -2607,7 +2624,7 @@
 
 (defrule otorga-puntuacion-plato-sibarita
         ?c <- (Contexto (sibarita ?x))
-        (not (puntuado))
+        (not (puntuado final))
         =>
         (assert (puntuado final))
             (bind ?llista_instancies (find-all-instances ((?instancia Recomendacion)) TRUE))
@@ -2780,6 +2797,8 @@
 
 )
 
+(defglobal ?*punt_extra_beg* = 0)
+
 (defrule menu_una_bebida
         ?h <- (listas-con-orden (bebidas $?resultadobebidas))
         (menu-listo nope)
@@ -2795,7 +2814,6 @@
        (bind $?llista3 (create$) )
 
 
-
         (progn$ (?plat1 $?primers)
                 (progn$ (?plat2 $?segons)
                         (progn$ (?plat3 $?postre)
@@ -2804,6 +2822,7 @@
                                         (bind ?punt2 (send ?plat2 get-puntuacion))
                                         (bind ?punt3 (send ?plat3 get-puntuacion))
                                         (bind ?punt4 (send ?beg get-puntuacion))
+
 
                                         (if (and(not (eq (send (send (send ?plat1 get-contenido-plat) get-contenido) get-nombre) (send (send (send ?plat2 get-contenido-plat) get-contenido) get-nombre) ))
                                                 (not(member$ ?plat1 $?llista1)) (not(member$ ?plat2 $?llista2)) (not(member$ ?plat3 $?llista3)) )
@@ -2815,16 +2834,17 @@
                                                 (bind $?bjust (send ?beg get-justificaciones))
 
 
-
-
                                                 (bind $?justiniana (insert$  $?pjust (+ (length$ $?pjust) 1) 
                                                                         (insert$  $?sjust (+ (length$ $?sjust) 1)
                                                                                 (insert$  $?tjust (+ (length$ $?tjust) 1)
                                                                                         $?bjust))))
-
+                                                ;(bind $?justiniana (insert$  $?justiniana (+ (length$ $?justiniana) 1) $?justifica_bebida))
                                                 (make-instance (gensym) of Menu 
-                                                        (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3)) (justificaciones $?justiniana)
+                                                        (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3 ?punt4 ?*punt_extra_beg*)) (justificaciones $?justiniana)
                                                 )
+
+
+
                                                 (bind $?llista1 (insert$ $?llista1 (+ (length $?llista1) 1 ) ?plat1))
                                                 (bind $?llista2 (insert$ $?llista2 (+ (length $?llista2) 1 ) ?plat2))
                                                 (bind $?llista3 (insert$ $?llista3 (+ (length $?llista3) 1 ) ?plat3))
@@ -2835,7 +2855,6 @@
                         )
                 )
         )
-        (printout t "ESTAS SON LAS BEBIDAS "  (length$ $?resultadobebidas) crlf)
         (assert (menu-listo sipe))
 )
 
@@ -2886,11 +2905,6 @@
         )
         (assert (menu-listo done))
 )
-
-
-
-
-
 
 
 
@@ -3000,18 +3014,21 @@
         (bind $?listae (create$))
         (bind $?listas (create$))
         (bind $?listap (create$))       
-        (progn$ (?e $?ent)              
+        (progn$ (?e $?ent)
+                ;(bind ?bebnoe (send (send (send (send ?e get-contenido-bebida) get-contenido) get-nombre)))              
                 (bind ?punte (send ?e get-puntuacion))
                 (bind $?juste (send ?e get-justificaciones))
                 (bind ?prece (send ?e get-precio))
                 (bind ?nome (send (send (send ?e get-contenido-plat) get-contenido) get-nombre))
                 (progn$ (?s $?seg)
+                ;(bind ?bebnos (send (send (send (send ?s get-contenido-bebida) get-contenido) get-nombre)))
                         (bind ?punts (send ?s get-puntuacion))
                         (bind $?justs (send ?s get-justificaciones))
                         (bind ?precs (send ?s get-precio))
                         (bind ?noms (send (send (send ?s get-contenido-plat) get-contenido) get-nombre))
                         (if (not (eq ?noms ?nome)) then
                                 (progn$ (?p $?pos)
+                                        ;(bind ?bebnop (send (send (send (send ?p get-contenido-bebida) get-contenido) get-nombre)))
                                         (bind ?nomp (send (send (send ?p get-contenido-plat) get-contenido) get-nombre))
                                         (if (and (not (member$ ?nome $?listae)) 
                                                                 (not (member$ ?noms $?listas)) 
@@ -3090,9 +3107,11 @@
                 (bind ?nompb (send (send (send ?p get-contenido-bebida) get-contenido) get-nombre))
                 
                 (printout t "----------MENU------" crlf)
-                (printout t "Entrada: " ?nome " " ?nomeb crlf)
-                (printout t "Segundo: " ?noms " " ?nomsb crlf)
-                (printout t "Postre: " ?nomp " " ?nompb crlf crlf)
+                (printout t "Entrada: " ?nome " acompanado de " ?nomeb crlf)
+                (printout t "Segundo: " ?noms " acompanado de " ?nomsb crlf)
+                (printout t "Postre: " ?nomp " acompanado de " ?nompb  crlf)
+                (printout t "PVP total: " (send ?var get-precio) crlf crlf)
+
         )
 )
 
