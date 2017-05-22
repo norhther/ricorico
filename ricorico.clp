@@ -1709,7 +1709,7 @@
         (nombre "Dim Sum Castellano al Horno de Piedra con Conserva de Atun")
         (precio 22.0)
         (tamano 2)
-        (tipo postre))
+        (tipo segundo))
 
 ([ricorico_Class20046] of  Plato
 
@@ -2216,7 +2216,7 @@
 (defrule bienvenido
  (not (Contexto))
   =>
-        (printout t "
+        (printout t "------------------------------------------------------------------------------------------------------------------" crlf "
        .--,--.            
        `.  ,.'                    
         |___|       
@@ -2227,7 +2227,8 @@
    ` <=|     |= /'
        |     |
        |_____|  
-~~~~~~~ ===== ~~~~~~~~ ")
+~~~~~~~ ===== ~~~~~~~~      Picao by Omar Lopez, Victor Hugo Rivero Manjieter, Albert Canyelles - FIB 2017" crlf 
+"------------------------------------------------------------------------------------------------------------------" crlf)
 )
 
 ; no hacer mas de un modify de un mismo fact en una misma
@@ -2236,7 +2237,7 @@
 (defrule pregunta-inicial
   (not (Contexto))
   =>
-  (bind ?nombre (pregunta-general "Cual es tu nombre?"))
+  (bind ?nombre (pregunta-general "Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted: "))
   (assert (Contexto (nomusuari ?nombre)))
   (assert (inirecomendaciones nope))
 )
@@ -2861,8 +2862,6 @@
         (menu-listo nope)
         ?c <- (Contexto (acombebida menu))
         ?p <- (Contexto (preciomax ?pmax) (preciomin ?pmin))
-
-
         =>
         (bind $?primers (find-all-instances ((?instancia CombinacionEntrada)) TRUE))
         (bind $?segons (find-all-instances ((?instancia CombinacionSegundo)) TRUE))
@@ -2987,7 +2986,7 @@
 
 (defrule retorna_menu
         (menu-listo sipe)
-        ?c <- (Contexto (acombebida menu))      
+        ?c <- (Contexto (acombebida menu) (nomusuari ?nomuser))      
 
         =>
 
@@ -3002,11 +3001,11 @@
         )
 
         (if (eq (length$ ?res) 0) then
-                (printout t "No se han encontrado menus" crlf)
+                (printout t crlf crlf "No se han encontrado menus" crlf)
 
                 else
 
-                (printout t "Se han encontrado los siguientes menus" crlf)
+                (printout t crlf crlf "Se han encontrado los siguientes menus:" crlf crlf)
         )
 
         (while (not (eq (length$ $?res) 0))  do
@@ -3046,6 +3045,7 @@
                 (bind ?preumenut (send ?curr-rec get-precio) crlf)
 
         )
+        (printout t crlf "-----------------------"crlf "Gracias por confiar en ChicoteDroid, " ?nomuser crlf)
         (assert (menu-listo done))
 )
 
@@ -3218,16 +3218,14 @@
 (defrule emparejar-mejores-menus
         ?c <- (Contexto (acombebida plato))
         ?comb <- (combinaciones-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos))
-        ?p <- (Contexto (preciomax ?pmax) (preciomin ?pmin))
+        ?p <- (Contexto (preciomax ?pmax) (preciomin ?pmin) )
 
         (not (menu-listas ok))
         =>
         (bind $?listae (create$))
         (bind $?listas (create$))
         (bind $?listap (create$))
-        (printout t (length$ $?ent) crlf)
-        (printout t (length$ $?seg) crlf)
-        (printout t (length$ $?pos) crlf)       
+     
         (progn$ (?e $?ent)
                 ;(bind ?bebnoe (send (send (send (send ?e get-contenido-bebida) get-contenido) get-nombre)))              
                 (bind ?punte (send ?e get-puntuacion))
@@ -3240,19 +3238,26 @@
                         (bind $?justs (send ?s get-justificaciones))
                         (bind ?precs (send ?s get-precio))
                         (bind ?noms (send (send (send ?s get-contenido-plat) get-contenido) get-nombre))
+
+                        (bind ?nombeg1 (send (send (send ?e get-contenido-bebida) get-contenido) get-nombre))
+                        (bind ?nombeg2 (send (send (send ?s get-contenido-bebida) get-contenido) get-nombre))
+
+
                         (if (not (eq ?noms ?nome)) then
                                 (progn$ (?p $?pos)
                                         ;(bind ?bebnop (send (send (send (send ?p get-contenido-bebida) get-contenido) get-nombre)))
                                         (bind ?precp (send ?p get-precio))
 
+                                        (bind ?nombeg3 (send (send (send ?p get-contenido-bebida) get-contenido) get-nombre))
                                         (bind ?prec_sup (+ ?precp ?prece ?precs))
                                         (bind ?nomp (send (send (send ?p get-contenido-plat) get-contenido) get-nombre))
                                         (if (and (not (member$ ?nome $?listae)) 
                                                                 (not (member$ ?noms $?listas)) 
                                                                 (not (member$ ?nomp $?listap))
                                                                 (> ?pmax ?prec_sup) (< ?pmin ?prec_sup)
+                                                                ;Aixo es pot retocar
+                                                                (and (not (eq ?nombeg1 ?nombeg2)) (not (eq ?nombeg2 ?nombeg3)) (not (eq ?nombeg1 ?nombeg3)))
                                                 ) 
-
                                                 then
                                                 (bind ?puntp (send ?p get-puntuacion))
                                                 (bind $?justp (send ?p get-justificaciones))
@@ -3298,8 +3303,9 @@
 
 
 (defrule mostrar-menus
-        (Contexto (acombebida plato))
+        (Contexto (acombebida plato) (nomusuari ?nomuser))
         ?mconorden <- (menus-con-orden (menus $?m))
+
         =>
         (bind $?resultado (create$))
         (while (and (not (eq (length$ $?m) 0)) (< (length$ $?resultado) 3))  do
@@ -3322,11 +3328,11 @@
         ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ (integer(/(length$ $?m) 2)) $?m)))
 
         (if (eq (length$ ?resultado1) 0) then
-                (printout t "No se han encontrado menus" crlf)
+                (printout t crlf crlf "No se han encontrado menus" crlf)
 
                 else
 
-                (printout t "Se han encontrado los siguientes menus" crlf)
+                (printout t crlf crlf "Se han encontrado los siguientes menus:" crlf crlf)
         )
         (progn$ (?var $?resultado1)
                 (bind ?e (send ?var get-entrada))
@@ -3352,6 +3358,7 @@
                                 )
 
         )
+        (printout t crlf "-----------------------"crlf "Gracias por confiar en ChicoteDroid, " ?nomuser crlf)
 )
 
 

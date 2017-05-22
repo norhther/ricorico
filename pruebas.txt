@@ -1,0 +1,517 @@
+Juego 1:
+Una pareja, apurada por la crisis, quería celebrar su banquete de bodas por un precio por comensal de 6 euros.
+Evidentemente, ChicoteDroid no encontrará ningún menú por ese precio:
+
+Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted:  Pepe
+En que estacion se celebrara el evento? (primavera, verano, otono o invierno) otono
+Cuantos comensales seran? 200
+Cual sera el precio minimo por comensal? [0, 100] 0
+Cual sera el precio maximo por comensal? [0, 300] 6
+El menu tiene que ser apto para veganos? (s/n) n
+El menu tiene que ser apto para celiacos? (s/n) n
+El menu tiene que ser apto para intolerantes a la lactosa? (s/n) n
+El menu tiene que ser apto para abstemios? (s/n) n
+El menu tiene que ser apto para diabeticos? (s/n) n
+Que tan sibarita desea que sea el menu? [0, 10] 4
+Desea que la bebida se empareje por plato o por menu?menu
+Tiene preferencia por la comida de Espana? (s/n)n
+Tiene preferencia por la comida de Mexico? (s/n)n
+Tiene preferencia por la comida de Japon? (s/n)n
+Tiene preferencia por la comida de Francia? (s/n)n
+Tiene preferencia por la comida de Italia? (s/n)n
+
+
+No se han encontrado menus
+
+-----------------------
+Gracias por confiar en ChicoteDroid, Pepe
+
+
+
+
+
+Juego 2:
+GreenPeace quiere celebrar una fiesta para celebrar su 46 cumpleaños y necesita un catering
+con la restricción de que sus platos no pueden contener carne.
+
+Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted:  Flor de Loto
+En que estacion se celebrara el evento? (primavera, verano, otono o invierno) primavera
+Cuantos comensales seran? 288
+Cual sera el precio minimo por comensal? [0, 100] 1
+Cual sera el precio maximo por comensal? [1, 300] 20
+El menu tiene que ser apto para veganos? (s/n) s
+El menu tiene que ser apto para celiacos? (s/n) n
+El menu tiene que ser apto para intolerantes a la lactosa? (s/n) n
+El menu tiene que ser apto para abstemios? (s/n) n
+El menu tiene que ser apto para diabeticos? (s/n) n
+Que tan sibarita desea que sea el menu? [0, 10] 2
+Desea que la bebida se empareje por plato o por menu?menu
+Tiene preferencia por la comida de Espana? (s/n)n
+Tiene preferencia por la comida de Mexico? (s/n)n
+Tiene preferencia por la comida de Japon? (s/n)n
+Tiene preferencia por la comida de Francia? (s/n)n
+Tiene preferencia por la comida de Italia? (s/n)n
+
+
+Se han encontrado los siguientes menus:
+
+----------MENU---------
+Primer Plato: Ensalada Piamontesa   PVP: 5.0
+Segundo Plato: Arroz a la Cubana   PVP: 6.0
+Postre: Fresas con Nata   PVP: 4.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 19.0
+
+Se agrega 190.607367682175 por el factor complejidad en numero de comensales
+indice de sibarita de 1.49071198499986
+El evento es en Primavera y el plato es frio -> + 25 puntos
+Se agrega 190.607367682175 por el factor complejidad en numero de comensales
+indice de sibarita de 0.979795897113271
+Se agrega 190.607367682175 por el factor complejidad en numero de comensales
+indice de sibarita de 1.33333333333333
+El evento es en Primavera y el plato es frio -> + 25 puntos
+
+----------MENU---------
+Primer Plato: Arroz a la Cubana   PVP: 6.0
+Segundo Plato: Kareraisu   PVP: 5.0
+Postre: Mueganos   PVP: 3.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 18.0
+
+Se agrega 190.607367682175 por el factor complejidad en numero de comensales
+indice de sibarita de 0.979795897113271
+Se agrega 150.966644321224 por el factor complejidad en numero de comensales
+indice de sibarita de 2.98142396999972
+Se agrega 190.607367682175 por el factor complejidad en numero de comensales
+indice de sibarita de 1.73205080756888
+
+----------MENU---------
+Primer Plato: Tsukemono   PVP: 3.0
+Segundo Plato: Sopa de Cereza   PVP: 4.0
+Postre: Cafe Solo   PVP: 1.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 12.0
+
+Se agrega 190.607367682175 por el factor complejidad en numero de comensales
+indice de sibarita de 1.73205080756888
+Se agrega 150.966644321224 por el factor complejidad en numero de comensales
+indice de sibarita de 4.0
+El evento es en Primavera y el plato es frio -> + 25 puntos
+Se agrega 190.607367682175 por el factor complejidad en numero de comensales
+indice de sibarita de 2.0
+
+
+-----------------------
+Gracias por confiar en ChicoteDroid, Flor
+
+
+Ningún plato de los que han aparecido en los menús contienen carne.
+El Tsukemono son unos encurtidos con arroz, y el Kareraisu es un curry vegetal.
+
+
+
+
+Juego 3:
+Enemesio quiere preparar un convite especial para sus amigos, pero tiene problemas con la lactosa, con el azúcar, es celíaco y no bebe desde hace 20 años.
+Además, quiere mucho a su perro Babas, por lo que se ha hecho vegetariano.
+
+Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted:  Enemesio
+En que estacion se celebrara el evento? (primavera, verano, otono o invierno) otono
+Cuantos comensales seran? 12
+Cual sera el precio minimo por comensal? [0, 100] 1
+Cual sera el precio maximo por comensal? [1, 300] 25
+El menu tiene que ser apto para veganos? (s/n) s
+El menu tiene que ser apto para celiacos? (s/n) s
+El menu tiene que ser apto para intolerantes a la lactosa? (s/n) s
+El menu tiene que ser apto para abstemios? (s/n) s
+El menu tiene que ser apto para diabeticos? (s/n) s
+Que tan sibarita desea que sea el menu? [0, 10] 2
+Desea que la bebida se empareje por plato o por menu?plato
+Tiene preferencia por la comida de Espana? (s/n)n
+Tiene preferencia por la comida de Mexico? (s/n)n
+Tiene preferencia por la comida de Japon? (s/n)n
+Tiene preferencia por la comida de Francia? (s/n)n
+Tiene preferencia por la comida de Italia? (s/n)n
+
+
+Se han encontrado los siguientes menus:
+
+----------MENU---------
+Primer Plato: Tsukemono acompanado de Agua de Jamaica
+Segundo plato: Arroz a la Cubana acompanado de Agua de Tamarindo
+Postre: Cafe Solo acompanado de Sirop a l'Eau
+PVP total: 17.5
+
+Se agrega 139.758506396608 por el factor complejidad en numero de comensales
+indice de sibarita de 1.73205080756888
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 139.758506396608 por el factor complejidad en numero de comensales
+indice de sibarita de 0.979795897113271
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 139.758506396608 por el factor complejidad en numero de comensales
+indice de sibarita de 2.0
+El evento es en Otono y el plato es caliente -> + 25 puntos
+----------MENU---------
+Primer Plato: Arroz a la Cubana acompanado de Agua de Jamaica
+Segundo plato: Kareraisu acompanado de Agua de Tamarindo
+Postre: Te Verde acompanado de Sirop a l'Eau
+PVP total: 20.5
+
+Se agrega 139.758506396608 por el factor complejidad en numero de comensales
+indice de sibarita de 0.979795897113271
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 122.364159848092 por el factor complejidad en numero de comensales
+indice de sibarita de 2.98142396999972
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 139.758506396608 por el factor complejidad en numero de comensales
+indice de sibarita de 1.4142135623731
+El evento es en Otono y el plato es caliente -> + 25 puntos
+
+-----------------------
+Gracias por confiar en ChicoteDroid, Enemesio
+
+
+Todos los elementos, según nuestra ontología, respetan las restricciones.
+
+
+
+Juego 4:
+La directiva de la FIB desea agradecer a unos pocos estudiantes de Computación su dedicación en la materia de Inteligencia Artificial, por lo que necesitan elaborar
+un pica pica muy selecto.
+
+Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted:  Sr Fib
+En que estacion se celebrara el evento? (primavera, verano, otono o invierno) verano
+Cuantos comensales seran? 15
+Cual sera el precio minimo por comensal? [0, 100] 1
+Cual sera el precio maximo por comensal? [1, 300] 100
+El menu tiene que ser apto para veganos? (s/n) n
+El menu tiene que ser apto para celiacos? (s/n) n
+El menu tiene que ser apto para intolerantes a la lactosa? (s/n) n
+El menu tiene que ser apto para abstemios? (s/n) n
+El menu tiene que ser apto para diabeticos? (s/n) n
+Que tan sibarita desea que sea el menu? [0, 10] 10
+Desea que la bebida se empareje por plato o por menu?plato
+Tiene preferencia por la comida de Espana? (s/n)n
+Tiene preferencia por la comida de Mexico? (s/n)n
+Tiene preferencia por la comida de Japon? (s/n)n
+Tiene preferencia por la comida de Francia? (s/n)n
+Tiene preferencia por la comida de Italia? (s/n)n
+
+
+Se han encontrado los siguientes menus:
+
+----------MENU---------
+Primer Plato: Bienmesabe de Cerdo en Brocheta acompanado de Cabernet Sauvignon 2010
+Segundo plato: Kokotxas de Bacalao en Salsa Verde acompanado de Barbuntin 2015 Quinta Couselo (Albarino)
+Postre: Frutos Rojos con Aire Verde acompanado de Sake
+PVP total: 63.8
+
+Se agrega 102.708050201102 por el factor complejidad en numero de comensales
+indice de sibarita de 160.0
+Esta bebida va bien con este plato +100 puntos
+Se agrega 102.708050201102 por el factor complejidad en numero de comensales
+indice de sibarita de 46.7618077780005
+Esta bebida va bien con este plato +100 puntos
+Se agrega 100.0 por el factor complejidad en numero de comensales
+indice de sibarita de 117.260393995586
+EleventoesenVeranoyelplatoesfrio->+25puntos
+----------MENU---------
+Primer Plato: Sashimi de Atun acompanado de Barbuntin 2015 Quinta Couselo (Albarino)
+Segundo plato: Wagyu acompanado de Cabernet Sauvignon 2010
+Postre: Bollicao Handmade al estilo de la abuela acompanado de Sake
+PVP total: 67.5
+
+Se agrega 124.37245180992 por el factor complejidad en numero de comensales
+indice de sibarita de 22.3606797749979
+EleventoesenVeranoyelplatoesfrio->+25puntos
+Esta bebida va bien con este plato +100 puntos
+Se agrega 110.832200804409 por el factor complejidad en numero de comensales
+indice de sibarita de 54.7722557505166
+Esta bebida va bien con este plato +100 puntos
+Se agrega 100.0 por el factor complejidad en numero de comensales
+indice de sibarita de 108.972473588517
+----------MENU---------
+Primer Plato: Bombon de Bechamel Envuelto en Tempura de Pan Hidrolizado acompanado de Barbuntin 2015 Quinta Couselo (Albarino)
+Segundo plato: Coq au vin acompanado de Cabernet Sauvignon 2010
+Postre: Levedad de chocolate. acompanado de Sake
+PVP total: 60.5
+
+Se agrega 100.0 por el factor complejidad en numero de comensales
+indice de sibarita de 108.972473588517
+Se agrega 102.708050201102 por el factor complejidad en numero de comensales
+indice de sibarita de 46.1880215351701
+Esta bebida va bien con este plato +100 puntos
+Se agrega 100.0 por el factor complejidad en numero de comensales
+indice de sibarita de 100.0
+
+-----------------------
+Gracias por confiar en ChicoteDroid, Sr
+
+
+En este caso tenemos unos índices de sibarita muy grande, que se evalúan respecto al tamaño de la ración (más pequeño, mejor)
+a la complejidad y al precio (más alto, mejor).
+
+
+
+Juego 5
+Pepe y Verónica han vuelto (con algo más de dinero) y desean un convite ligeramente selecto, pero con un presupuesto insuficiente.
+
+Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted:  Veronica
+En que estacion se celebrara el evento? (primavera, verano, otono o invierno) otono
+Cuantos comensales seran? 200
+Cual sera el precio minimo por comensal? [0, 100] 1
+Cual sera el precio maximo por comensal? [1, 300] 18
+El menu tiene que ser apto para veganos? (s/n) n
+El menu tiene que ser apto para celiacos? (s/n) n
+El menu tiene que ser apto para intolerantes a la lactosa? (s/n) n
+El menu tiene que ser apto para abstemios? (s/n) n
+El menu tiene que ser apto para diabeticos? (s/n) n
+Que tan sibarita desea que sea el menu? [0, 10] 8
+Desea que la bebida se empareje por plato o por menu?menu
+Tiene preferencia por la comida de Espana? (s/n)n
+Tiene preferencia por la comida de Mexico? (s/n)n
+Tiene preferencia por la comida de Japon? (s/n)n
+Tiene preferencia por la comida de Francia? (s/n)n
+Tiene preferencia por la comida de Italia? (s/n)n
+
+
+Se han encontrado los siguientes menus:
+
+----------MENU---------
+Primer Plato: Arroz a la Cubana   PVP: 6.0
+Segundo Plato: Kareraisu   PVP: 5.0
+Postre: Arroz con Leche   PVP: 4.5
+Bebida: Botella de agua   PVP: 2.0
+Precio total: 17.5
+
+Se agrega 184.773077864769 por el factor complejidad en numero de comensales
+indice de sibarita de 3.91918358845308
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 147.684856298932 por el factor complejidad en numero de comensales
+indice de sibarita de 11.9256958799989
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 184.773077864769 por el factor complejidad en numero de comensales
+indice de sibarita de 5.65685424949238
+El evento es en Otono y el plato es caliente -> + 25 puntos
+
+----------MENU---------
+Primer Plato: Torreznos   PVP: 4.0
+Segundo Plato: Takoyaki   PVP: 7.5
+Postre: Mueganos   PVP: 3.0
+Bebida: Agua de Jamaica   PVP: 2.5
+Precio total: 17.0
+
+Se agrega 184.773077864769 por el factor complejidad en numero de comensales
+indice de sibarita de 4.0
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 147.684856298932 por el factor complejidad en numero de comensales
+indice de sibarita de 14.6059348668044
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 184.773077864769 por el factor complejidad en numero de comensales
+indice de sibarita de 6.92820323027551
+El evento es en Otono y el plato es caliente -> + 25 puntos
+
+----------MENU---------
+Primer Plato: Tsukemono   PVP: 3.0
+Segundo Plato: Arroz a la Cubana   PVP: 6.0
+Postre: Cafe Solo   PVP: 1.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 14.0
+
+Se agrega 184.773077864769 por el factor complejidad en numero de comensales
+indice de sibarita de 6.92820323027551
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 184.773077864769 por el factor complejidad en numero de comensales
+indice de sibarita de 3.91918358845308
+El evento es en Otono y el plato es caliente -> + 25 puntos
+Se agrega 184.773077864769 por el factor complejidad en numero de comensales
+indice de sibarita de 8.0
+El evento es en Otono y el plato es caliente -> + 25 puntos
+
+
+-----------------------
+Gracias por confiar en ChicoteDroid, Veronica
+
+En este juego de pruebas se han descartado menús demasiado caros (debido al precio máximo y mínimo de los usuarios),
+aunque ellos querían platos muy sibaritas.
+
+
+
+
+Juego 6:
+El señor Giovanni es un rico comerciante de vinos, y su nonna viene a visitarle a España, por lo que quiere hacer que se sienta como en casa.
+La nonna, eso sí, sufre de diabetes, por lo que no podrá disfrutar de alimentos con azúcares añadidos.
+
+Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted:  Giovanni
+En que estacion se celebrara el evento? (primavera, verano, otono o invierno) primavera
+Cuantos comensales seran? 2
+Cual sera el precio minimo por comensal? [0, 100] 1
+Cual sera el precio maximo por comensal? [1, 300] 30
+El menu tiene que ser apto para veganos? (s/n) n
+El menu tiene que ser apto para celiacos? (s/n) n
+El menu tiene que ser apto para intolerantes a la lactosa? (s/n) n
+El menu tiene que ser apto para abstemios? (s/n) n
+El menu tiene que ser apto para diabeticos? (s/n) s
+Que tan sibarita desea que sea el menu? [0, 10] 5
+Desea que la bebida se empareje por plato o por menu?menu
+Tiene preferencia por la comida de Espana? (s/n)n
+Tiene preferencia por la comida de Mexico? (s/n)n
+Tiene preferencia por la comida de Japon? (s/n)n
+Tiene preferencia por la comida de Francia? (s/n)n
+Tiene preferencia por la comida de Italia? (s/n)s
+
+
+Se han encontrado los siguientes menus:
+
+----------MENU---------
+Primer Plato: Bienmesabe de Cerdo en Brocheta   PVP: 16.0
+Segundo Plato: Spaghetti Frutti di Mare   PVP: 9.5
+Postre: Cafe Solo   PVP: 1.0
+Bebida: Agua de Jamaica   PVP: 2.5
+Precio total: 29.0
+
+Se agrega 100.69314718056 por el factor complejidad en numero de comensales
+indice de sibarita de 80.0
+Se agrega 102.77258872224 por el factor complejidad en numero de comensales
+indice de sibarita de 15.4110350074224
+Spaghetti Frutti di Mare obtiene puntuacion de 30 porque le gusta la comida de Italia
+Se agrega 111.090354888959 por el factor complejidad en numero de comensales
+indice de sibarita de 5.0
+
+----------MENU---------
+Primer Plato: Bombon de Bechamel Envuelto en Tempura de Pan Hidrolizado   PVP: 19.0
+Segundo Plato: Sopa de Cereza   PVP: 4.0
+Postre: Te Verde   PVP: 2.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 29.0
+
+Se agrega 100.0 por el factor complejidad en numero de comensales
+indice de sibarita de 54.4862367942584
+Se agrega 106.23832462504 por el factor complejidad en numero de comensales
+indice de sibarita de 10.0
+El evento es en Primavera y el plato es frio -> + 25 puntos
+Se agrega 111.090354888959 por el factor complejidad en numero de comensales
+indice de sibarita de 3.53553390593274
+
+----------MENU---------
+Primer Plato: Ensalada Piamontesa   PVP: 5.0
+Segundo Plato: Lasana de Carne   PVP: 8.0
+Postre: Pannacotta   PVP: 5.5
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 22.5
+
+Se agrega 111.090354888959 por el factor complejidad en numero de comensales
+indice de sibarita de 3.72677996249965
+Ensalada Piamontesa obtiene puntuacion de 30 porque le gusta la comida de Italia
+El evento es en Primavera y el plato es frio -> + 25 puntos
+Se agrega 102.77258872224 por el factor complejidad en numero de comensales
+indice de sibarita de 10.6066017177982
+Lasana de Carne obtiene puntuacion de 30 porque le gusta la comida de Italia
+Se agrega 106.23832462504 por el factor complejidad en numero de comensales
+indice de sibarita de 7.81735959970572
+Pannacotta obtiene puntuacion de 30 porque le gusta la comida de Italia
+El evento es en Primavera y el plato es frio -> + 25 puntos
+
+
+-----------------------
+Gracias por confiar en ChicoteDroid, Giovanni
+
+Se ha potenciado el lugar de procedencia de los platos para darle a las combinaciones +30 puntos
+por cada plato de Italia que posean.
+Además, se puede apreciar que como el evento se hace en primavera (y hace evidente calor) también
+se potencia que los platos sean fríos con +25 puntos extra.
+
+
+
+
+
+Juego 7: 
+Samantha, la conocida jueza del programa Masterchef, es realmente exigente en su catering y, por ende, con sus cocineros;
+por lo que ha acudido a ChicoteDroid (aunque le pese) para que le ayude a dar una gran cena de gala; pero el nombre
+de comensales no va a permitir que se hagan elaboraciones demasiado complejas:
+
+
+Soy ChicoteDroid, digame su nombre para que pueda dirigirme a usted:  Samantha
+En que estacion se celebrara el evento? (primavera, verano, otono o invierno) primavera
+Cuantos comensales seran? 300
+Cual sera el precio minimo por comensal? [0, 100] 1
+Cual sera el precio maximo por comensal? [1, 300] 50
+El menu tiene que ser apto para veganos? (s/n) n
+El menu tiene que ser apto para celiacos? (s/n) n
+El menu tiene que ser apto para intolerantes a la lactosa? (s/n) n
+El menu tiene que ser apto para abstemios? (s/n) n
+El menu tiene que ser apto para diabeticos? (s/n) n
+Que tan sibarita desea que sea el menu? [0, 10] 10
+Desea que la bebida se empareje por plato o por menu?menu
+Tiene preferencia por la comida de Espana? (s/n)n
+Tiene preferencia por la comida de Mexico? (s/n)n
+Tiene preferencia por la comida de Japon? (s/n)n
+Tiene preferencia por la comida de Francia? (s/n)n
+Tiene preferencia por la comida de Italia? (s/n)n
+
+
+Se han encontrado los siguientes menus:
+
+----------MENU---------
+Primer Plato: Bienmesabe de Cerdo en Brocheta   PVP: 16.0
+Segundo Plato: Dim Sum Castellano al Horno de Piedra con Conserva de Atun   PVP: 22.0
+Postre: Fresas con Nata   PVP: 4.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 46.0
+
+Se agrega 105.703782474656 por el factor complejidad en numero de comensales
+indice de sibarita de 160.0
+Se agrega 100.0 por el factor complejidad en numero de comensales
+indice de sibarita de 117.260393995586
+Se agrega 191.260519594499 por el factor complejidad en numero de comensales
+indice de sibarita de 6.66666666666667
+El evento es en Primavera y el plato es frio -> + 25 puntos
+
+----------MENU---------
+Primer Plato: Sashimi de Atun   PVP: 5.0
+Segundo Plato: Wagyu   PVP: 30.0
+Postre: Mueganos   PVP: 3.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 42.0
+
+Se agrega 151.334042271906 por el factor complejidad en numero de comensales
+indice de sibarita de 22.3606797749979
+El evento es en Primavera y el plato es frio -> + 25 puntos
+Se agrega 122.815129898625 por el factor complejidad en numero de comensales
+indice de sibarita de 54.7722557505166
+Se agrega 191.260519594499 por el factor complejidad en numero de comensales
+indice de sibarita de 8.66025403784439
+Esta bebida va bien con este plato +100 puntos
+
+----------MENU---------
+Primer Plato: Ensalada Piamontesa   PVP: 5.0
+Segundo Plato: Sopa de Cereza   PVP: 4.0
+Postre: Frutos Rojos con Aire Verde   PVP: 22.0
+Bebida: Barbuntin 2015 Quinta Couselo (Albarino)   PVP: 4.0
+Precio total: 35.0
+
+Se agrega 191.260519594499 por el factor complejidad en numero de comensales
+indice de sibarita de 7.4535599249993
+El evento es en Primavera y el plato es frio -> + 25 puntos
+Se agrega 151.334042271906 por el factor complejidad en numero de comensales
+indice de sibarita de 20.0
+El evento es en Primavera y el plato es frio -> + 25 puntos
+Se agrega 100.0 por el factor complejidad en numero de comensales
+indice de sibarita de 117.260393995586
+El evento es en Primavera y el plato es frio -> + 25 puntos
+
+
+-----------------------
+Gracias por confiar en ChicoteDroid, Samantha
+
+
+Finalmente, vemos que se ha hecho un tradeoff en el primer menú, ya que 
+los dos primeros platos son altamente sibaritas, pero el postre no tiene
+tanta complejidad en número de comensales.
+
+En el tercer menú tenemos una muestra representativa de lo que sucederá en nuestro programa;
+el índice de sibarita es realmente bajo, pero al tener una complejidad baja y un número de comensales
+tan elevado, se potencia este valor hasta hacer que aparezca en los 3 mejores menús.
+
+
+
