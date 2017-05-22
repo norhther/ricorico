@@ -2271,6 +2271,8 @@
   =>
   (bind ?pmax (pregunta-numerica "Cual sera el precio maximo por comensal?" ?pmi 300))
   (modify ?c (preciomax ?pmax))
+  (assert (preciolisto))
+
 )
 
 ;NO FUNCIONA
@@ -2362,13 +2364,19 @@
 
 (defrule cargar-platos-bebidas
         ?hecho <- (inirecomendaciones nope)
+        ?p <- (Contexto (preciomax ?pmax) (preciomin ?pmin))
+        ?o <- (preciolisto)
+
         =>
+        (retract ?o)
         (retract ?hecho)
         (assert (inirecomendaciones fet)) 
         (bind $?r (find-all-instances ((?instancia Plato)) TRUE))
-        ;(printout t "he entrar a cargar-platos")
+        (printout t "he entrar a cargar-platos")
         (progn$ (?var ?r)
-            (make-instance (gensym) of Recomendacion (contenido ?var))
+                (bind ?varprec (send ?var get-precio))
+                (if (< ?varprec ?pmax) then
+            (make-instance (gensym) of Recomendacion (contenido ?var)))
         )
 
         (bind $?i (find-all-instances ((?instancia Ingrediente)) TRUE))
@@ -2376,10 +2384,12 @@
             (make-instance (gensym) of AlimentoProhibido (contenido ?var))
         )
                 
-                (bind $?b (find-all-instances ((?instancia Bebida)) TRUE))
+        (bind $?b (find-all-instances ((?instancia Bebida)) TRUE))
                 ;(printout t "he entrat a cargar-bebidas")
                 (progn$ (?var ?b)
-                        (make-instance (gensym) of RecomendacionBebida (contenido ?var))
+                        (bind ?varprec (send ?var get-precio))
+                        (if (< ?varprec ?pmax) then
+                        (make-instance (gensym) of RecomendacionBebida (contenido ?var)))
                 )
 )
 
@@ -2812,23 +2822,31 @@
 (defrule castea-lista-ordenada
         ?hecho <- (listas-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos))
         ?c <- (Contexto (acombebida menu))
+        ?p <- (Contexto (preciomax ?pmax) (preciomin ?pmin))
+
         =>
         (progn$ (?var $?ent)
+                (bind ?varprec (send (send ?var get-contenido) get-precio))
+                (if (< ?varprec ?pmax) then
                 (bind ?punt (send ?var get-puntuacion))
                 (bind ?just (send ?var get-justificaciones))
-                (make-instance (gensym) of CombinacionEntrada (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just))
+                (make-instance (gensym) of CombinacionEntrada (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just) (precio ?varprec))  )
         )
 
         (progn$ (?var $?seg)
+                (bind ?varprec (send (send ?var get-contenido) get-precio))
+                (if (< ?varprec ?pmax) then
                 (bind ?punt (send ?var get-puntuacion))
                 (bind ?just (send ?var get-justificaciones))
-                (make-instance (gensym) of CombinacionSegundo (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just))
+                (make-instance (gensym) of CombinacionSegundo (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just) (precio ?varprec)))
         )
 
         (progn$ (?var $?pos)
+                (bind ?varprec (send (send ?var get-contenido) get-precio))
+                (if (< ?varprec ?pmax) then
                 (bind ?punt (send ?var get-puntuacion))
                 (bind ?just (send ?var get-justificaciones))
-                (make-instance (gensym) of CombinacionPostre (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just))
+                (make-instance (gensym) of CombinacionPostre (contenido-plat ?var) (puntuacion ?punt) (justificaciones ?just) (precio ?varprec)))
         )
 
         (assert(combinaciones-listas ok))
@@ -2881,6 +2899,11 @@
                                                 (bind $?tjust (send ?plat3 get-justificaciones))
                                                 (bind $?bjust (send ?beg get-justificaciones))
 
+                                                (bind ?pp (send ?plat1 get-precio))
+                                                (bind ?sp (send ?plat2 get-precio))
+                                                (bind ?tp (send ?plat3 get-precio))
+                                                (bind ?bp (send (send ?beg get-contenido) get-precio))
+
 
                                                 (bind $?justiniana (insert$  $?pjust (+ (length$ $?pjust) 1) 
                                                                         (insert$  $?sjust (+ (length$ $?sjust) 1)
@@ -2889,9 +2912,8 @@
                                                 ;(bind $?justiniana (insert$  $?justiniana (+ (length$ $?justiniana) 1) $?justifica_bebida))
                                                 (make-instance (gensym) of Menu 
                                                         (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3 ?punt4 )) (justificaciones $?justiniana)
+                                                        (precio (+ ?pp ?sp ?tp ?bp))
                                                 )
-
-
 
                                                 (bind $?llista1 (insert$ $?llista1 (+ (length $?llista1) 1 ) ?plat1))
                                                 (bind $?llista2 (insert$ $?llista2 (+ (length $?llista2) 1 ) ?plat2))
@@ -2964,22 +2986,31 @@
 
 (defrule retorna_menu
         (menu-listo sipe)
-        ?c <- (Contexto (acombebida menu))
+        ?c <- (Contexto (acombebida menu))      
 
         =>
-
-        (printout t "TENEMOS LOS MENUTSES" crlf)
 
         (bind $?llist_fets (create$ ))
         (bind $?ent (find-all-instances ((?instancia Menu)) TRUE))
         (bind $?res (create$ ))
+
         (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?res) 3))  do
-
-
                 (bind ?curr-rec (maximo-puntuacion-menu $?ent))
                 (bind $?ent (delete-member$ $?ent ?curr-rec))
-
                 (bind $?res (insert$ $?res (+ (length$ $?res) 1) ?curr-rec))
+        )
+
+        (if (eq (length$ ?res) 0) then
+                (printout t "No se han encontrado menus" crlf)
+
+                else
+
+                (printout t "Se han encontrado los siguientes menus" crlf)
+        )
+
+        (while (not (eq (length$ $?res) 0))  do
+                (bind ?curr-rec (maximo-precio-menu $?res))
+                (bind $?res (delete-member$ $?res ?curr-rec))
 
                 (bind ?primero (send ?curr-rec get-entrada))
                 (bind ?segundo (send ?curr-rec get-segundo))
@@ -2994,24 +3025,22 @@
                 (bind ?primero-nombre (send ?primero-contenido get-contenido))
                 (bind ?segundo-nombre (send ?segundo-contenido get-contenido))
                 (bind ?postre-nombre (send ?postre-contenido get-contenido))
+                (printout t "----------MENU---------" crlf)
 
-                (printout t "--------------------" crlf)
-                (printout t "OPCION NUMERO " (length$ $?res) crlf)
-                (printout t "--------------------" crlf)
                 (printout t "Primer Plato: " (send ?primero-nombre get-nombre)   "   PVP: " (send ?primero-nombre get-precio) crlf)
                 (printout t "Segundo Plato: " (send ?segundo-nombre get-nombre)  "   PVP: " (send ?segundo-nombre get-precio) crlf)
                 (printout t "Postre: " (send ?postre-nombre  get-nombre)         "   PVP: " (send ?postre-nombre get-precio) crlf)
                 (printout t "Bebida: " (send (send ?bebida get-contenido) get-nombre) "   PVP: " (send (send ?bebida get-contenido) get-precio) crlf)
                 (printout t "Precio total: " (+ (send ?primero-nombre get-precio) (send ?segundo-nombre get-precio) (send ?postre-nombre get-precio) 
-                (send (send ?bebida get-contenido) get-precio) ) crlf)
-                (printout t crlf)
+                (send (send ?bebida get-contenido) get-precio) ) crlf )
+                (printout t  crlf)
+                (printout t  crlf)
+
+                (bind ?preumenut (send ?curr-rec get-precio) crlf)
 
         )
         (assert (menu-listo done))
 )
-
-
-
 
 
 (defrule emparejar-plato-bebida
@@ -3097,8 +3126,6 @@
                         (bind ?p (+ ?p 100))
                         (bind $?j (send ?var get-justificaciones))
                         (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
-
-
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)
                 )
@@ -3117,7 +3144,6 @@
                         (bind ?p (+ ?p 100))
                         (bind $?j (send ?var get-justificaciones))
                         (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
-                        ;(printout t " asDKOSEWDO" crlf)
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)
                 )
@@ -3161,19 +3187,19 @@
         ?c <- (Contexto (acombebida plato))
         =>
         (bind $?resultadoe (create$ ))
-        (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?resultadoe) 10))  do
+        (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?resultadoe) 30))  do
                 (bind ?curr-rec (maximo-puntuacion $?ent))
                 (bind $?ent (delete-member$ $?ent ?curr-rec))
                 (bind $?resultadoe (insert$ $?resultadoe (+ (length$ $?resultadoe) 1) ?curr-rec))
         )
         (bind $?resultados (create$ ))
-        (while (and (not (eq (length$ $?seg) 0)) (< (length$ $?resultados) 10))  do
+        (while (and (not (eq (length$ $?seg) 0)) (< (length$ $?resultados) 30))  do
                 (bind ?curr-rec (maximo-puntuacion $?seg))
                 (bind $?seg (delete-member$ $?seg ?curr-rec))
                 (bind $?resultados (insert$ $?resultados (+ (length$ $?resultados) 1) ?curr-rec))
         )
         (bind $?resultadop (create$ ))
-        (while (and (not (eq (length$ $?pos) 0)) (< (length$ $?resultadop) 10))  do
+        (while (and (not (eq (length$ $?pos) 0)) (< (length$ $?resultadop) 30))  do
                 (bind ?curr-rec (maximo-puntuacion $?pos))
                 (bind $?pos (delete-member$ $?pos ?curr-rec))
                 (bind $?resultadop (insert$ $?resultadop (+ (length$ $?resultadop) 1) ?curr-rec))
@@ -3185,11 +3211,16 @@
 (defrule emparejar-mejores-menus
         ?c <- (Contexto (acombebida plato))
         ?comb <- (combinaciones-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos))
+        ?p <- (Contexto (preciomax ?pmax) (preciomin ?pmin))
+
         (not (menu-listas ok))
         =>
         (bind $?listae (create$))
         (bind $?listas (create$))
-        (bind $?listap (create$))       
+        (bind $?listap (create$))
+        (printout t (length$ $?ent) crlf)
+        (printout t (length$ $?seg) crlf)
+        (printout t (length$ $?pos) crlf)       
         (progn$ (?e $?ent)
                 ;(bind ?bebnoe (send (send (send (send ?e get-contenido-bebida) get-contenido) get-nombre)))              
                 (bind ?punte (send ?e get-puntuacion))
@@ -3205,14 +3236,19 @@
                         (if (not (eq ?noms ?nome)) then
                                 (progn$ (?p $?pos)
                                         ;(bind ?bebnop (send (send (send (send ?p get-contenido-bebida) get-contenido) get-nombre)))
+                                        (bind ?precp (send ?p get-precio))
+
+                                        (bind ?prec_sup (+ ?precp ?prece ?precs))
                                         (bind ?nomp (send (send (send ?p get-contenido-plat) get-contenido) get-nombre))
                                         (if (and (not (member$ ?nome $?listae)) 
                                                                 (not (member$ ?noms $?listas)) 
-                                                                (not (member$ ?nomp $?listap))) 
+                                                                (not (member$ ?nomp $?listap))
+                                                                (> ?pmax ?prec_sup) (< ?pmin ?prec_sup)
+                                                ) 
+
                                                 then
                                                 (bind ?puntp (send ?p get-puntuacion))
                                                 (bind $?justp (send ?p get-justificaciones))
-                                                (bind ?precp (send ?p get-precio))
                                                 
                                                 (bind ?puntm (+ ?puntp ?punts ?punte))
                                                 (bind $?justm (insert$ $?juste (+ (length$ $?juste) 1) (insert$ $?justs (+ (length$ $?justs) 1) $?justp)))
@@ -3228,7 +3264,6 @@
                         )
                 )
         )
-        ;(printout t $?listae crlf)
         (assert (menu-listas ok))
 )
 
@@ -3259,10 +3294,18 @@
         (Contexto (acombebida plato))
         ?mconorden <- (menus-con-orden (menus $?m))
         =>
-        (bind $?resultado1 (create$))
-        (while (and (not (eq (length$ $?m) 0)) (< (length$ $?resultado1) 3))  do
+        (bind $?resultado (create$))
+        (while (and (not (eq (length$ $?m) 0)) (< (length$ $?resultado) 3))  do
                 (bind ?curr-m (maximo-puntuacion-menu $?m))
                 (bind $?m (delete-member$ $?m ?curr-m))
+                (bind $?resultado (insert$ $?resultado (+ (length$ $?resultado) 1) ?curr-m))
+                
+        )
+
+        (bind $?resultado1 (create$))
+        (while (and (not (eq (length$ $?resultado) 0)) (< (length$ $?resultado1) 3))  do
+                (bind ?curr-m (maximo-puntuacion-menu $?resultado))
+                (bind $?resultado (delete-member$ $?resultado ?curr-m))
                 (bind $?resultado1 (insert$ $?resultado1 (+ (length$ $?resultado1) 1) ?curr-m))
                 
         )
@@ -3270,6 +3313,14 @@
         ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ 1 $?m)))
         ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ (length$ $?m) $?m)))
         ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ (integer(/(length$ $?m) 2)) $?m)))
+
+        (if (eq (length$ ?resultado1) 0) then
+                (printout t "No se han encontrado menus" crlf)
+
+                else
+
+                (printout t "Se han encontrado los siguientes menus" crlf)
+        )
         (progn$ (?var $?resultado1)
                 (bind ?e (send ?var get-entrada))
                 (bind ?s (send ?var get-segundo))
@@ -3283,9 +3334,9 @@
                 (bind ?nomsb (send (send (send ?s get-contenido-bebida) get-contenido) get-nombre))
                 (bind ?nompb (send (send (send ?p get-contenido-bebida) get-contenido) get-nombre))
                 
-                (printout t "----------MENU------" crlf)
-                (printout t "Entrada: " ?nome " acompanado de " ?nomeb crlf)
-                (printout t "Segundo: " ?noms " acompanado de " ?nomsb crlf)
+                (printout t "----------MENU---------" crlf)
+                (printout t "Primer Plato: " ?nome " acompanado de " ?nomeb crlf)
+                (printout t "Segundo plato: " ?noms " acompanado de " ?nomsb crlf)
                 (printout t "Postre: " ?nomp " acompanado de " ?nompb  crlf)
                 (printout t "PVP total: " (send ?var get-precio) crlf crlf)
                                 (bind $?v (send ?var get-justificaciones))
@@ -3298,14 +3349,3 @@
 
 
 
-
-;#RULE DE PROVA
-;(defrule retorna_instancies
-;        (not (retorna_instancies ok))
-;        =>
-;        (bind ?llista_instancies (find-all-instances ((?instancia Plato)) TRUE))
-;        (assert (retorna_instancies ok))
-;        (progn$ (?var ?llista_instancies)
-;                (printout t (send ?var get-nombre) crlf)
-;        )
-;)
