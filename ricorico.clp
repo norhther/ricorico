@@ -3034,6 +3034,12 @@
                 (printout t "Precio total: " (+ (send ?primero-nombre get-precio) (send ?segundo-nombre get-precio) (send ?postre-nombre get-precio) 
                 (send (send ?bebida get-contenido) get-precio) ) crlf )
                 (printout t  crlf)
+                (bind $?just (send ?curr-rec get-justificaciones) )
+                (progn$ (?justific (send ?curr-rec get-justificaciones) )
+                        (printout t ?justific crlf)
+
+                        )
+
                 (printout t  crlf)
 
                 (bind ?preumenut (send ?curr-rec get-precio) crlf)
