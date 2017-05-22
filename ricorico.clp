@@ -416,6 +416,10 @@
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
+; Mon May 22 11:25:08 CEST 2017
+; 
+;+ (version "3.5")
+;+ (build "Build 663")
 
 ([ricorico_Class0] of  Ingrediente
 
@@ -440,6 +444,14 @@
 
         (contiene_gluten TRUE)
         (nombre "Harina"))
+
+([ricorico_Class10000] of  Bebida
+
+        (contiene_alcohol TRUE)
+        (lugar_origen Espana)
+        (nombre "Barbuntin 2015 Quinta Couselo (Albarino)")
+        (precio 4.0)
+        (va_bien_pescado TRUE))
 
 ([ricorico_Class10001] of  Plato
 
@@ -548,7 +560,7 @@
         (contiene_alcohol TRUE)
         (lugar_origen Japon)
         (nombre "Sake")
-        (precio 8.0))
+        (precio 5.0))
 
 ([ricorico_Class10016] of  Plato
 
@@ -943,24 +955,6 @@
 ([ricorico_Class10056] of  Ingrediente
 
         (nombre "Mamey"))
-
-
-([ricorico_Class10000] of  Bebida
-
-        (contiene_alcohol TRUE)
-        (lugar_origen Francia)
-        (nombre "Cabernet Sauvignon 2010")
-        (precio 5.0)
-        (va_bien_carne TRUE))
-
-
-([ricorico_Class20001] of  Bebida
-
-        (contiene_alcohol TRUE)
-        (lugar_origen Espana)
-        (nombre "Barbuntin 2015 Quinta Couselo  (Albarino)")
-        (precio 6.0)
-        (va_bien_pescado TRUE))
 
 ([ricorico_Class10057] of  Plato
 
@@ -1401,6 +1395,32 @@
         (nombre "Morcilla")
         (producto_animal TRUE))
 
+([ricorico_Class20001] of  Bebida
+
+        (contiene_alcohol TRUE)
+        (lugar_origen Francia)
+        (nombre "Cabernet Sauvignon 2010")
+        (precio 4.5)
+        (va_bien_carne TRUE))
+
+([ricorico_Class20002] of  Bebida
+
+        (lugar_origen Mexico)
+        (nombre "Agua de Jamaica")
+        (precio 2.5))
+
+([ricorico_Class20003] of  Bebida
+
+        (lugar_origen Mexico)
+        (nombre "Agua de Tamarindo")
+        (precio 2.5))
+
+([ricorico_Class20004] of  Bebida
+
+        (lugar_origen Francia)
+        (nombre "Sirop a l'Eau")
+        (precio 2.5))
+
 ([ricorico_Class20023] of  Plato
 
         (complejidad 3)
@@ -1689,7 +1709,7 @@
         (nombre "Dim Sum Castellano al Horno de Piedra con Conserva de Atun")
         (precio 22.0)
         (tamano 1)
-        (tipo primero))
+        (tipo postre))
 
 ([ricorico_Class20046] of  Plato
 
@@ -1766,12 +1786,14 @@
 
         (contiene_alcohol TRUE)
         (contiene_gluten TRUE)
+        (lugar_origen Espana)
         (nombre "Estrella Galicia")
         (precio 2.2))
 
 ([ricorico_Class26] of  Bebida
 
         (contiene_gluten TRUE)
+        (lugar_origen Espana)
         (nombre "Estrella Galicia sin alcohol")
         (precio 2.2))
 
@@ -2007,7 +2029,6 @@
         (nombre "Calamar")
         (producto_animal TRUE))
 
-
 )
 
 
@@ -2143,7 +2164,7 @@
   (slot es_abstemio (type SYMBOL) (allowed-values FALSE TRUE IDK) (default IDK))
   (slot preciomin (type FLOAT) (default -1.0))
   (slot preciomax (type FLOAT) (default -1.0))
-  (multislot regiones (type SYMBOL) (allowed-values Espana Mexico Japon Peru Francia Italia))
+  (multislot regiones (type SYMBOL) (allowed-values Espana Mexico Japon Francia Italia))
   (slot sibarita (type INTEGER) (default -1) (allowed-values -1 0 1 2 3 4 5 6 7 8 9 10))
   (slot acombebida (type SYMBOL) (default UNDEFINED) (allowed-values UNDEFINED plato menu))
 )
@@ -2308,7 +2329,7 @@
         =>
         ;(bind $?respuesta (create$ ))
         (assert (preguntarregion fet))
-        (bind $?lista (create$ Espana Mexico Japon Peru Francia Italia ))
+        (bind $?lista (create$ Espana Mexico Japon Francia Italia ))
         (bind $?respuesta (create$ ))
         (progn$ (?r ?lista)
                 (if (eq (si-o-no-p (str-cat "Tiene preferencia por la comida de " ?r "? (s/n)")) TRUE)
@@ -2345,7 +2366,7 @@
         (retract ?hecho)
         (assert (inirecomendaciones fet)) 
         (bind $?r (find-all-instances ((?instancia Plato)) TRUE))
-        (printout t "he entrar a cargar-platos")
+        ;(printout t "he entrar a cargar-platos")
         (progn$ (?var ?r)
             (make-instance (gensym) of Recomendacion (contenido ?var))
         )
@@ -2356,7 +2377,7 @@
         )
                 
                 (bind $?b (find-all-instances ((?instancia Bebida)) TRUE))
-                (printout t "he entrat a cargar-bebidas")
+                ;(printout t "he entrat a cargar-bebidas")
                 (progn$ (?var ?b)
                         (make-instance (gensym) of RecomendacionBebida (contenido ?var))
                 )
@@ -2497,10 +2518,12 @@
                         (bind ?p (send ?var get-puntuacion))
                         (bind $?j (send ?var get-justificaciones))
                         (bind ?cont (send ?var get-contenido))
+
+                        (bind ?nomb (send ?cont get-nombre))
                         (bind ?r (send ?cont get-lugar_origen))
                         (if (member ?r $?reg) then 
                                 (bind ?p (+ ?p 30))
-                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Puntuacion de 30 porque le gusta la comida de " ?r) ))                 
+                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat ?nomb " obtiene puntuacion de 30 porque le gusta la comida de " ?r) ))                 
                         )
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)
@@ -2512,10 +2535,11 @@
                         (bind ?p (send ?var get-puntuacion))
                         (bind $?j (send ?var get-justificaciones))
                         (bind ?cont (send ?var get-contenido))
+                        (bind ?nomb (send ?cont get-nombre))
                         (bind ?r (send ?cont get-lugar_origen))
                         (if (member ?r $?reg) then 
                                 (bind ?p (+ ?p 30))
-                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Puntuacion de 30 porque le gusta la comida de "?r) ))                 
+                                (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat ?nomb " obtiene  de 30 porque le gusta la comida de "?r) ))                 
                         )
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)
@@ -2733,33 +2757,48 @@
 )
 
 
+(deffunction maximo-precio-menu ($?lista)
+        (bind ?maximo -1)
+        (bind ?elemento nil)
+        (progn$ (?curr-rec $?lista)
+                (bind ?curr-punt (send ?curr-rec get-precio))
+                (if (> ?curr-punt ?maximo)
+                        then 
+                        (bind ?maximo ?curr-punt)
+                        (bind ?elemento ?curr-rec)
+                )
+        )
+        ?elemento
+)
+
+
 (defrule crear-listas-ordenada "Ordenando Recomendaciones..."
         ?hecho <- (listas-sin-orden (entradas $?ent) (segundos $?seg) (postres $?pos) (bebidas $?beb))
         (not(listas-con-orden))
         =>
         (bind $?resultadoentrada (create$ ))
-        (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?resultadoentrada) 4))  do
+        (while (and (not (eq (length$ $?ent) 0)) (< (length$ $?resultadoentrada) 10))  do
                 (bind ?curr-rec (maximo-puntuacion $?ent))
                 (bind $?ent (delete-member$ $?ent ?curr-rec))
                 (bind $?resultadoentrada (insert$ $?resultadoentrada (+ (length$ $?resultadoentrada) 1) ?curr-rec))
         )
 
         (bind $?resultadosegundo (create$ ))
-        (while (and (not (eq (length$ $?seg) 0)) (< (length$ $?resultadosegundo) 4))  do
+        (while (and (not (eq (length$ $?seg) 0)) (< (length$ $?resultadosegundo) 10))  do
                 (bind ?curr-rec (maximo-puntuacion $?seg))
                 (bind $?seg (delete-member$ $?seg ?curr-rec))
                 (bind $?resultadosegundo (insert$ $?resultadosegundo (+ (length$ $?resultadosegundo) 1) ?curr-rec))
         )
 
         (bind $?resultadopostres (create$ ))
-        (while (and (not (eq (length$ $?pos) 0)) (< (length$ $?resultadopostres) 4))  do
+        (while (and (not (eq (length$ $?pos) 0)) (< (length$ $?resultadopostres) 10))  do
                 (bind ?curr-rec (maximo-puntuacion $?pos))
                 (bind $?pos (delete-member$ $?pos ?curr-rec))
                 (bind $?resultadopostres (insert$ $?resultadopostres (+ (length$ $?resultadopostres) 1) ?curr-rec))
         )
 
         (bind $?resultadobebidas (create$ ))
-        (while (and (not (eq (length$ $?beb) 0)) (< (length$ $?resultadobebidas) 4))  do
+        (while (and (not (eq (length$ $?beb) 0)) (< (length$ $?resultadobebidas) 10))  do
                 ;hem de puntuar aixo
                 (bind ?curr-rec (maximo-puntuacion $?beb))
                 (bind $?beb (delete-member$ $?beb ?curr-rec))
@@ -2797,12 +2836,13 @@
 
 )
 
-(defglobal ?*punt_extra_beg* = 0)
 
 (defrule menu_una_bebida
         ?h <- (listas-con-orden (bebidas $?resultadobebidas))
         (menu-listo nope)
         ?c <- (Contexto (acombebida menu))
+        ?p <- (Contexto (preciomax ?pmax) (preciomin ?pmin))
+
 
         =>
         (bind $?primers (find-all-instances ((?instancia CombinacionEntrada)) TRUE))
@@ -2823,9 +2863,17 @@
                                         (bind ?punt3 (send ?plat3 get-puntuacion))
                                         (bind ?punt4 (send ?beg get-puntuacion))
 
+                                        (bind ?prec_sup (+ (send (send (send ?plat1 get-contenido-plat) get-contenido) get-precio)
+                                         (send (send (send ?plat2 get-contenido-plat) get-contenido) get-precio)
+                                          (send (send (send ?plat3 get-contenido-plat) get-contenido) get-precio)
+                                          (send (send ?beg get-contenido) get-precio)))
+                                        
+
 
                                         (if (and(not (eq (send (send (send ?plat1 get-contenido-plat) get-contenido) get-nombre) (send (send (send ?plat2 get-contenido-plat) get-contenido) get-nombre) ))
-                                                (not(member$ ?plat1 $?llista1)) (not(member$ ?plat2 $?llista2)) (not(member$ ?plat3 $?llista3)) )
+                                                (not(member$ ?plat1 $?llista1)) (not(member$ ?plat2 $?llista2)) (not(member$ ?plat3 $?llista3)) 
+                                                (> ?pmax ?prec_sup) (< ?pmin ?prec_sup)
+                                                )
                                                 then
 
                                                 (bind $?pjust (send ?plat1 get-justificaciones))
@@ -2840,7 +2888,7 @@
                                                                                         $?bjust))))
                                                 ;(bind $?justiniana (insert$  $?justiniana (+ (length$ $?justiniana) 1) $?justifica_bebida))
                                                 (make-instance (gensym) of Menu 
-                                                        (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3 ?punt4 ?*punt_extra_beg*)) (justificaciones $?justiniana)
+                                                        (entrada ?plat1) (segundo ?plat2) (postre ?plat3) (bebida ?beg) (puntuacion (+ ?punt1 ?punt2 ?punt3 ?punt4 )) (justificaciones $?justiniana)
                                                 )
 
 
@@ -2855,11 +2903,67 @@
                         )
                 )
         )
+        (assert (menu-listo puntuar))
+)
+
+(defrule puntuar-combinaciones-menu
+        (Contexto (acombebida menu))
+        ?hecho <- (menu-listo puntuar)
+        =>
+        (retract ?hecho)
         (assert (menu-listo sipe))
+        (bind $?m (find-all-instances ((?instancias Menu)) TRUE))
+        (progn$ (?var $?m)
+                (bind ?carne (send (send (send (send ?var get-entrada) get-contenido-plat) get-contenido) get-es_carne))
+                (bind ?carns (send (send (send (send ?var get-segundo) get-contenido-plat) get-contenido) get-es_carne))
+                (bind ?carnp (send (send (send (send ?var get-postre) get-contenido-plat) get-contenido) get-es_carne))
+                
+                (bind ?pesce (send (send (send (send ?var get-entrada) get-contenido-plat) get-contenido) get-es_pescado))
+                (bind ?pescs (send (send (send (send ?var get-segundo) get-contenido-plat) get-contenido) get-es_pescado))
+                (bind ?pescp (send (send (send (send ?var get-postre) get-contenido-plat) get-contenido) get-es_pescado))
+                
+                (bind ?okcarn (send (send (send ?var get-bebida) get-contenido) get-va_bien_carne))
+                (bind ?okpesc (send (send (send ?var get-bebida) get-contenido) get-va_bien_pescado))
+                
+                (if (or (and (eq ?carne TRUE) (eq ?okcarn TRUE))
+                        (and (eq ?pesce TRUE) (eq ?okpesc TRUE)))
+                        then
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind ?p (+ ?p 100))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
+                        
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                )
+                (if (or (and (eq ?carns TRUE) (eq ?okcarn TRUE))
+                        (and (eq ?pescs TRUE) (eq ?okpesc TRUE)))
+                        then
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind ?p (+ ?p 100))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
+                        
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                )
+                (if (or (and (eq ?carnp TRUE) (eq ?okcarn TRUE))
+                        (and (eq ?pescp TRUE) (eq ?okpesc TRUE)))
+                        then
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind ?p (+ ?p 100))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
+                        
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                )
+        )
+
 )
 
 (defrule retorna_menu
-        (menu-listo nope)
+        (menu-listo sipe)
         ?c <- (Contexto (acombebida menu))
 
         =>
@@ -2908,7 +3012,7 @@
 
 
 
-;#PARTE DE VICTOR JUGO
+
 
 (defrule emparejar-plato-bebida
         ?lista <- (listas-con-orden (entradas $?ent) (segundos $?seg) (postres $?pos) (bebidas $?beb))
@@ -2964,9 +3068,81 @@
         
                 )
         )
-        (assert (combinaciones-listas ok))
+        (assert (combinaciones-listas puntuar))
 )
 
+
+(defrule puntuar-combinaciones-plato
+        (Contexto (acombebida plato))
+        ?hecho <- (combinaciones-listas puntuar)
+        =>
+        (retract ?hecho)
+        (assert (combinaciones-listas ok))
+        (bind ?combe (find-all-instances ((?intancia CombinacionEntrada)) TRUE))
+        (bind ?combs (find-all-instances ((?intancia CombinacionSegundo)) TRUE))
+        (bind ?combp (find-all-instances ((?intancia CombinacionPostre)) TRUE))
+        (progn$ (?var ?combe)
+                (bind ?carn (send (send (send ?var get-contenido-plat) get-contenido) get-es_carne))
+                (bind ?pesc (send (send (send ?var get-contenido-plat) get-contenido) get-es_pescado))
+                ;(printout t ?carn crlf)
+                ;(printout t ?pesc crlf)
+                (bind ?okcarn (send (send (send ?var get-contenido-bebida) get-contenido) get-va_bien_carne))
+                (bind ?okpesc (send (send (send ?var get-contenido-bebida) get-contenido) get-va_bien_pescado))
+                ;(printout t ?okcarn crlf)
+                ;(printout t ?okpesc crlf)
+                (if (or (and (eq ?carn TRUE) (eq ?okcarn TRUE))
+                        (and (eq ?pesc TRUE) (eq ?okpesc TRUE)))
+                        then
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind ?p (+ ?p 100))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
+
+
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                )
+        )
+        (progn$ (?var ?combs)
+                (bind ?carn (send (send (send ?var get-contenido-plat) get-contenido) get-es_carne))
+                (bind ?pesc (send (send (send ?var get-contenido-plat) get-contenido) get-es_pescado))
+                
+                (bind ?okcarn (send (send (send ?var get-contenido-bebida) get-contenido) get-va_bien_carne))
+                (bind ?okpesc (send (send (send ?var get-contenido-bebida) get-contenido) get-va_bien_pescado))
+                
+                (if (or (and (eq ?carn TRUE) (eq ?okcarn TRUE))
+                        (and (eq ?pesc TRUE) (eq ?okpesc TRUE)))
+                        then
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind ?p (+ ?p 100))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
+                        ;(printout t " asDKOSEWDO" crlf)
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                )
+        )
+         ;no es necesario porque ningun postre es carne o pescado
+        (progn$ (?var ?combp)
+                (bind ?carn (send (send (send ?var get-contenido-plat) get-contenido) get-es_carne))
+                (bind ?pesc (send (send (send ?var get-contenido-plat) get-contenido) get-es_pescado))
+                
+                (bind ?okcarn (send (send (send ?var get-contenido-bebida) get-contenido) get-va_bien_carne))
+                (bind ?okpesc (send (send (send ?var get-contenido-bebida) get-contenido) get-va_bien_pescado))
+                
+                (if (or (and (eq ?carn TRUE) (eq ?okcarn TRUE))
+                        (and (eq ?pesc TRUE) (eq ?okpesc TRUE)))
+                        then
+                        (bind ?p (send ?var get-puntuacion))
+                        (bind ?p (+ ?p 100))
+                        (bind $?j (send ?var get-justificaciones))
+                        (bind $?j (insert$ $?j (+ (length$ $?j ) 1) "Esta bebida va bien con este plato +100 puntos"))
+                        
+                        (send ?var put-puntuacion ?p)
+                        (send ?var put-justificaciones $?j)
+                )
+        )
+)
 
 (defrule cargar-mejores-combinaciones
         (combinaciones-listas ok)
@@ -3052,7 +3228,7 @@
                         )
                 )
         )
-        (printout t $?listae crlf)
+        ;(printout t $?listae crlf)
         (assert (menu-listas ok))
 )
 
@@ -3083,17 +3259,18 @@
         (Contexto (acombebida plato))
         ?mconorden <- (menus-con-orden (menus $?m))
         =>
-        (bind $?resultado (create$))
-        (while (and (not (eq (length$ $?m) 0)) (< (length$ $?resultado) 3))  do
+        (bind $?resultado1 (create$))
+        (while (and (not (eq (length$ $?m) 0)) (< (length$ $?resultado1) 3))  do
                 (bind ?curr-m (maximo-puntuacion-menu $?m))
                 (bind $?m (delete-member$ $?m ?curr-m))
-                (bind $?resultado (insert$ $?resultado (+ (length$ $?resultado) 1) ?curr-m))
+                (bind $?resultado1 (insert$ $?resultado1 (+ (length$ $?resultado1) 1) ?curr-m))
                 
         )
+
         ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ 1 $?m)))
         ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ (length$ $?m) $?m)))
         ;(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado ) 1) (nth$ (integer(/(length$ $?m) 2)) $?m)))
-        (progn$ (?var $?resultado)
+        (progn$ (?var $?resultado1)
                 (bind ?e (send ?var get-entrada))
                 (bind ?s (send ?var get-segundo))
                 (bind ?p (send ?var get-postre))
@@ -3111,6 +3288,10 @@
                 (printout t "Segundo: " ?noms " acompanado de " ?nomsb crlf)
                 (printout t "Postre: " ?nomp " acompanado de " ?nompb  crlf)
                 (printout t "PVP total: " (send ?var get-precio) crlf crlf)
+                                (bind $?v (send ?var get-justificaciones))
+                                (progn$ (?a $?v)
+                                        (printout t ?a crlf)
+                                )
 
         )
 )
