@@ -1708,7 +1708,7 @@
         (lugar_origen Espana)
         (nombre "Dim Sum Castellano al Horno de Piedra con Conserva de Atun")
         (precio 22.0)
-        (tamano 1)
+        (tamano 2)
         (tipo postre))
 
 ([ricorico_Class20046] of  Plato
@@ -2372,7 +2372,7 @@
         (retract ?hecho)
         (assert (inirecomendaciones fet)) 
         (bind $?r (find-all-instances ((?instancia Plato)) TRUE))
-        (printout t "he entrar a cargar-platos")
+        ;(printout t "he entrar a cargar-platos")
         (progn$ (?var ?r)
                 (bind ?varprec (send ?var get-precio))
                 (if (< ?varprec ?pmax) then
@@ -2502,10 +2502,11 @@
                         (bind ?contenido (send ?var get-contenido))
                         (bind ?co (send ?contenido get-complejidad))
 
-                        (bind ?p (+ ?p (/ 500 (* ?co ?comensales 2))))
+                        ;(bind ?p (+ ?p (/ 2500 (* ?co ?comensales  ))))
+                        (bind ?p (+ 100 (* (log ?comensales) (**(- 5 ?co) 2))))
                         
                         (bind $?j (send ?var get-justificaciones))
-                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Se agrega " (/ 1000 (* ?co ?comensales 2))" por el factor complejidad en numero de comensales")))
+                        (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "Se agrega " ?p " por el factor complejidad en numero de comensales")))
                         (send ?var put-puntuacion ?p)
                         (send ?var put-justificaciones $?j)
                 
@@ -2671,7 +2672,7 @@
                         (bind ?tam (send ?cont get-tamano))
                         
                         ;(bind ?aux (/ (* (** ?comp 2) ?precio ?x) (** ?tam 2)))
-                        (bind ?aux (/ (* ?comp  ?precio ?x 0.01) ?tam ))
+                        (bind ?aux (/ (* ?comp  (sqrt ?precio) ?x ) ?tam ))
 
                         (bind ?p (+ ?p ?aux))
                         (bind $?j (insert$ $?j (+ (length$ $?j) 1) (str-cat "indice de sibarita de " ?aux)))
